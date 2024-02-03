@@ -1,0 +1,258 @@
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 10px;
+}
+
+
+h1,h2,h3,h4,h5,h6,a,span,b,text {
+  color: inherit;
+}
+.des {
+  font: lighter 15px "Source code Pro";
+  padding-bottom: 25px;
+}
+.subH {
+  color: inherit;
+  font: bolder 22px "Soehne1";
+  margin-bottom: -17px;
+  padding: 0 3%;
+}
+.someInfo {
+    font-family: "Google Sans Text";
+    max-height: 627px;
+    font-size: 55px;
+    color: white;
+    margin-left: 6.5%;
+    margin-right: 3.5%;
+    transition: 0.375s;
+}
+.loaded {
+    color: black;
+    margin: 0 5%;
+    max-height: none;
+}
+body {
+  background: white;
+}
+.heading {
+  font-size: 50px;
+  width: 85%;
+  margin: 0;
+}
+nav {
+  left: 0;
+  position: fixed;
+  width: 100%;
+  top: -50px;
+  transition: top 0.3s;
+  background: white;
+  z-index: 2;
+}
+.scrol {
+  height:3px;
+}
+.ler {
+  transition: width 0.6s cubic-bezier(0.2, 0.6, 0.2, 1);
+  background: white;
+  height:100%;
+  width: 0;
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+a {
+  text-decoration: none;
+}
+.head {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.inner {
+  width: 23.33%;
+  height: 50px;
+  border: none;
+  background: white;
+  font: bold 22px courier;
+  cursor: pointer;
+  transition: 0.38s;
+}
+.inner:hover {
+  filter: invert(1);
+}
+.inner:active {
+  filter: invert(1);
+}
+section, .logos , .full {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#section1 {
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+}
+.who {
+  width: 40%;
+}
+.hecon {
+  font-size: 6.5vw;
+  position: sticky;
+  top: 160px;
+  margin-top: 150px;
+  z-index: 1;
+}
+.a::before {
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.a:hover::before {
+  margin-left: 30px;
+}
+.b {
+  display: flex;
+}
+.front::before {
+  content: "A Front-";
+  width: 100%;
+}
+.front:hover::before {
+  content: "Work";
+}
+.end::before {
+  content: "End"
+}
+.end:hover::before {
+  content: "About"
+}
+.dev::before {
+  content: "Developer."
+}
+.dev:hover::before {
+  content: "Contact"
+}
+.logos {
+  width: 20%;
+  padding-right: 80px;
+  padding-top: 550px;
+}
+.log {
+  margin-top: 140px;
+  width:215px;
+  filter: grayscale(1) invert(1);
+}
+.full {
+  width: 100%;
+}
+.hr {
+  font: bold 18px courier;
+  width: 61.8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 100px
+}
+.inhr {
+  width: 45%;
+  height: 1px;
+  background: white;
+}
+.proj {
+  display: flex;
+  width: 75%;
+  flex-wrap: wrap;
+}
+.innp {
+  width: calc(30% - 2px);
+  /*border: 1px solid black;*/
+  overflow: hidden;
+  margin-bottom: 30px;
+  transition: 0.38s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.innp:nth-child(3n+2){
+  margin-right: 5%;
+  margin-left: 5%;
+}
+.innp:hover {
+  background: rgba(0,255,255,0.25);
+}
+.info {
+  /*border: 1px solid black;*/
+  color: inherit;
+  padding-left: 3%;
+  padding-right: 12%;
+  padding-bottom: 20px;
+}
+.proimg {
+  width: 95%;
+  padding: 2.5%;
+  padding-bottom: 10px;
+}
+.damn {
+  width: 100%;
+  height: 100%;
+  color: inherit;
+}
+.sec3con {
+  width: 75%;
+}
+@media screen and (max-width: 700px) {
+  .someInfo {
+      max-height: none;
+  }
+  #section1 {
+    flex-direction: column;
+    align-items: center;
+  }
+  .who {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .hecon {
+    font-size: 12vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .logos {
+    padding: 0;
+    width: 100%
+  }
+  .log {
+    width: 200px;
+  }
+  .first {
+    width: 170px;
+  }
+  .proj {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .innp {
+    width: 61.3%;
+  }
+  .a:hover::before {
+    margin-left: 0;
+  }
+  .front:hover::before {
+    content: "A Front-"
+  }
+  .end:hover::before {
+    content: "End"
+  }
+  .dev:hover::before {
+    content: "Developer."
+  }
+}
