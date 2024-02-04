@@ -4,14 +4,39 @@
     <meta charset="utf-8">
     <title>Maze Generator</title>
     <style>
-      body {
-        margin: 0;
-      }
+        @font-face {
+            font-family: "Soehne";
+            src: url("../../font/s4_thin.otf") format("opentype");
+        }
+        @font-face {
+            font-family: "Soehne1";
+            src: url("../../font/s2_bold.otf") format("opentype");
+        }
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            height: 100vh;
+        }
+        #welcome {
+            font: lighter 50px "Soehne";
+        }
+        @media screen and (max-width: 750px){
+            body {
+                flex-direction: column;
+                /* align-items: center; */
+            }
+        }
     </style>
   </head>
   <body>
+    <h1 id="welcome" >
+        <span style="font-size:80px">Pick</span>
+        <br>
+        a Starting Point</h1>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <script src="../p5.js"></script>
   <script src="maze.js" charset="utf-8"></script>
-  <script src="../../remove.js" charset="utf-8"></script>
 </html>
