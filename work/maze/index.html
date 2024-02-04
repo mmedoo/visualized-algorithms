@@ -12,19 +12,28 @@
             font-family: "Soehne1";
             src: url("../../font/s2_bold.otf") format("opentype");
         }
-        body {
+        .cont {
             margin: 0;
             display: flex;
             flex-direction: row;
             justify-content: space-around;
             align-items: center;
-            height: 100vh;
         }
         #welcome {
             font: lighter 50px "Soehne";
         }
+        .algo {
+            padding: 8% 8%;
+        }
+        p {
+            width:100%;
+            word-wrap: break-word;
+        }
+        ol {
+            font: normal 30px "Soehne";
+        }
         @media screen and (max-width: 750px){
-            body {
+            .cont {
                 flex-direction: column;
                 /* align-items: center; */
             }
@@ -32,10 +41,33 @@
     </style>
   </head>
   <body>
-    <h1 id="welcome" >
-        <span style="font-size:80px">Pick</span>
-        <br>
-        a Starting Point</h1>
+    <div class="cont">
+        <h1 id="welcome">
+            <span style="font-size:80px">Pick</span>
+            <br>
+            a Starting Point</h1>
+    </div>
+    <div class="algo">
+        <h1 style="font: bold 60px Soehne1">Implementation</h1>
+        <p>
+            <ol>
+                <li>Choose the initial cell, mark it as visited and push it to the stack</li>
+                <li>While the stack is not empty
+                    <ol>
+                        <li>Pop a cell from the stack and make it a current cell</li>
+                        <li>If the current cell has any neighbours which have not been visited
+                            <ol>
+                                <li>Push the current cell to the stack</li>
+                                <li>Choose one of the unvisited neighbours</li>
+                                <li>Remove the wall between the current cell and the chosen cell</li>
+                                <li>Mark the chosen cell as visited and push it to the stack</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </p>
+    </div>
   </body>
   <script src="../p5.js"></script>
   <script src="maze.js" charset="utf-8"></script>
