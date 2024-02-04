@@ -36,20 +36,21 @@
                         </li>
                         <li>Else pop a cell from the stack and make it a current cell</li>
                     </ol>
+                    <div class="gist_cont"></div>
                 </li>
             </ol>
-            <div class="gist_cont"></div>
         </p>
-    </div>
-    <div class="algo techno">
         <h1 style="font: bold 60px Soehne1">Technologies: <span style="font: normal 50px Soehne">OOP, Javascript, p5.js</span></h1>
-    </div>
-    <div class="algo sources">
-        <h1 style="font: bold 60px Soehne1">Source Code: <span style="font: normal 50px Soehne">OOP, Javascript, p5.js</span></h1>
+        <h1 style="font: bold 60px Soehne1">Source Code: <a target="_blank" id="source" href="https://github.com/mmedoo/mmedoo.github.io/tree/main/work/maze">github</a></h1>
     </div>
   </body>
   <script src="../p5.js"></script>
   <script src="maze.js" charset="utf-8"></script>
-
-  <script src="app.js"></script>
+  <script>
+    var gist_containers = document.querySelectorAll(".gist_cont");
+    var gists = document.querySelectorAll(".gist");
+    for (let i = 0; i < gists.length; i++) {
+        gist_containers[i].append(gists[i])
+    }
+  </script>
   </html>
