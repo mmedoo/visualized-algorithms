@@ -1,0 +1,46 @@
+@font-face {
+    font-family: "Soehne";
+    src: url("../../font/s4_thin.otf") format("opentype");
+}
+@font-face {
+    font-family: "Soehne1";
+    src: url("../../font/s2_bold.otf") format("opentype");
+}
+
+.cont {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+}
+#welcome {
+    font: lighter 50px "Soehne";
+}
+.algo {
+    padding: 8% 8%;
+}
+ol {
+    font: bold 30px "Soehne";
+}
+.gist {
+    width: 100%
+}
+.gist_cont {
+    display: flex;
+    padding: 3% 0;
+}
+
+
+
+
+
+@media screen and (max-width: 750px){
+    .cont {
+        flex-direction: column;
+        /* align-items: center; */
+    }
+}
+

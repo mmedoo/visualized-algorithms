@@ -26,23 +26,21 @@
 
 {
 
-  var unitW = wid/num;
+  var unitWidth = wid/num;
 
-  var st = [];
+  var startX,startY;
 
-  var sqrs = [];
-
-  var unvsd = [];
+  var blocksMatrix = [];
 
   var current;
 
   var prev = null;
 
-  var stackG;
+  var stack;
 
   var done = false;
 
-  var ix,iy,go = false;
+  var hoveredX,hoveredY,picked = false;
 
 }
 
@@ -60,6 +58,48 @@ function setup(){
 
   strokeWeight(1);
 
+  for (let i = 0; i < num; i++) {
+
+    var row = [];
+
+    for (let j = 0; j < num; j++) {
+
+      let sqr = {
+
+        pos: {i: i,j: j},
+
+        around: {top:true,
+
+                 right:true,
+
+                 left:true,
+
+                 bottom:true},
+
+        check(){
+
+          if (this.pos.i == 0) this.around.left = false;
+
+          else if (this.pos.i == num-1) this.around.right = false;
+
+          if (this.pos.j == 0) this.around.top = false;
+
+          else if (this.pos.j == num-1) this.around.bottom = false;
+
+        },
+
+        visited: false,
+
+
+      }
+
+      sqr.check();
+
+      row.push(sqr);
+    }
+
+    blocksMatrix.push(row);
+  }
 }
 
 
@@ -74,27 +114,27 @@ function rnd(min, max) {
 
 }
 
-function radar(x){
+function check_Unvisited_Neighbours(x){
 
-  if (x.around.bottom && sqrs[x.pos.i][x.pos.j+1].vsd) {
+  if (x.around.bottom && blocksMatrix[x.pos.i][x.pos.j+1].visited) {
 
     x.around.bottom = false;
 
   }
 
-  if (x.around.top && sqrs[x.pos.i][x.pos.j-1].vsd) {
+  if (x.around.top && blocksMatrix[x.pos.i][x.pos.j-1].visited) {
 
     x.around.top = false;
 
   }
 
-  if (x.around.right && sqrs[x.pos.i+1][x.pos.j].vsd) {
+  if (x.around.right && blocksMatrix[x.pos.i+1][x.pos.j].visited) {
 
     x.around.right = false;
 
   }
 
-  if (x.around.left && sqrs[x.pos.i-1][x.pos.j].vsd) {
+  if (x.around.left && blocksMatrix[x.pos.i-1][x.pos.j].visited) {
 
     x.around.left = false;
 
@@ -102,35 +142,39 @@ function radar(x){
 
 }
 
-function checkNebor(x) {
+function get_Unvisited_Neighbours(x) {
+
+  check_Unvisited_Neighbours(x);
+
+  let unvsd = [];
 
   if (x.around.top){
 
-    unvsd.push(sqrs[x.pos.i][x.pos.j-1]);
+    unvsd.push(blocksMatrix[x.pos.i][x.pos.j-1]);
 
   }
 
   if (x.around.right){
 
-    unvsd.push(sqrs[x.pos.i+1][x.pos.j]);
+    unvsd.push(blocksMatrix[x.pos.i+1][x.pos.j]);
 
   }
 
   if (x.around.left){
 
-    unvsd.push(sqrs[x.pos.i-1][x.pos.j]);
+    unvsd.push(blocksMatrix[x.pos.i-1][x.pos.j]);
 
   }
 
   if (x.around.bottom){
 
-    unvsd.push(sqrs[x.pos.i][x.pos.j+1]);
+    unvsd.push(blocksMatrix[x.pos.i][x.pos.j+1]);
 
   }
-
+  return unvsd;
 }
 
-function rmvBord(x,y) {
+function remove_wall_between(x,y) {
 
   noFill();
 
@@ -140,7 +184,7 @@ function rmvBord(x,y) {
 
     for (var i = 0; i < 10; i++) {
 
-      line(unitW*x.pos.i+unitW,unitW*x.pos.j+2,unitW*x.pos.i+unitW,unitW*x.pos.j+unitW-2);
+      line(unitWidth*x.pos.i+unitWidth,unitWidth*x.pos.j+2,unitWidth*x.pos.i+unitWidth,unitWidth*x.pos.j+unitWidth-2);
 
     }
 
@@ -150,7 +194,7 @@ function rmvBord(x,y) {
 
     for (var i = 0; i < 10; i++) {
 
-      line(unitW*y.pos.i+unitW,unitW*y.pos.j+2,unitW*y.pos.i+unitW,unitW*y.pos.j+unitW-2);
+      line(unitWidth*y.pos.i+unitWidth,unitWidth*y.pos.j+2,unitWidth*y.pos.i+unitWidth,unitWidth*y.pos.j+unitWidth-2);
 
     }
 
@@ -160,7 +204,7 @@ function rmvBord(x,y) {
 
     for (var i = 0; i < 10; i++) {
 
-      line(unitW*x.pos.i+2,unitW*x.pos.j,unitW*x.pos.i+unitW-2,unitW*x.pos.j);
+      line(unitWidth*x.pos.i+2,unitWidth*x.pos.j,unitWidth*x.pos.i+unitWidth-2,unitWidth*x.pos.j);
 
     }
 
@@ -170,7 +214,7 @@ function rmvBord(x,y) {
 
         for (var i = 0; i < 10; i++) {
 
-      line(unitW*y.pos.i+2,unitW*y.pos.j,unitW*y.pos.i+unitW-2,unitW*y.pos.j);
+      line(unitWidth*y.pos.i+2,unitWidth*y.pos.j,unitWidth*y.pos.i+unitWidth-2,unitWidth*y.pos.j);
 
     }
 
@@ -178,18 +222,11 @@ function rmvBord(x,y) {
 
 }
 
-function backG(x,y){
-
+function change_background(x,color){
   stroke(0,0,0,0);
-
-  if (y) fill(255,0,0);
-
-  else fill(0);
-
-  rect(unitW*(x.pos.i+1/2),unitW*(x.pos.j+1/2),unitW-2,unitW-2);
-
-  rect(unitW*(x.pos.i+1/2),unitW*(x.pos.j+1/2),unitW-2,unitW-2);
-
+  fill(color);
+  rect(unitWidth*(x.pos.i+1/2),unitWidth*(x.pos.j+1/2),unitWidth-2,unitWidth-2);
+  rect(unitWidth*(x.pos.i+1/2),unitWidth*(x.pos.j+1/2),unitWidth-2,unitWidth-2);
 }
 
 }
@@ -200,25 +237,25 @@ function backG(x,y){
 
 function mouseMoved(){
 
-  ix = floor(mouseX/unitW);
+  hoveredX = floor(mouseX/unitWidth);
 
-  iy = floor(mouseY/unitW);
+  hoveredY = floor(mouseY/unitWidth);
 
 }
 
 function mousePressed(){
 
-  if (mouseX <= wid && mouseY <= hei && mouseX >= 0 && mouseY >= 0 && !go){
+  if (mouseX <= wid && mouseY <= hei && mouseX >= 0 && mouseY >= 0 && !picked){
 
-    st[0] = floor(mouseX/unitW);
+    startX = floor(mouseX/unitWidth);
 
-    st[1] = floor(mouseY/unitW);
+    startY = floor(mouseY/unitWidth);
 
-    current = sqrs[st[0]][st[1]];
+    current = blocksMatrix[startX][startY];
 
-    stackG = [current];   
+    stack = [current];   
 
-    go = true;
+    picked = true;
 
   }
 
@@ -230,120 +267,75 @@ function mousePressed(){
 
 function draw(){
 
-    if (!go) {
+    if (!picked) { // No block is picked yet
 
+      // drawing grid  
       background(0);
-
       for (let i = 0; i < num; i++) {
-
         fill(150,75,0);
-
         stroke(255);
-
-        var row = [];
-
         for (let j = 0; j < num; j++) {
-
-          let sqr = {
-
-            pos: {i: i,j: j},
-
-            around: {top:true,
-
-                     right:true,
-
-                     left:true,
-
-                     bottom:true},
-
-            check(){
-
-              if (this.pos.i == 0) this.around.left = false;
-
-              else if (this.pos.i == num-1) this.around.right = false;
-
-              if (this.pos.j == 0) this.around.top = false;
-
-              else if (this.pos.j == num-1) this.around.bottom = false;
-
-            },
-
-            vsd: false,
-
-            routes: [],
-
-          }
-
-          sqr.check();
-
-          row.push(sqr);
-
-          rect(unitW*(i+1/2),unitW*(j+1/2),unitW,unitW);
-
+          rect(unitWidth*(i+1/2),unitWidth*(j+1/2),unitWidth,unitWidth);
         }
-
-        sqrs.push(row);
-
       }
 
+      // hovered block
       stroke(0,0,0,0);
-
       fill(255,0,0);
+      rect(unitWidth*(hoveredX+1/2),unitWidth*(hoveredY+1/2),unitWidth-2,unitWidth-2);   
 
-      rect(unitW*(ix+1/2),unitW*(iy+1/2),unitW-2,unitW-2);   
-
-    } else {
+    } else { // A block is picked
 
       stroke(255);
 
       frameRate(15);
 
-      if (stackG[0] != null) {
+      if (stack.length != 0) { // while stack is not empty
 
-          current.vsd = true;
+          current.visited = true;
 
-          backG(current,true);
+          // Make the current cell red
+          change_background(current,"red");
+          
+          // 2. If the current cell has any neighbours which have not been visited
+          let unvisited = get_Unvisited_Neighbours(current);
+          if (unvisited.length != 0) {
+              
+              // 1. Pick a random unvisited neighbour to go to
+              let next = unvisited[rnd(0,unvisited.length-1)];
+      
+              if (prev){  // checking if it's not the initial cell by checking if there is a previous cell
 
-          unvsd = [];
+                  //2. here we remove the wall between current cell and the previous cell due to graphics issues
+                  // when trying to make it between current and next cell 
+                  remove_wall_between(prev,current);
+    
+                  // Make the previous cell black
+                  change_background(prev,"black");
+              }
+              
+              // 3. Push the current cell to the stack
+              stack.push(current);
 
-          radar(current);
-
-          checkNebor(current);
-
-          if (unvsd[0] != null) {
-
-              stackG.push(current);
-
-              let next = unvsd[rnd(0,unvsd.length-1)];
-
-              if (prev) rmvBord(prev,current);
-
-              current.routes.push(next);
-
-              next.routes.push(current);
-
-              if (prev) backG(prev,false);
-
+              // setting previous as current
               prev = current;
 
+              // 4. Make the chosen neighbour the current cell
               current = next;
 
-          } else if (stackG[0] != null){
+          } else { // no unvisited neighbours
 
-              if (prev) backG(prev,false);
-
-              if (prev) rmvBord(prev,current);
-
+              change_background(prev,"black");
+              remove_wall_between(prev,current);
               prev = current;
-
-              current = stackG.pop();
-
+              
+              // 3. Else pop a cell from the stack and make it a current cell
+              current = stack.pop();
           }
 
-      } else {
+      } else { // stack has become empty
 
         noLoop();
-
       }
 
     }
