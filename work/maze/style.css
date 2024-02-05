@@ -26,8 +26,13 @@ ol {
     font: bold 30px "Soehne";
 }
 .gist {
-    width: 100%
+    min-width: 100%
 }
+
+.gist * {
+    font-size: 14px
+}
+
 .gist_cont {
     display: flex;
     padding: 3% 0;
