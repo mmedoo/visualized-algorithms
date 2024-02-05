@@ -32,9 +32,7 @@
 
   var blocksMatrix = [];
 
-  var current;
-
-  var prev = null;
+  var current,next;
 
   var stack;
 
@@ -267,6 +265,7 @@ function mousePressed(){
 
 function draw(){
 
+    frameRate(15);
     if (!picked) { // No block is picked yet
 
       // drawing grid  
@@ -288,55 +287,39 @@ function draw(){
 
       stroke(255);
 
-      frameRate(15);
-
       if (stack.length != 0) { // while stack is not empty
 
-          current.visited = true;
+            current.visited = true;
 
-          // Make the current cell red
-          change_background(current,"red");
-          
-          // 2. If the current cell has any neighbours which have not been visited
-          let unvisited = get_Unvisited_Neighbours(current);
-          if (unvisited.length != 0) {
-              
-              // 1. Pick a random unvisited neighbour to go to
-              let next = unvisited[rnd(0,unvisited.length-1)];
-      
-              if (prev){  // checking if it's not the initial cell by checking if there is a previous cell
+            // 2. If the current cell has any neighbours which have not been visited
+            let unvisited = get_Unvisited_Neighbours(current);
+            if (unvisited.length != 0) {
+                
+                // 1. Pick a random unvisited neighbour to go to
+                next = unvisited[rnd(0,unvisited.length-1)];
+                
+                //2. Remove the wall between the current cell and the chosen cell 
+                remove_wall_between(next,current);
 
-                  //2. here we remove the wall between current cell and the previous cell due to graphics issues
-                  // when trying to make it between current and next cell 
-                  remove_wall_between(prev,current);
-    
-                  // Make the previous cell black
-                  change_background(prev,"black");
-              }
-              
-              // 3. Push the current cell to the stack
-              stack.push(current);
+                // 3. Push the current cell to the stack
+                stack.push(current);               
+            }
+            // 3. Else Pop a cell from the stack make the chosen neighbour
+            else { // no unvisited neighbours
+                    
+                next = stack.pop();
+            }
 
-              // setting previous as current
-              prev = current;
+            // coloring next and current
+            change_background(next,"red");
+            change_background(current,"black");
 
-              // 4. Make the chosen neighbour the current cell
-              current = next;
+            // 4. Make the chosen neighbour the current cell
+            current = next;
 
-          } else { // no unvisited neighbours
-
-              change_background(prev,"black");
-              remove_wall_between(prev,current);
-              prev = current;
-              
-              // 3. Else pop a cell from the stack and make it a current cell
-              current = stack.pop();
-          }
-
-      } else { // stack has become empty
-
-        noLoop();
-      }
+        } else { // stack has become empty
+            noLoop();
+        }
 
     }
 
