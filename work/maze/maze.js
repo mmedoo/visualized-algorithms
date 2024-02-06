@@ -4,16 +4,6 @@
 
   var num = 20;
 
-  var gspeed = 0;
-
-  var tspeed = 0;
-
-  var b = 3;
-
-  var tcolor = "red";
-
-  var mcolor = "black";
-
   var wid = 500;
 
   var hei = 500;
@@ -35,8 +25,6 @@
   var current,next;
 
   var stack;
-
-  var done = false;
 
   var hoveredX,hoveredY,picked = false;
 
