@@ -2,7 +2,7 @@ var n = 0;
 var wid = hei = 500;
 // control
 
-var numWid = numHei = 500;
+var numWid = numHei = 30;
 var unitWidth = wid / numHei;
 var obsPerc = 0.2;
 var obsList = [];
@@ -29,7 +29,7 @@ function mouseMoved(){
 
 function mousePressed(){
   
-    if (mouseX <= wid && mouseY <= hei && mouseX >= 0 && mouseY >= 0 && (!pickedStart || !pickedEnd)){
+    if ( (!pickedStart || !pickedEnd) && mouseX <= wid && mouseY <= hei && mouseX >= 0 && mouseY >= 0){
   
     
       startX = floor(mouseX/unitWidth);
@@ -58,7 +58,7 @@ function mousePressed(){
 }
 
 
-function redrawTheBoard(){
+function reDrawTheBoard() {
     background(100,100,100);
     fill(100, 25, 0);
     stroke(100, 25, 0)
@@ -238,7 +238,7 @@ function hScore(x, y = end) {
     return Math.hypot(Math.abs(y.i - x.i), Math.abs(y.j - x.j));
 }
 
-function fScore(x, y = end) {
+function fScore(x, y) {
     return x.g + hScore(x, y);
 }
 
@@ -274,12 +274,12 @@ function draw() {
     if (!pickedStart || !pickedEnd) { // No block is picked yet
 
         // drawing grid  
-        redrawTheBoard();
+        reDrawTheBoard();
   
         // hovered block
         stroke(0,0,0,0);
         fill(255,0,0);
-        if (hoveredY <= wid && hoveredX <= hei && hoveredY >= 0 && hoveredX >= 0 && !sqrs[hoveredX][hoveredY].closed)
+        if (hoveredY >= 0 && hoveredX >= 0 && hoveredY < numWid && hoveredX < numHei && !sqrs[hoveredX][hoveredY].closed)
             circle(unitWidth*(hoveredX + 0.5) , unitWidth*(hoveredY + 0.5) , unitWidth);
   
     } else if (!openSet.empty() && current != end) {

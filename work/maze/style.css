@@ -47,10 +47,11 @@ ol {
     text-decoration: underline;
 }
 
+
+
 @media screen and (max-width: 750px){
     .cont {
         flex-direction: column;
         /* align-items: center; */
     }
 }
-
