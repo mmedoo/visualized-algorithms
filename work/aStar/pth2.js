@@ -1,10 +1,10 @@
-var n = 0;
+var n = 1;
 var wid = hei = 500;
 // control
 
 var numWid = numHei = 30;
 var unitWidth = wid / numHei;
-var obsPerc = 0.2;
+var obsPerc = 0.6;
 var obsList = [];
 var sqrs = [];
 var hoveredX,hoveredY;
@@ -16,6 +16,12 @@ var start,end;
 var openSet, current, cameFrom;
 var start, end;
 
+function change_messege(){
+    let oldie = document.querySelector(".oldWel");
+    let newie = document.querySelector(".newWel");
+    oldie.classList.add("hideOld");
+    newie.classList.add("showNew");
+}
 
 
 
@@ -40,12 +46,13 @@ function mousePressed(){
           if (!pickedStart){
               start = sqrs[startX][startY];
               pickedStart = true;
+              change_messege();
               current = start;
               current.g = 0;
               openSet[[current.i,current.j]] = [current];
               cameFrom = [current];
-              
-          } else if (!pickedEnd) {
+              current.closed = true;
+          } else if (!pickedEnd && sqrs[startX][startY] != start) {
               end = sqrs[startX][startY];
               current.f = fScore(current,end);
               pickedEnd = true;
@@ -60,22 +67,30 @@ function mousePressed(){
 
 function reDrawTheBoard() {
     background(100,100,100);
+    strokeWeight(1);
     fill(100, 25, 0);
     stroke(100, 25, 0)
     for (const i of obsList) {
         square(unitWidth*(i.x + 0.5) , unitWidth*(i.y + 0.5) , unitWidth);
     }    
-    if (start) {
+    if (pickedStart) {
         fill(10, 150, 0);
         stroke(10, 150, 0)
         circle(unitWidth*(start.i + 0.5) , unitWidth*(start.j + 0.5) , unitWidth);
     }
+    if (pickedEnd) {
+        fill(150, 15, 0);
+        stroke(150, 15, 0)
+        circle(unitWidth*(end.i + 0.5) , unitWidth*(end.j + 0.5) , unitWidth);
+    }
 }
 
+var cont = document.querySelector(".cont")
 
 function setup() {
 
-    createCanvas(wid, hei);
+    var cnvs = createCanvas(wid,hei);
+    cnvs.parent(cont)  
     background(0);
     rectMode(CENTER)
     for (let w = 0; w < numHei; w++) {
@@ -167,7 +182,6 @@ function setup() {
         let tmpF = Infinity;
         let ans = null;
         for (var elem in this) {
-            n++;
             if (this.hasOwnProperty(elem)) {
                 let temp = this[elem];
                 if (temp[temp.length - 1].f < tmpF) {
@@ -246,9 +260,8 @@ function addNebors(x, stack, openSet, end) {
     var min = null;
     var tempF = Infinity;
     for (var neb of x.routes) {
-        n++;
         if (neb.closed || neb.vsd) continue;
-        else if (openSet[[neb.i, neb.j]]) {
+        if (openSet[[neb.i, neb.j]]) {
             if (neb.g >= yGscore(x, neb)) delete openSet[[neb.i, neb.j]];
             else continue;
         }
@@ -267,10 +280,8 @@ function addNebors(x, stack, openSet, end) {
 }
 
 
-
-
 function draw() {
-    frameRate(30)
+    // frameRate(n)
     if (!pickedStart || !pickedEnd) { // No block is picked yet
 
         // drawing grid  
@@ -283,11 +294,10 @@ function draw() {
             circle(unitWidth*(hoveredX + 0.5) , unitWidth*(hoveredY + 0.5) , unitWidth);
   
     } else if (!openSet.empty() && current != end) {
-        n++
         current.vsd = true;
         delete openSet[[current.i, current.j]];
-        let minNbr = addNebors(current, cameFrom, openSet, end);
         let temp = openSet.peek();
+        let minNbr = addNebors(current, cameFrom, openSet, end);
         if (temp && minNbr && minNbr.f <= temp.f) {
             stroke(255);
             noFill();
@@ -295,15 +305,18 @@ function draw() {
             line(current.i * unitWidth + unitWidth / 2, current.j * unitWidth + unitWidth / 2, minNbr.i * unitWidth + unitWidth / 2, minNbr.j * unitWidth + unitWidth / 2);
             cameFrom.push(minNbr);
             current = minNbr;
-        } else {
-            disconnect(cameFrom);
+        } else if (temp) {
+            reDrawTheBoard();
+            // disconnect(cameFrom);
+            console.log(temp);
             cameFrom = openSet[[temp.i, temp.j]];
             connect(cameFrom);
             current = temp;
         }
     } else {
         if (current === end) connect(cameFrom);
-        else disconnect(cameFrom);
+        // else disconnect(cameFrom);
+        else reDrawTheBoard();
         noLoop();
     }
 }
