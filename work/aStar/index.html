@@ -21,7 +21,120 @@
             </h1>
         </div>
     </div>
+    <div class="algo cont2">
+        <div style="height:100%">
+            <h1 style="font: bolder 40px Soehne">
+                We can have this cool effect of a tree or
+                neurons by hidding obstacles and making the
+                path line thickness reduces as it gets further from the starting point
+            </h1>
+        </div>  
+    </div>
+
+    <div class="algo">
+        <h1 class="headline">Prequisite</h1>
+        <p>
+            <ul>
+                <li>G of a cell is the cost of the path from the start cell to current cell.</li>
+                <li>H of a cell is a heuristic value that estimates the cost of the cheapest path from current cell to the goal.</li>
+                <li>F of a cell is G + H</li>
+                <li>OpenSet is an object stores cells that are open to choose from and the path from start to each.</li>
+                <li>OpenSet = {<br>&nbsp;&nbsp;&nbsp;x-position , y-position : [ path from start ],<br>}</li>
+            </ul>
+        </p>
+        <h1 class="headline">Implementation</h1>
+        <p>
+            <ol>
+                <li>Choose a starting cell and make it the current cell.</li>
+                <li>Choose an ending cell.</li>
+                <li>
+                    While the OpenSet is not empty:
+                    <ol>
+                        <li>Mark the currnet cell as visited.</li>
+                        <li>Delete the corresponding path in the OpenSet.</li>
+                        <li>
+                            For every neighbour cell:
+                            <ol>
+                                <li>
+                                    If it's in the OpenSet:
+                                    <ul>
+                                        <li>
+                                            If the new path is cheaper than the path in the OpenSet
+                                            <ul>
+                                                <li>Delete the path in the OpenSet</li>
+                                            </ul>
+                                        </li>
+                                        <li>Else continue looping</li>
+                                    </ul>
+                                </li>
+                                <li>Calculate F and G scores and store them</li>
+                                <li>Add the neighbour cell and its path to the OpenSet</li>
+                            </ol>
+                        </li>
+                        <li>Get the cell with the lowest F score from the OpenSet and make it the current cell</li>
+                        <li>Draw the path from beginning to this cell</li>
+                    </ol>
+                </li>
+            </ol>
+        </p>
+        <h1 class="headline">Possible Improvements</h1>
+        <p>
+            <ul>
+                <li>
+                    The OpenSet object would be a lot more optimized if implemented with ordered dictionary from Python.
+                    The ordered dictionary uses a doubley linked list to store the order in which attributes were added to the object.
+                    By sorting this list and putting newly added cells in the right order,
+                    the retrieval of the cell with lowest F score would have constant time complexity O(1). In our case, the retrieval complexity is O(N).
+                    Putting the newly added cells in the right order has a worst case complexity of O(N), but the point is that It's a worst case scenario
+                    not everytime scenario as the case in a regualr function of retrieving the minimum value.
+                </li>
+                <br>
+                <li>
+                    I used to compare between the neighbour cell with lowest F score to corresponding one from OpenSet,
+                    and If the neighbouring one is lower, I would connect it to the current path and avoid redrawing the whole path again as an optimization,
+                    then I found it not worth the mess caused to the code so I made it redraw the new path everytime for more simplicity.
+                </li>
+            </ul>
+        </p>
+        <h1 class="headline">Implementation with Code</h1>
+        <p>
+            <ol>
+                <li>Choose a starting cell and make it the current cell.</li>
+                <li>Choose an ending cell.</li>
+                <li>
+                    While the OpenSet is not empty:
+                    <ol>
+                        <li>Mark the currnet cell as visited.</li>
+                        <li>Delete the corresponding path in the OpenSet.</li>
+                        <li>
+                            For every neighbour cell:
+                            <ol>
+                                <li>
+                                    If it's in the OpenSet:
+                                    <ul>
+                                        <li>
+                                            If the new path is cheaper than the path in the OpenSet
+                                            <ul>
+                                                <li>Delete the path in the OpenSet</li>
+                                            </ul>
+                                        </li>
+                                        <li>Else continue looping</li>
+                                    </ul>
+                                </li>
+                                <li>Calculate F and G scores and store them</li>
+                                <li>Add the neighbour cell and its path to the OpenSet</li>
+                            </ol>
+                        </li>
+                        <li>Get the cell with the lowest F score from the OpenSet and make it the current cell</li>
+                        <li>Draw the path from beginning to this cell</li>
+                    </ol>
+                </li>
+            </ol>
+        </p>
+        <h1 class="headline">Technologies: <span style="font: normal 50px Soehne">OOP, Javascript, p5.js</span></h1>
+        <h1 class="headline">Source Code: <a target="_blank" id="source" href="https://github.com/mmedoo/mmedoo.github.io/tree/main/work/maze">github</a></h1>
+    </div>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <script src="../p5.js"></script>
   <script src="pth2.js" charset="utf-8"></script>
 </html>

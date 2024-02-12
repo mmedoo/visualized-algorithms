@@ -1,20 +1,11 @@
-var n = 1;
-var wid = hei = 500;
 // control
 
-var numWid = numHei = 30;
-var unitWidth = wid / numHei;
-var obsPerc = 0.6;
-var obsList = [];
-var sqrs = [];
-var hoveredX,hoveredY;
-var pickedStart = pickedEnd = false;
-var start,end;
 
 // gridizing
 
-var openSet, current, cameFrom;
-var start, end;
+var cont = document.querySelector(".cont")
+var cont2 = document.querySelector(".cont2")
+
 
 function change_messege(){
     let oldie = document.querySelector(".oldWel");
@@ -25,230 +16,81 @@ function change_messege(){
 
 
 
-function mouseMoved(){
-
-    hoveredX = floor(mouseX/unitWidth);
-  
-    hoveredY = floor(mouseY/unitWidth);
-
-}
-
-function mousePressed(){
-  
-    if ( (!pickedStart || !pickedEnd) && mouseX <= wid && mouseY <= hei && mouseX >= 0 && mouseY >= 0){
-  
-    
-      startX = floor(mouseX/unitWidth);
-  
-      startY = floor(mouseY/unitWidth);
-
-      if (!sqrs[startX][startY].closed){
-          if (!pickedStart){
-              start = sqrs[startX][startY];
-              pickedStart = true;
-              change_messege();
-              current = start;
-              current.g = 0;
-              openSet[[current.i,current.j]] = [current];
-              cameFrom = [current];
-              current.closed = true;
-          } else if (!pickedEnd && sqrs[startX][startY] != start) {
-              end = sqrs[startX][startY];
-              current.f = fScore(current,end);
-              pickedEnd = true;
-          }
-      }
-
-  
-    }
-  
-}
-
-
-function reDrawTheBoard() {
-    background(100,100,100);
-    strokeWeight(1);
-    fill(100, 25, 0);
-    stroke(100, 25, 0)
-    for (const i of obsList) {
-        square(unitWidth*(i.x + 0.5) , unitWidth*(i.y + 0.5) , unitWidth);
-    }    
-    if (pickedStart) {
-        fill(10, 150, 0);
-        stroke(10, 150, 0)
-        circle(unitWidth*(start.i + 0.5) , unitWidth*(start.j + 0.5) , unitWidth);
-    }
-    if (pickedEnd) {
-        fill(150, 15, 0);
-        stroke(150, 15, 0)
-        circle(unitWidth*(end.i + 0.5) , unitWidth*(end.j + 0.5) , unitWidth);
-    }
-}
-
-var cont = document.querySelector(".cont")
-
-function setup() {
-
-    var cnvs = createCanvas(wid,hei);
-    cnvs.parent(cont)  
-    background(0);
-    rectMode(CENTER)
-    for (let w = 0; w < numHei; w++) {
-        let row = [];
-        for (let z = 0; z < numWid; z++) {
-            let sqr = {
-                vsd: false,
-                i: w,
-                j: z,
-                top: true,
-                right: true,
-                left: true,
-                bottom: true,
-                topR: true,
-                topL: true,
-                btmR: true,
-                btmL: true,
-                f: 0,
-                g: 0,
-                closed: false,
-                check() {
-                    if (this.i == 0) {
-                        this.top = false;
-                        this.topR = false;
-                        this.topL = false;
-                    } else if (this.i == numHei - 1) {
-                        this.bottom = false;
-                        this.btmL = false;
-                        this.btmR = false;
-                    }
-                    if (this.j == 0) {
-                        this.left = false;
-                        this.topL = false;
-                        this.btmL = false;
-                    } else if (this.j == numWid - 1) {
-                        this.right = false;
-                        this.topR = false;
-                        this.btmR = false;
-                    }
-                },
-            }
-            sqr.check();
-            row.push(sqr);
-
-        }
-        sqrs.push(row);
-    }
-    //adding neighbours to each block
-    for (var i = 0; i < numHei; i++) {
-        for (var j = 0; j < numWid; j++) {
-            let routes = [];
-            let dgnls = [];
-            let s = sqrs[i][j];
-            if (s.top) {
-                routes.push(sqrs[i - 1][j]);
-            }
-            if (s.bottom) {
-                routes.push(sqrs[i + 1][j]);
-            }
-            if (s.right) {
-                routes.push(sqrs[i][j + 1]);
-            }
-            if (s.left) {
-                routes.push(sqrs[i][j - 1]);
-            }
-            if (s.topR) {
-                routes.push(sqrs[i - 1][j + 1]);
-                dgnls.push(sqrs[i - 1][j + 1]);
-            }
-            if (s.btmR) {
-                routes.push(sqrs[i + 1][j + 1]);
-                dgnls.push(sqrs[i + 1][j + 1]);
-            }
-            if (s.topL) {
-                routes.push(sqrs[i - 1][j - 1]);
-                dgnls.push(sqrs[i - 1][j - 1]);
-            }
-            if (s.btmL) {
-                routes.push(sqrs[i + 1][j - 1]);
-                dgnls.push(sqrs[i + 1][j - 1]);
-            }
-            s.routes = routes;
-            s.dgnl = dgnls;
-        }
-    }
-
-    obs(sqrs);
-    Set.prototype.peek = function() {
-        let tmpF = Infinity;
-        let ans = null;
-        for (var elem in this) {
-            if (this.hasOwnProperty(elem)) {
-                let temp = this[elem];
-                if (temp[temp.length - 1].f < tmpF) {
-                    tmpF = temp[temp.length - 1].f;
-                    ans = temp;
-                }
-            }
-        }
-        if (ans) return ans[ans.length - 1];
-        else return null;
-    }
-    Set.prototype.empty = function() {
-        let all = Object.keys(this);
-        if (all.length == 0) {
-            return true;
-        }
-        return false;
-    };
-    openSet = new Set();
-}
 
 // animation and visuals
 
-function rmvLine(x, y) {
-    line(x.i * unitWidth + unitWidth / 2, x.j * unitWidth + unitWidth / 2, y.i * unitWidth + unitWidth / 2, y.j * unitWidth + unitWidth / 2)
-}
-
-function connect(stack) {
-    strokeWeight(unitWidth / 4);
-    stroke(255);
-    for (let i = 0; i < stack.length - 1; i++) {
-        let f = stack[i];
-        let s = stack[i + 1];
-        line(f.i * unitWidth + unitWidth / 2, f.j * unitWidth + unitWidth / 2, s.i * unitWidth + unitWidth / 2, s.j * unitWidth + unitWidth / 2);
-    }
-}
-
-function disconnect(stack) {
-    strokeWeight(unitWidth / 10);
-    stroke(0, 75, 0);
-    for (let i = 0; i < stack.length - 1; i++) {
-        rmvLine(stack[i], stack[i + 1])
-    }
-}
-
-function obs(sqrs) {
-    fill(100, 25, 0);
-    stroke(100, 25, 0)
-    for (let i = 0; i < obsPerc * (numWid * numHei) - 2; i++) {
-        let x = floor(random(numHei));
-        let y = floor(random(numWid));
+function obs(sket,obsPerc,num,sqrs,obsList) {
+    for (let i = 0; i < obsPerc * (num * num) - 2; i++) {
+        let x = sket.floor(sket.random(num));
+        let y = sket.floor(sket.random(num));
         if (sqrs[x][y].closed) continue;
         obsList.push({x:x,y:y});
         sqrs[x][y].closed = true;
     }
 }
 
-// routing
 
-function yGscore(x, y) {
-    if (x.dgnl.includes(y)) {
-        return x.g + Math.hypot(1, 1);
+function connect(stack,sket,unitWidth, pcolor , disc) {
+    if (disc) return;
+    sket.strokeWeight(unitWidth / 4);
+    sket.stroke(...pcolor);
+    for (let i = 0; i < stack.length - 1; i++) {
+        let f = stack[i];
+        let s = stack[i + 1];
+        sket.line(f.i * unitWidth + unitWidth / 2, f.j * unitWidth + unitWidth / 2, s.i * unitWidth + unitWidth / 2, s.j * unitWidth + unitWidth / 2);
     }
-    return x.g + 1;
 }
 
-function hScore(x, y = end) {
+function disconnect(stack,sket,unitWidth , disc = true , pcolor , num) {
+    for (let i = 0; i < stack.length - 1; i++) {
+        let x = stack[i];
+        let y = stack[i+1];
+        if (disc){
+            let s = sket.map(i , 0 , stack.length-2 , sket.sqrt(2)-1 , 0.0015 * num);
+            sket.strokeWeight(s * unitWidth);
+            let c = sket.map(i , 0 , stack.length-2 , 255 , 100);
+            sket.stroke(...pcolor,c);
+        } else {
+            sket.strokeWeight(unitWidth / 4);
+            sket.stroke(255);
+        }
+        sket.line(x.i * unitWidth + unitWidth / 2, x.j * unitWidth + unitWidth / 2, y.i * unitWidth + unitWidth / 2, y.j * unitWidth + unitWidth / 2)
+    }
+    if (disc) return;
+    for (let i = 0; i < stack.length - 1; i++) {
+        let x = stack[i];
+        let y = stack[i+1];
+        sket.strokeWeight(unitWidth / 10);
+        sket.stroke(0, 75, 0);
+        sket.line(x.i * unitWidth + unitWidth / 2, x.j * unitWidth + unitWidth / 2, y.i * unitWidth + unitWidth / 2, y.j * unitWidth + unitWidth / 2)
+    }
+}
+
+function reDrawTheBoard(sket , start , end , unitWidth , pickedS , pickedE , obsList , obsColor , backG) {
+    sket.background(...backG);
+    sket.strokeWeight(1);
+    sket.fill(...obsColor);
+    sket.stroke(...obsColor);
+    for (const i of obsList) {
+        sket.square(unitWidth*(i.x + 0.5) , unitWidth*(i.y + 0.5) , unitWidth);
+    }    
+    if (pickedS) {
+        sket.fill(10, 150, 0);
+        sket.stroke(10, 150, 0)
+        sket.circle(unitWidth*(start.i + 0.5) , unitWidth*(start.j + 0.5) , unitWidth);
+    }
+    if (pickedE) {
+        sket.fill(150, 15, 0);
+        sket.stroke(150, 15, 0)
+        sket.circle(unitWidth*(end.i + 0.5) , unitWidth*(end.j + 0.5) , unitWidth);
+    }
+}
+
+
+
+// routing
+
+function hScore(x, y) {
     return Math.hypot(Math.abs(y.i - x.i), Math.abs(y.j - x.j));
 }
 
@@ -256,67 +98,220 @@ function fScore(x, y) {
     return x.g + hScore(x, y);
 }
 
-function addNebors(x, stack, openSet, end) {
-    var min = null;
-    var tempF = Infinity;
-    for (var neb of x.routes) {
-        if (neb.closed || neb.vsd) continue;
-        if (openSet[[neb.i, neb.j]]) {
-            if (neb.g >= yGscore(x, neb)) delete openSet[[neb.i, neb.j]];
+function gScore(cell, neighbour){
+    if (cell.dgnl.includes(neighbour)) return cell.g + Math.hypot(1, 1);
+    return cell.g + 1;
+
+}
+
+function add_neighbours(cell , set , path , end) {
+    for (let neighbour of cell.neighbours) {
+        if (neighbour.closed || neighbour.visited) continue;
+        if (set[[neighbour.i, neighbour.j]]) {
+            if (neighbour.g > gScore(cell, neighbour))
+                delete set[[neighbour.i, neighbour.j]];
             else continue;
         }
-        if (x.dgnl.includes(neb)) neb.g = x.g + Math.hypot(1, 1);
-        else neb.g = x.g + 1;
-        neb.f = fScore(neb, end);
-        let loc = [neb.i, neb.j];
-        openSet[loc] = [...stack];
-        openSet[loc].push(neb);
-        if (neb.f < tempF) {
-            min = neb;
-            tempF = neb.f;
-        }
-    }
-    return min;
-}
-
-
-function draw() {
-    // frameRate(n)
-    if (!pickedStart || !pickedEnd) { // No block is picked yet
-
-        // drawing grid  
-        reDrawTheBoard();
-  
-        // hovered block
-        stroke(0,0,0,0);
-        fill(255,0,0);
-        if (hoveredY >= 0 && hoveredX >= 0 && hoveredY < numWid && hoveredX < numHei && !sqrs[hoveredX][hoveredY].closed)
-            circle(unitWidth*(hoveredX + 0.5) , unitWidth*(hoveredY + 0.5) , unitWidth);
-  
-    } else if (!openSet.empty() && current != end) {
-        current.vsd = true;
-        delete openSet[[current.i, current.j]];
-        let temp = openSet.peek();
-        let minNbr = addNebors(current, cameFrom, openSet, end);
-        if (temp && minNbr && minNbr.f <= temp.f) {
-            stroke(255);
-            noFill();
-            strokeWeight(unitWidth / 4);
-            line(current.i * unitWidth + unitWidth / 2, current.j * unitWidth + unitWidth / 2, minNbr.i * unitWidth + unitWidth / 2, minNbr.j * unitWidth + unitWidth / 2);
-            cameFrom.push(minNbr);
-            current = minNbr;
-        } else if (temp) {
-            reDrawTheBoard();
-            // disconnect(cameFrom);
-            console.log(temp);
-            cameFrom = openSet[[temp.i, temp.j]];
-            connect(cameFrom);
-            current = temp;
-        }
-    } else {
-        if (current === end) connect(cameFrom);
-        // else disconnect(cameFrom);
-        else reDrawTheBoard();
-        noLoop();
+        neighbour.g = gScore(cell, neighbour);
+        neighbour.f = fScore(neighbour, end);
+        set[[neighbour.i, neighbour.j]] = [...path];
+        set[[neighbour.i, neighbour.j]].push(neighbour);
     }
 }
+
+
+
+function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , num){
+    let main = function (main){
+        let wid = hei = 500;
+        let unitWidth = wid / num;
+        let obsPerc = 0.6;
+        let obsList = [];
+        let sqrs = [];
+        let hoveredX,hoveredY;
+        let pickedStart = false;
+        let pickedEnd = false;
+        let openSet, current, cameFrom;
+        let start, end;
+        main.mouseMoved = function(){
+    
+            hoveredX = main.floor(main.mouseX/unitWidth);
+        
+            hoveredY = main.floor(main.mouseY/unitWidth);
+        
+        }
+        main.mousePressed = function(){
+            if ( (!pickedStart || !pickedEnd) && main.mouseX <= wid && main.mouseY <= hei && main.mouseX >= 0 && main.mouseY >= 0){
+        
+            
+            startX = main.floor(main.mouseX/unitWidth);
+        
+            startY = main.floor(main.mouseY/unitWidth);
+        
+            if (!sqrs[startX][startY].closed){
+                if (!pickedStart){
+                    start = sqrs[startX][startY];
+                    pickedStart = true;
+                    if (!disc) change_messege();
+                    current = start;
+                    current.g = 0;
+                    openSet[[current.i,current.j]] = [current];
+                    cameFrom = [current];
+                    current.closed = true;
+                } else if (!pickedEnd && sqrs[startX][startY] != start) {
+                    end = sqrs[startX][startY];
+                    current.f = fScore(current,end);
+                    pickedEnd = true;
+                }
+            }
+        
+        
+        }
+              
+        }
+        main.setup = function() {
+            let cnvs = main.createCanvas(wid,hei);
+            cnvs.parent(parent);
+            main.background(...backgroundColor);
+            main.rectMode(main.CENTER);
+            for (let w = 0; w < num; w++) {
+                let row = [];
+                for (let z = 0; z < num; z++) {
+                    let sqr = {
+                        visited: false,
+                        i: w,
+                        j: z,
+                        top: true,
+                        right: true,
+                        left: true,
+                        bottom: true,
+                        topR: true,
+                        topL: true,
+                        btmR: true,
+                        btmL: true,
+                        f: 0,
+                        g: 0,
+                        closed: false,
+                        check() {
+                            if (this.i == 0) {
+                                this.top = false;
+                                this.topR = false;
+                                this.topL = false;
+                            } else if (this.i == num - 1) {
+                                this.bottom = false;
+                                this.btmL = false;
+                                this.btmR = false;
+                            }
+                            if (this.j == 0) {
+                                this.left = false;
+                                this.topL = false;
+                                this.btmL = false;
+                            } else if (this.j == num - 1) {
+                                this.right = false;
+                                this.topR = false;
+                                this.btmR = false;
+                            }
+                        },
+                    }
+                    sqr.check();
+                    row.push(sqr);
+    
+                }
+                sqrs.push(row);
+            }
+            //adding neighbours to each block
+            for (let i = 0; i < num; i++) {
+                for (let j = 0; j < num; j++) {
+                    let neighbours = [];
+                    let dgnls = [];
+                    let s = sqrs[i][j];
+                    if (s.top) {
+                        neighbours.push(sqrs[i - 1][j]);
+                    }
+                    if (s.bottom) {
+                        neighbours.push(sqrs[i + 1][j]);
+                    }
+                    if (s.right) {
+                        neighbours.push(sqrs[i][j + 1]);
+                    }
+                    if (s.left) {
+                        neighbours.push(sqrs[i][j - 1]);
+                    }
+                    if (s.topR) {
+                        neighbours.push(sqrs[i - 1][j + 1]);
+                        dgnls.push(sqrs[i - 1][j + 1]);
+                    }
+                    if (s.btmR) {
+                        neighbours.push(sqrs[i + 1][j + 1]);
+                        dgnls.push(sqrs[i + 1][j + 1]);
+                    }
+                    if (s.topL) {
+                        neighbours.push(sqrs[i - 1][j - 1]);
+                        dgnls.push(sqrs[i - 1][j - 1]);
+                    }
+                    if (s.btmL) {
+                        neighbours.push(sqrs[i + 1][j - 1]);
+                        dgnls.push(sqrs[i + 1][j - 1]);
+                    }
+                    s.neighbours = neighbours;
+                    s.dgnl = dgnls;
+                }
+            }
+            obs(main,obsPerc,num,sqrs,obsList);
+            Set.prototype.peek = function() {
+                let tmpF = Infinity;
+                let ans = null;
+                for (let elem in this) {
+                    if (this.hasOwnProperty(elem)) {
+                        let temp = this[elem];
+                        if (temp[temp.length - 1].f < tmpF) {
+                            tmpF = temp[temp.length - 1].f;
+                            ans = temp;
+                        }
+                    }
+                }
+                if (ans) return ans[ans.length - 1];
+                return null;
+            }
+            Set.prototype.empty = function() {
+                let all = Object.keys(this);
+                if (all.length == 0) {
+                    return true;
+                }
+                return false;
+            };
+            openSet = new Set();
+    
+        }
+        main.draw = function(){
+            if (!pickedStart || !pickedEnd) { // No block is picked yet
+                // drawing grid  
+                reDrawTheBoard(main , start , end , unitWidth , pickedStart , pickedEnd , obsList , obsColor , backgroundColor);
+    
+                // hovered block
+                main.stroke(0,0,0,0);
+                main.fill(255,0,0);
+                if (hoveredY >= 0 && hoveredX >= 0 && hoveredY < num && hoveredX < num && !sqrs[hoveredX][hoveredY].closed)
+                    main.circle(unitWidth*(hoveredX + 0.5) , unitWidth*(hoveredY + 0.5) , unitWidth);
+                    
+                } else if (!openSet.empty() && current != end) {
+                current.visited = true;
+                delete openSet[[current.i, current.j]];
+                add_neighbours(current,openSet,cameFrom,end);
+                let temp = openSet.peek();
+                disconnect(cameFrom , main , unitWidth , disc , pathColor, num);
+                cameFrom = openSet[[temp.i, temp.j]];
+                connect(cameFrom , main , unitWidth , pathColor , disc);
+                current = temp;
+            } else {
+                if (current === end) connect(cameFrom , main , unitWidth , pathColor , false);
+                main.noLoop();
+            }
+        }
+    }
+    new p5(main);
+}
+
+newCanvas (cont , [0,0,0] , [255,255,255] , [100,25,25] , false , 30);
+newCanvas (cont2 , [234,182,79] , [120,60,0] , [234,182,79] , true , 45);
+

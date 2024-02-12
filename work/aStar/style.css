@@ -7,7 +7,11 @@
     font-family: "Soehne1";
     src: url("../../font/s2_bold.otf") format("opentype");
 }
-
+body {
+    color: white;
+    background: black;
+    margin: 0;
+}
 .cont {
     margin: 0;
     padding: 0;
@@ -18,43 +22,70 @@
     height: 100vh;
     width: 100%;
 }
+
+.cont2 {
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cont2 h1 {
+    width:75%
+}
+
 .textCont {
     display: flex;
     width: 30%;
+    align-items: center;
     flex-direction: column;
-    height: 100%;
-    justify-content: center;
-    /* position: relative; */
+    height: 165px;
+    overflow: hidden;
 }
+
+.textCont2 {
+    display: flex;
+    justify-content: space-around;
+}
+
 .welcome {
-    background: silver;
-    width: 100%;
-    /* position: absolute; */
     font: lighter 50px "Soehne";
     margin: 0;
 }
-.newWel {
-    filter: opacity(0);
-    margin-top: 100px;
-}
+
+
 .showNew {
-    filter: opacity(1);
-    margin-top: 0px;
-    transition: 0.5s 0.1s;
+    transition: 0.75s;
 }
+
 .hideOld {
+    margin-top: -166px;
     filter: opacity(0);
-    margin-bottom: 100px;
     transition: 0.5s;
 }
 
-body {
-    display: flex;
-    margin: 0;
+.headline {
+    font: bold 60px Soehne1;
 }
 
+.algo {
+    padding: 8% 8%;
+}
+
+
+ol , ul {
+    font: bold 30px "Soehne";
+}
+
+
+
 @media screen and (max-width: 750px){
-    .cont {
+    .cont , .cont2 {
         flex-direction: column;
+    }
+    .cont2  h1 {
+        width: 100%
+    }
+    .textCont {
+        width: 100%;
     }
 }
