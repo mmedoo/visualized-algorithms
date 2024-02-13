@@ -11,6 +11,11 @@
   border-radius: 10px;
 }
 
+@font-face {
+    font-family: "Soehne1";
+    src: url("font/s2_bold.otf") format("opentype");
+}
+
 
 h1,h2,h3,h4,h5,h6,a,span,b,text {
   color: inherit;
