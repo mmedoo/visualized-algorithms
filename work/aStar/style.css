@@ -1,0 +1,103 @@
+@font-face {
+    font-family: "Soehne";
+    src: url("../../font/s4_thin.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Soehne1";
+    src: url("../../font/s2_bold.otf") format("opentype");
+}
+body {
+    color: white;
+    background: black;
+    margin: 0;
+}
+.cont {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.cont2 {
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cont2 h1 {
+    width:75%
+}
+
+.textCont {
+    display: flex;
+    width: 30%;
+    align-items: center;
+    flex-direction: column;
+    height: 165px;
+    overflow: hidden;
+}
+
+.textCont2 {
+    display: flex;
+    justify-content: space-around;
+}
+
+.welcome {
+    font: lighter 50px "Soehne";
+    margin: 0;
+}
+
+
+.showNew {
+    transition: 0.75s;
+}
+
+.hideOld {
+    margin-top: -166px;
+    filter: opacity(0);
+    transition: 0.5s;
+}
+
+.headline {
+    font: bold 60px Soehne1;
+}
+
+.algo {
+    padding: 8% 8%;
+}
+
+
+ol , ul {
+    font: bold 30px "Soehne";
+}
+
+.gist {
+    min-width: 75%;
+    max-width: 100%
+}
+
+.gist * {
+    font-size: 14px
+}
+
+.gist-cont {
+    padding: 1% 0;
+}
+
+
+@media screen and (max-width: 750px){
+    .cont , .cont2 {
+        flex-direction: column;
+    }
+    .cont2  h1 {
+        width: 100%
+    }
+    .textCont {
+        width: 100%;
+    }
+}
