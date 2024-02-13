@@ -14,11 +14,7 @@ function change_messege(){
     newie.classList.add("showNew");
 }
 
-
-
-
 // animation and visuals
-
 function obs(sket,obsPerc,num,sqrs,obsList) {
     for (let i = 0; i < obsPerc * (num * num) - 2; i++) {
         let x = sket.floor(sket.random(num));
@@ -28,65 +24,6 @@ function obs(sket,obsPerc,num,sqrs,obsList) {
         sqrs[x][y].closed = true;
     }
 }
-
-
-function connect(stack,sket,unitWidth, pcolor , disc) {
-    if (disc) return;
-    sket.strokeWeight(unitWidth / 4);
-    sket.stroke(...pcolor);
-    for (let i = 0; i < stack.length - 1; i++) {
-        let f = stack[i];
-        let s = stack[i + 1];
-        sket.line(f.i * unitWidth + unitWidth / 2, f.j * unitWidth + unitWidth / 2, s.i * unitWidth + unitWidth / 2, s.j * unitWidth + unitWidth / 2);
-    }
-}
-
-function disconnect(stack,sket,unitWidth , disc = true , pcolor , num) {
-    for (let i = 0; i < stack.length - 1; i++) {
-        let x = stack[i];
-        let y = stack[i+1];
-        if (disc){
-            let s = sket.map(i , 0 , stack.length-2 , sket.sqrt(2)-1 , 0.0015 * num);
-            sket.strokeWeight(s * unitWidth);
-            let c = sket.map(i , 0 , stack.length-2 , 255 , 100);
-            sket.stroke(...pcolor,c);
-        } else {
-            sket.strokeWeight(unitWidth / 4);
-            sket.stroke(255);
-        }
-        sket.line(x.i * unitWidth + unitWidth / 2, x.j * unitWidth + unitWidth / 2, y.i * unitWidth + unitWidth / 2, y.j * unitWidth + unitWidth / 2)
-    }
-    if (disc) return;
-    for (let i = 0; i < stack.length - 1; i++) {
-        let x = stack[i];
-        let y = stack[i+1];
-        sket.strokeWeight(unitWidth / 10);
-        sket.stroke(0, 75, 0);
-        sket.line(x.i * unitWidth + unitWidth / 2, x.j * unitWidth + unitWidth / 2, y.i * unitWidth + unitWidth / 2, y.j * unitWidth + unitWidth / 2)
-    }
-}
-
-function reDrawTheBoard(sket , start , end , unitWidth , pickedS , pickedE , obsList , obsColor , backG) {
-    sket.background(...backG);
-    sket.strokeWeight(1);
-    sket.fill(...obsColor);
-    sket.stroke(...obsColor);
-    for (const i of obsList) {
-        sket.square(unitWidth*(i.x + 0.5) , unitWidth*(i.y + 0.5) , unitWidth);
-    }    
-    if (pickedS) {
-        sket.fill(10, 150, 0);
-        sket.stroke(10, 150, 0)
-        sket.circle(unitWidth*(start.i + 0.5) , unitWidth*(start.j + 0.5) , unitWidth);
-    }
-    if (pickedE) {
-        sket.fill(150, 15, 0);
-        sket.stroke(150, 15, 0)
-        sket.circle(unitWidth*(end.i + 0.5) , unitWidth*(end.j + 0.5) , unitWidth);
-    }
-}
-
-
 
 // routing
 
@@ -105,34 +42,62 @@ function gScore(cell, neighbour){
 }
 
 function add_neighbours(cell , set , path , end) {
+    
     for (let neighbour of cell.neighbours) {
+ 
+        // 1. If it's visited or closed continue looping
         if (neighbour.closed || neighbour.visited) continue;
-        if (set[[neighbour.i, neighbour.j]]) {
-            if (neighbour.g > gScore(cell, neighbour))
+        
+        if (set[[neighbour.i, neighbour.j]]) {   // 2. If it's in the openSet    
+            if (neighbour.g > gScore(cell, neighbour))    // If the new path is cheaper than the path in the OpenSet
                 delete set[[neighbour.i, neighbour.j]];
             else continue;
         }
+        // 3. Calculate F and G scores and store them
         neighbour.g = gScore(cell, neighbour);
         neighbour.f = fScore(neighbour, end);
+
+        // 4. Add the neighbour cell and its path to the OpenSet 
         set[[neighbour.i, neighbour.j]] = [...path];
         set[[neighbour.i, neighbour.j]].push(neighbour);
     }
 }
 
-
+Set.prototype.peek = function() {
+    let tmpF = Infinity;
+    let ans = null;
+    for (let elem in this) {
+        if (this.hasOwnProperty(elem)) {
+            let temp = this[elem];
+            if (temp[temp.length - 1].f < tmpF) {
+                tmpF = temp[temp.length - 1].f;
+                ans = temp;
+            }
+        }
+    }
+    if (ans) return ans[ans.length - 1];
+    return null;
+}
+Set.prototype.empty = function() {
+    let all = Object.keys(this);
+    if (all.length == 0) {
+        return true;
+    }
+    return false;
+};
 
 function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , num){
+    let wid = hei = 500;
+    let unitWidth = wid / num;
+    let obsPerc = 0.6;
+    let obsList = [];
+    let sqrs = [];
+    let hoveredX,hoveredY;
+    let pickedStart = false;
+    let pickedEnd = false;
+    let openSet, current, cameFrom;
+    let start, end;
     let main = function (main){
-        let wid = hei = 500;
-        let unitWidth = wid / num;
-        let obsPerc = 0.6;
-        let obsList = [];
-        let sqrs = [];
-        let hoveredX,hoveredY;
-        let pickedStart = false;
-        let pickedEnd = false;
-        let openSet, current, cameFrom;
-        let start, end;
         main.mouseMoved = function(){
     
             hoveredX = main.floor(main.mouseX/unitWidth);
@@ -168,6 +133,59 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
         
         }
               
+        }
+        function connect(stack , dsc = disc) {
+            if (dsc) return;
+            main.strokeWeight(unitWidth / 4);
+            main.stroke(...pathColor);
+            for (let i = 0; i < stack.length - 1; i++) {
+                let f = stack[i];
+                let s = stack[i + 1];
+                main.line(f.i * unitWidth + unitWidth / 2, f.j * unitWidth + unitWidth / 2, s.i * unitWidth + unitWidth / 2, s.j * unitWidth + unitWidth / 2);
+            }
+        }
+        function disconnect(stack) {
+            for (let i = 0; i < stack.length - 1; i++) {
+                let x = stack[i];
+                let y = stack[i+1];
+                if (disc){
+                    let s = main.map(i , 0 , stack.length-2 , main.sqrt(2)-1 , 0.0015 * num);
+                    main.strokeWeight(s * unitWidth);
+                    let c = main.map(i , 0 , stack.length-2 , 255 , 100);
+                    main.stroke(...pathColor,c);
+                } else {
+                    main.strokeWeight(unitWidth / 4);
+                    main.stroke(255);
+                }
+                main.line(x.i * unitWidth + unitWidth / 2, x.j * unitWidth + unitWidth / 2, y.i * unitWidth + unitWidth / 2, y.j * unitWidth + unitWidth / 2)
+            }
+            if (disc) return;
+            for (let i = 0; i < stack.length - 1; i++) {
+                let x = stack[i];
+                let y = stack[i+1];
+                main.strokeWeight(unitWidth / 10);
+                main.stroke(0, 75, 0);
+                main.line(x.i * unitWidth + unitWidth / 2, x.j * unitWidth + unitWidth / 2, y.i * unitWidth + unitWidth / 2, y.j * unitWidth + unitWidth / 2)
+            }
+        }
+        function reDrawTheBoard() {
+            main.background(...backgroundColor);
+            main.strokeWeight(1);
+            main.fill(...obsColor);
+            main.stroke(...obsColor);
+            for (const i of obsList) {
+                main.square(unitWidth*(i.x + 0.5) , unitWidth*(i.y + 0.5) , unitWidth);
+            }    
+            if (pickedStart) {
+                main.fill(10, 150, 0);
+                main.stroke(10, 150, 0)
+                main.circle(unitWidth*(start.i + 0.5) , unitWidth*(start.j + 0.5) , unitWidth);
+            }
+            if (pickedEnd) {
+                main.fill(150, 15, 0);
+                main.stroke(150, 15, 0)
+                main.circle(unitWidth*(end.i + 0.5) , unitWidth*(end.j + 0.5) , unitWidth);
+            }
         }
         main.setup = function() {
             let cnvs = main.createCanvas(wid,hei);
@@ -258,35 +276,12 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
                 }
             }
             obs(main,obsPerc,num,sqrs,obsList);
-            Set.prototype.peek = function() {
-                let tmpF = Infinity;
-                let ans = null;
-                for (let elem in this) {
-                    if (this.hasOwnProperty(elem)) {
-                        let temp = this[elem];
-                        if (temp[temp.length - 1].f < tmpF) {
-                            tmpF = temp[temp.length - 1].f;
-                            ans = temp;
-                        }
-                    }
-                }
-                if (ans) return ans[ans.length - 1];
-                return null;
-            }
-            Set.prototype.empty = function() {
-                let all = Object.keys(this);
-                if (all.length == 0) {
-                    return true;
-                }
-                return false;
-            };
             openSet = new Set();
-    
         }
         main.draw = function(){
             if (!pickedStart || !pickedEnd) { // No block is picked yet
                 // drawing grid  
-                reDrawTheBoard(main , start , end , unitWidth , pickedStart , pickedEnd , obsList , obsColor , backgroundColor);
+                reDrawTheBoard();
     
                 // hovered block
                 main.stroke(0,0,0,0);
@@ -294,17 +289,26 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
                 if (hoveredY >= 0 && hoveredX >= 0 && hoveredY < num && hoveredX < num && !sqrs[hoveredX][hoveredY].closed)
                     main.circle(unitWidth*(hoveredX + 0.5) , unitWidth*(hoveredY + 0.5) , unitWidth);
                     
-                } else if (!openSet.empty() && current != end) {
+            } else if (!openSet.empty() && current != end) {
+                // 1. Mark the currnet cell as visited.
                 current.visited = true;
+
+                // 2. Delete the corresponding path in the OpenSet.
                 delete openSet[[current.i, current.j]];
+                // 3. ::
                 add_neighbours(current,openSet,cameFrom,end);
+                //  4. Get the cell with the lowest F score from the OpenSet
                 let temp = openSet.peek();
-                disconnect(cameFrom , main , unitWidth , disc , pathColor, num);
+
+                disconnect(cameFrom); // optional tracing of cancelled paths
+
+                // 5. Draw the path from beginning to this cell 
                 cameFrom = openSet[[temp.i, temp.j]];
-                connect(cameFrom , main , unitWidth , pathColor , disc);
+                connect(cameFrom);
+                // .. and make it the current cell
                 current = temp;
             } else {
-                if (current === end) connect(cameFrom , main , unitWidth , pathColor , false);
+                if (current === end) connect(cameFrom , false);
                 main.noLoop();
             }
         }
@@ -313,5 +317,4 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
 }
 
 newCanvas (cont , [0,0,0] , [255,255,255] , [100,25,25] , false , 30);
-newCanvas (cont2 , [234,182,79] , [120,60,0] , [234,182,79] , true , 45);
-
+newCanvas (cont2 , [234,182,79] , [120,60,0] , [234,182,79] , true , 50);

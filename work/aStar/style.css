@@ -76,6 +76,18 @@ ol , ul {
     font: bold 30px "Soehne";
 }
 
+.gist {
+    min-width: 75%;
+    max-width: 100%
+}
+
+.gist * {
+    font-size: 14px
+}
+
+.gist-cont {
+    padding: 1% 0;
+}
 
 
 @media screen and (max-width: 750px){
