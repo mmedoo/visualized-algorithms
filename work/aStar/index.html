@@ -86,7 +86,7 @@
             <ul>
                 <li>
                     The OpenSet object would be a lot more optimized if implemented with ordered dictionary from Python.
-                    The ordered dictionary uses a doubley linked list to store the order in which attributes were added to the object.
+                    The ordered dictionary uses a doubley linked list to store the order in which properties were added to the object.
                     By sorting this list and putting newly added cells in the right order,
                     the retrieval of the cell with lowest F score would have constant time complexity O(1). In our case, the retrieval complexity is O(N).
                     Putting the newly added cells in the right order has a worst case complexity of O(N), but the point is that It's a worst case scenario
