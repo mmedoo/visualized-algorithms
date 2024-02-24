@@ -34,13 +34,14 @@ h1,h2,h3,h4,h5,h6,a,span,b,text {
     font-family: "Google Sans Text";
     max-height: 627px;
     font-size: 55px;
-    color: white;
+    opacity: 0;
     margin-left: 6.5%;
     margin-right: 3.5%;
     transition: 0.375s;
-}
-.loaded {
+  }
+  .loaded {
     color: black;
+    opacity: 1;
     margin: 0 5%;
     max-height: none;
 }
