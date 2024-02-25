@@ -1,4 +1,23 @@
+const inputWinc = document.querySelector(".wInc");
+const inputWinitial = document.querySelector(".wBegin");
+const inputRend = document.querySelector(".rFinal");
+const inputRInc = document.querySelector(".rInc");
+const inputRinitial = document.querySelector(".rBegin");
+const perlinConf = document.querySelector(".perlinConf");
+const perlinConfInputs = document.querySelectorAll(".perlinConf > input");
+const inputColor2 = document.querySelector(".vColor2");
+const inputColor1 = document.querySelector(".vColor1");
+const gRbtn = document.querySelector(".gR");
+const inputAngle = document.querySelector(".vAngle");
+const looper = document.querySelector(".loop");
+const pause = document.querySelector(".pause");
+const bgn = document.querySelector(".bgn");
+const offsetInput = document.querySelector("input[name='offset'");
+const offsetScalerInput = document.querySelector("input[name='offsetScaler'");
+const offsetPrint = document.querySelectorAll(".inputValue");
 const goldenRatio = (1 + Math.sqrt(5))/2 - 1;
+
+
 var ratio = 0.125;
 var rInitial = 0;
 var rIncrement = 0.5;
@@ -15,13 +34,23 @@ var offsetScaler = 80;
 
 
 
-const offsetPrint = document.querySelectorAll(".inputValue");
-const offsetInput = document.querySelector("input[name='offset'");
+
+
+
+
+
+
+
+
+
+
+
+offset = offsetInput.value;
 offsetInput.addEventListener("change",()=>{
   offset = offsetInput.value;
   offsetPrint[0].innerText = offset;
 })
-const offsetScalerInput = document.querySelector("input[name='offsetScaler'");
+offsetScaler = offsetScalerInput.value;
 offsetScalerInput.addEventListener("change",()=>{
   offsetScaler = offsetScalerInput.value;
   offsetPrint[1].innerText = offsetScaler;
@@ -37,7 +66,6 @@ function hexToRgb(hex) {
   } : null;
 }
 
-const bgn = document.querySelector(".bgn");
 bgn.addEventListener("click",()=>{
   rst();
   array = [];
@@ -46,7 +74,6 @@ bgn.addEventListener("click",()=>{
   if (pause.innerText === "resume") pause.click();
 });
 
-const pause = document.querySelector(".pause");
 pause.addEventListener("click",()=>{
   if (pause.innerText === "resume") {
     loop();
@@ -56,7 +83,6 @@ pause.addEventListener("click",()=>{
     pause.innerText = "resume";
   }
 })
-const looper = document.querySelector(".loop");
 looper.addEventListener("click",()=>{
   if (looper.innerText === "not looping") {
     looper.innerText = "looping";
@@ -66,28 +92,27 @@ looper.addEventListener("click",()=>{
   again = !again;
 })
 
-const inputAngle = document.querySelector(".vAngle");
+inputAngle.value = ratio;
 inputAngle.addEventListener("input",()=>{
   ratio = inputAngle.value;
+  angle = 0;
 })
-const gRbtn = document.querySelector(".gR");
 gRbtn.addEventListener("click",()=>{
   inputAngle.value = goldenRatio;
   ratio = goldenRatio;
+  angle = 0;
 })
 
-const inputColor1 = document.querySelector(".vColor1");
+initialColor = hexToRgb(inputColor1.value);
 inputColor1.addEventListener("change",()=>{
   initialColor = hexToRgb(inputColor1.value);
 })
-const inputColor2 = document.querySelector(".vColor2");
+finalColor = hexToRgb(inputColor2.value);
 inputColor2.addEventListener("change",()=>{
   finalColor = hexToRgb(inputColor2.value);
 })
 
-const perlinConfInputs = document.querySelectorAll(".perlinConf > input");
 
-const perlinConf = document.querySelector(".perlinConf");
 const colorLabel = document.querySelector(".color");
 const perlinCheck = document.querySelector("input[name='perlin']");
 perlinCheck.addEventListener("change",()=>{
@@ -114,23 +139,23 @@ perlinCheck.addEventListener("change",()=>{
 
 
 
-const inputRinitial = document.querySelector(".rBegin");
+inputRinitial.value = rInitial;
 inputRinitial.addEventListener("input",()=>{
   rInitial = inputRinitial.value * 1;
 })
-const inputRInc = document.querySelector(".rInc");
+inputRInc.value = rIncrement;
 inputRInc.addEventListener("input",()=>{
   rIncrement = inputRInc.value * 1;
 })
-const inputRend = document.querySelector(".rFinal");
+inputRend.value = rFinal;
 inputRend.addEventListener("input",()=>{
   rFinal = inputRend.value * 1;
 })
-const inputWinitial = document.querySelector(".wBegin");
+inputWinitial.value = widthInitial;
 inputWinitial.addEventListener("input",()=>{
   widthInitial = inputWinitial.value * 1;
 })
-const inputWinc = document.querySelector(".wInc");
+inputWinc.value = widthIncrement;
 inputWinc.addEventListener("input",()=>{
   widthIncrement = inputWinc.value * 1;
 })
