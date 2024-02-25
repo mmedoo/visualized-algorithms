@@ -6,13 +6,28 @@ var rFinal = 200;
 var widthInitial = 10;
 var widthIncrement = 0.05;
 var widthFinal = 0;
-var speed = Infinity;
 var again = false;
 var initialColor = {r:255,g:255,b:255};
 var finalColor = {r:255,g:255,b:255};
-var tempRed = 0;
-var tempGreen = 0;
-var tempBlue = 0;
+var isPerlinNoise = false;
+var offset = 4;
+var offsetScaler = 80;
+
+
+
+const offsetPrint = document.querySelectorAll(".inputValue");
+const offsetInput = document.querySelector("input[name='offset'");
+offsetInput.addEventListener("change",()=>{
+  offset = offsetInput.value;
+  offsetPrint[0].innerText = offset;
+})
+const offsetScalerInput = document.querySelector("input[name='offsetScaler'");
+offsetScalerInput.addEventListener("change",()=>{
+  offsetScaler = offsetScalerInput.value;
+  offsetPrint[1].innerText = offsetScaler;
+})
+
+
 function hexToRgb(hex) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
@@ -25,8 +40,11 @@ function hexToRgb(hex) {
 const bgn = document.querySelector(".bgn");
 bgn.addEventListener("click",()=>{
   rst();
+  array = [];
+  angle = 0;
+  done = false;
   if (pause.innerText === "resume") pause.click();
-})
+});
 
 const pause = document.querySelector(".pause");
 pause.addEventListener("click",()=>{
@@ -66,6 +84,36 @@ const inputColor2 = document.querySelector(".vColor2");
 inputColor2.addEventListener("change",()=>{
   finalColor = hexToRgb(inputColor2.value);
 })
+
+const perlinConfInputs = document.querySelectorAll(".perlinConf > input");
+
+const perlinConf = document.querySelector(".perlinConf");
+const colorLabel = document.querySelector(".color");
+const perlinCheck = document.querySelector("input[name='perlin']");
+perlinCheck.addEventListener("change",()=>{
+  rst();
+  array = [];
+  angle = 0;
+  done = false;
+  inputColor1.disabled = !inputColor1.disabled;
+  inputColor2.disabled = !inputColor2.disabled;
+  for (let i of perlinConfInputs) i.disabled = !i.disabled;
+  isPerlinNoise = !isPerlinNoise;
+  if (isPerlinNoise) {
+    colorLabel.classList.add("disabledColor");
+    perlinConf.classList.remove("disabledColor");
+  } else {
+    colorLabel.classList.remove("disabledColor");
+    perlinConf.classList.add("disabledColor");
+  }
+  if (pause.innerText === "resume") pause.click();
+})
+
+
+
+
+
+
 const inputRinitial = document.querySelector(".rBegin");
 inputRinitial.addEventListener("input",()=>{
   rInitial = inputRinitial.value * 1;
