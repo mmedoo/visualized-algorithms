@@ -89,11 +89,7 @@ function nonPerlinNoisey(){
   tempRed = map(tempRadius , rInitial , rFinal , initialColor.r , finalColor.r);
   tempGreen = map(tempRadius , rInitial , rFinal , initialColor.g , finalColor.g);
   tempBlue = map(tempRadius , rInitial , rFinal , initialColor.b , finalColor.b);
-  // directed deviation
-  // tempRed = map(noise(tempRadius/200),0,1,initialColor.r,finalColor.r)
-  // tempGreen = map(noise(tempRadius*2/200),0,1,initialColor.g,finalColor.g)
-  // tempBlue = map(noise(tempRadius*3/200),0,1,initialColor.b,finalColor.b)
-  // perlin noise deviation
+  // 2D perlin noise deviation
   // let newX = map(x,-rFinal,rFinal,0,rFinal);
   // let newY = map(y,-rFinal,rFinal,0,rFinal);
   // tempRed = map(noise(newX/100,newY/100),0,1,0,255);
@@ -117,7 +113,6 @@ function nonPerlinNoisey(){
 
 
 function draw(){
-
     if (isPerlinNoise) perlinNoisey();
     else nonPerlinNoisey();
 }
