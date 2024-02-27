@@ -67,6 +67,7 @@ function perlinNoisey(){
         translate(-(x + wid/2) ,y - hei/2);
         tempWidth += widthIncrement;
         tempRadius += rIncrement;
+        if (Math.abs(tempRadius) >= rFinal) break;
     }
     addX += Number(offset);
     
