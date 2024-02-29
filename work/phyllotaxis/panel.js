@@ -90,6 +90,9 @@ looper.addEventListener("click",()=>{
     looper.innerText = "not looping";
   }
   again = !again;
+  if (pause.innerText === "resume" || (isPerlinNoise && done)) {
+    bgn.click();
+  }
 })
 
 inputAngle.value = ratio;

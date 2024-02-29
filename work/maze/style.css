@@ -39,9 +39,11 @@ ol {
     padding: 3% 0;
 }
 #source {
-    font: normal 50px Soehne;
     color:inherit;
     text-decoration: none;
+    display: inline-flex;
+    align-items:  baseline;
+    font: lighter 50px Soehne;
 }
 
 #source:hover :not(span) {

@@ -16,6 +16,10 @@ body {
   padding: 2%;
 }
 
+.cnvsCont {
+  background-color: black;
+}
+
 .cnvsCont > * {
   top: 0;
   position: sticky;
@@ -45,10 +49,6 @@ input[type="range"] {
 }
 
 
-.gR {
-
-}
-
 .bgn {
   height: 62px;
   background: white;
@@ -69,6 +69,21 @@ input[type="color"] {
 .disabledColor {
   color: rgb(150, 150, 150)
 }
+
+
+
+#source {
+    color:inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items:  baseline;
+}
+
+
+#source:hover :not(span) {
+  text-decoration: underline;
+}
+
 
 
 
