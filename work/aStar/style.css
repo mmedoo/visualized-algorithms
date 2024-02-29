@@ -94,7 +94,7 @@ a {
     color: inherit;
 }
 
-a:hover {
+a:hover :not(span) {
     text-decoration: underline;
 }
 
