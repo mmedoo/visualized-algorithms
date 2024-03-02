@@ -168,7 +168,7 @@ function remove_wall_between(x,y) {
 
   if (x.pos.i - y.pos.i == -1){
 
-    for (var i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
 
       line(unitWidth*x.pos.i+unitWidth,unitWidth*x.pos.j+2,unitWidth*x.pos.i+unitWidth,unitWidth*x.pos.j+unitWidth-2);
 
@@ -178,7 +178,7 @@ function remove_wall_between(x,y) {
 
   else if (x.pos.i - y.pos.i == 1){
 
-    for (var i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
 
       line(unitWidth*y.pos.i+unitWidth,unitWidth*y.pos.j+2,unitWidth*y.pos.i+unitWidth,unitWidth*y.pos.j+unitWidth-2);
 
@@ -188,7 +188,7 @@ function remove_wall_between(x,y) {
 
   else if (x.pos.j - y.pos.j == 1){
 
-    for (var i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
 
       line(unitWidth*x.pos.i+2,unitWidth*x.pos.j,unitWidth*x.pos.i+unitWidth-2,unitWidth*x.pos.j);
 
@@ -198,7 +198,7 @@ function remove_wall_between(x,y) {
 
   else {
 
-        for (var i = 0; i < 10; i++) {
+        for (let i = 0; i < 10; i++) {
 
       line(unitWidth*y.pos.i+2,unitWidth*y.pos.j,unitWidth*y.pos.i+unitWidth-2,unitWidth*y.pos.j);
 

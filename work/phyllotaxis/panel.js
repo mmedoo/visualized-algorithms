@@ -31,13 +31,27 @@ var finalColor = {r:255,g:255,b:255};
 var isPerlinNoise = false;
 var offset = 4;
 var offsetScaler = 80;
+var angle = 0;
+var done = false;
+var array = [];
 
 
 
 
-
-
-
+function begin(){
+  tempRed = initialColor.r;
+  tempGreen = initialColor.g;
+  tempBlue = initialColor.b;
+  tempWidth = widthInitial;
+  tempRadius = rInitial;
+  offset = perlinConfInputs[0].value;
+  offsetScaler = perlinConfInputs[1].value;
+}
+function rst(){
+  clear();
+  background(0);
+  begin();
+}
 
 
 
@@ -58,7 +72,7 @@ offsetScalerInput.addEventListener("change",()=>{
 
 
 function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
     r: parseInt(result[1], 16),
     g: parseInt(result[2], 16),

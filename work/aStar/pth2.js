@@ -80,11 +80,8 @@ Set.prototype.peek = function() {
 }
 Set.prototype.empty = function() {
     let all = Object.keys(this);
-    if (all.length == 0) {
-        return true;
-    }
-    return false;
-};
+    return (all.length == 0);
+}
 
 function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , num){
     let wid = hei = 500;

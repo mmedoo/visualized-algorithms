@@ -3,8 +3,6 @@ const bigCont = document.querySelector(".bigCont");
 var tempWidth = widthInitial;
 var tempRadius = rInitial;
 var tempRed , tempGreen , tempBlue;
-var angle = 0;
-var done = false;
 var hei,wid;
 
 
@@ -26,20 +24,7 @@ function setup(){
     rectMode(CENTER);
 }
 
-function begin(){
-    tempRed = initialColor.r;
-    tempGreen = initialColor.g;
-    tempBlue = initialColor.b;
-    tempWidth = widthInitial;
-    tempRadius = rInitial;
-    offset = perlinConfInputs[0].value;
-    offsetScaler = perlinConfInputs[1].value;
-}
-function rst(){
-    clear();
-    background(0);
-    begin();
-}
+
 
 
 var addX = Number(Math.random());
