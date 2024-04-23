@@ -44,6 +44,8 @@ function setup(){
 
   strokeWeight(1);
 
+  pixelDensity(1);
+
   for (let i = 0; i < num; i++) {
 
     var row = [];
