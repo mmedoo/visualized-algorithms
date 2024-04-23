@@ -253,6 +253,7 @@ function mousePressed(){
 
 function draw(){
     frameRate(15);
+    noLoop();
     if (!picked) { // No block is picked yet
 
       // drawing grid  

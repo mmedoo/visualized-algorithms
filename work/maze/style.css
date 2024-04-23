@@ -29,7 +29,7 @@ ol {
     font: bold 30px "Soehne";
 }
 .gist {
-    min-width: 100%
+    min-width: 100%;
 }
 
 .gist * {
@@ -61,6 +61,13 @@ ol {
         flex-direction: column;
     }
     #welcome {
-        width: 500px;
+        max-width: 500px;
+    }
+    canvas {
+        width: 80vw !important;
+        height: 80vw !important;
+    }
+    .algo {
+        padding: 0;
     }
 }
