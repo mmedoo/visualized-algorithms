@@ -257,7 +257,7 @@ function mousePressed(){
 
 
 function draw(){
-    // frameRate(1);
+    frameRate(10);
     // drawing grid  
     background(0);
     for (let i = 0; i < num; i++) {
@@ -266,6 +266,7 @@ function draw(){
       }
     }    
     if (!picked) { // No block is picked yet
+      frameRate(60);
       // hovered block
       stroke(0,0,0,0);
       fill(255,0,0);
