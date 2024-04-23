@@ -266,7 +266,7 @@ function draw(){
       }
     }    
     if (!picked) { // No block is picked yet
-      frameRate(60);
+      frameRate(Infinity);
       // hovered block
       stroke(0,0,0,0);
       fill(255,0,0);
