@@ -11,7 +11,6 @@
 }
 
 
-
 //constants
 
 {
@@ -44,8 +43,6 @@ function setup(){
 
   strokeWeight(1);
 
-  pixelDensity(1);
-
   for (let i = 0; i < num; i++) {
 
     var row = [];
@@ -64,6 +61,13 @@ function setup(){
 
                  bottom:true},
 
+        wall : {top: true,
+      
+                right: true,
+      
+                left: true,
+      
+                bottom: true},
         check(){
 
           if (this.pos.i == 0) this.around.left = false;
@@ -73,6 +77,22 @@ function setup(){
           if (this.pos.j == 0) this.around.top = false;
 
           else if (this.pos.j == num-1) this.around.bottom = false;
+
+        },
+
+        show(){
+          noStroke();
+          if (this.visited){
+            fill(0);
+          } else {
+            fill(150,75,0);
+          }
+          rect(this.pos.i*unitWidth+unitWidth/2,this.pos.j*unitWidth+unitWidth/2,unitWidth,unitWidth);
+          stroke("white");
+          if (this.wall.top) line(this.pos.i* unitWidth ,this.pos.j* unitWidth ,this.pos.i* unitWidth + unitWidth ,this.pos.j* unitWidth );
+          if (this.wall.bottom) line(this.pos.i* unitWidth ,this.pos.j* unitWidth + unitWidth ,this.pos.i* unitWidth + unitWidth ,this.pos.j* unitWidth + unitWidth );
+          if (this.wall.right) line(this.pos.i* unitWidth + unitWidth ,this.pos.j* unitWidth ,this.pos.i* unitWidth + unitWidth ,this.pos.j* unitWidth + unitWidth );         
+          if (this.wall.left) line(this.pos.i* unitWidth ,this.pos.j* unitWidth ,this.pos.i* unitWidth ,this.pos.j* unitWidth + unitWidth );
 
         },
 
@@ -164,56 +184,39 @@ function get_Unvisited_Neighbours(x) {
 
 function remove_wall_between(x,y) {
 
-  noFill();
-
-  stroke(0);
-
   if (x.pos.i - y.pos.i == -1){
 
-    for (let i = 0; i < 10; i++) {
-
-      line(unitWidth*x.pos.i+unitWidth,unitWidth*x.pos.j+2,unitWidth*x.pos.i+unitWidth,unitWidth*x.pos.j+unitWidth-2);
-
-    }
+    x.wall.right = false;
+    y.wall.left = false;
 
   }
 
   else if (x.pos.i - y.pos.i == 1){
 
-    for (let i = 0; i < 10; i++) {
-
-      line(unitWidth*y.pos.i+unitWidth,unitWidth*y.pos.j+2,unitWidth*y.pos.i+unitWidth,unitWidth*y.pos.j+unitWidth-2);
-
-    }
+    y.wall.right = false;
+    x.wall.left = false;
 
   }
 
   else if (x.pos.j - y.pos.j == 1){
 
-    for (let i = 0; i < 10; i++) {
-
-      line(unitWidth*x.pos.i+2,unitWidth*x.pos.j,unitWidth*x.pos.i+unitWidth-2,unitWidth*x.pos.j);
-
-    }
+    x.wall.top = false;
+    y.wall.bottom = false;
 
   }
 
   else {
 
-        for (let i = 0; i < 10; i++) {
-
-      line(unitWidth*y.pos.i+2,unitWidth*y.pos.j,unitWidth*y.pos.i+unitWidth-2,unitWidth*y.pos.j);
-
-    }
+    y.wall.top = false;
+    x.wall.bottom = false;
 
   }
 
 }
 
 function change_background(x,color){
-  stroke(0,0,0,0);
   fill(color);
-  rect(unitWidth*(x.pos.i+1/2),unitWidth*(x.pos.j+1/2),unitWidth-2,unitWidth-2);
+  noStroke();
   rect(unitWidth*(x.pos.i+1/2),unitWidth*(x.pos.j+1/2),unitWidth-2,unitWidth-2);
 }
 
@@ -254,27 +257,21 @@ function mousePressed(){
 
 
 function draw(){
-    frameRate(15);
-    if (!picked) { // No block is picked yet
-
-      // drawing grid  
-      background(0);
-      for (let i = 0; i < num; i++) {
-        fill(150,75,0);
-        stroke(255);
-        for (let j = 0; j < num; j++) {
-          rect(unitWidth*(i+1/2),unitWidth*(j+1/2),unitWidth,unitWidth);
-        }
+    // frameRate(1);
+    // drawing grid  
+    background(0);
+    for (let i = 0; i < num; i++) {
+      for (let j = 0; j < num; j++) {
+        blocksMatrix[i][j].show();
       }
-
+    }    
+    if (!picked) { // No block is picked yet
       // hovered block
       stroke(0,0,0,0);
       fill(255,0,0);
       rect(unitWidth*(hoveredX+1/2),unitWidth*(hoveredY+1/2),unitWidth-2,unitWidth-2);   
 
     } else { // A block is picked
-
-      stroke(255);
 
       if (stack.length != 0) { // while stack is not empty
 
@@ -300,8 +297,7 @@ function draw(){
             }
 
             // coloring next and current
-            change_background(next,"red");
-            change_background(current,"black");
+            change_background(current,"red");
 
             // 4. Make the chosen neighbour the current cell
             current = next;
