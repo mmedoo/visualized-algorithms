@@ -44,7 +44,7 @@ ol {
     color:inherit;
     text-decoration: none;
     display: inline-flex;
-    align-items:  baseline;
+    align-items:  center;
     font: lighter 50px Soehne;
 }
 
