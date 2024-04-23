@@ -49,6 +49,7 @@ body {
     flex-direction: column;
     height: 165px;
     overflow: hidden;
+    width: 100%;
 }
 
 .textCont2 {
@@ -73,7 +74,7 @@ body {
 }
 
 .headline {
-    font: bold 60px Soehne1;
+    font: bold 42px "Soehne1";
 }
 
 .algo {
@@ -117,11 +118,21 @@ a:hover :not(span) {
         width: 100%
     }
     .textCont {
-        width: 500px;
         margin: 100px 0;
         align-items: start;
+        max-width: 500px;
+    }
+    #welcome {
+        flex-grow: 1;
+    }
+    canvas {
+        width: 85vw !important;
+        height: 85vw !important;
     }
     .cool {
         margin-bottom: 100px;
+    }
+    .algo {
+        padding: 0;
     }
 }
