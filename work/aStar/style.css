@@ -7,6 +7,7 @@
     font-family: "Soehne1";
     src: url("../../font/s2_bold.otf") format("opentype");
 }
+
 body {
     color: white;
     background: black;
@@ -21,12 +22,20 @@ body {
     align-items: center;
     height: 100vh;
     width: 100%;
+    margin: 50px 0;
 }
 
 .cont2 {
     display:flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.cool {
+    display: flex;
+    align-items: center;
+    height:100%;
+    width: 90%;
 }
 
 .cont2 h1 {
@@ -99,14 +108,20 @@ a:hover :not(span) {
 }
 
 
-@media screen and (max-width: 750px){
+@media screen and (max-width: 1000px){
     .cont , .cont2 {
         flex-direction: column;
+        height: auto;
     }
     .cont2  h1 {
         width: 100%
     }
     .textCont {
-        width: 100%;
+        width: 500px;
+        margin: 100px 0;
+        align-items: start;
+    }
+    .cool {
+        margin-bottom: 100px;
     }
 }
