@@ -103,7 +103,8 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
         
         }
         main.mousePressed = function(){
-            if ( (!pickedStart || !pickedEnd) && main.mouseX <= wid && main.mouseY <= hei && main.mouseX >= 0 && main.mouseY >= 0){
+            if (pickedStart && pickedEnd) return;
+            if (main.mouseX <= wid && main.mouseY <= hei && main.mouseX >= 0 && main.mouseY >= 0){
         
             
             startX = main.floor(main.mouseX/unitWidth);
@@ -120,7 +121,7 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
                     openSet[[current.i,current.j]] = [current];
                     cameFrom = [current];
                     current.closed = true;
-                } else if (!pickedEnd && sqrs[startX][startY] != start) {
+                } else if (sqrs[startX][startY] != start) {
                     end = sqrs[startX][startY];
                     current.f = fScore(current,end);
                     pickedEnd = true;
