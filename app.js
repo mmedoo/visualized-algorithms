@@ -8,7 +8,7 @@ function wait(ms){
 
 
 const mes = document.querySelector(".someInfo");
-window.addEventListener("load",display);
+window.addEventListener("DOMContentLoaded",display);
 async function display(){
     await wait(400);
     mes.classList.add("loaded");
