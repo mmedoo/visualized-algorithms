@@ -1,21 +1,27 @@
-const inputWinc = document.querySelector(".wInc");
-const inputWinitial = document.querySelector(".wBegin");
-const inputRend = document.querySelector(".rFinal");
-const inputRInc = document.querySelector(".rInc");
-const inputRinitial = document.querySelector(".rBegin");
-const perlinConf = document.querySelector(".perlinConf");
-const perlinConfInputs = document.querySelectorAll(".perlinConf > input");
-const inputColor2 = document.querySelector(".vColor2");
-const inputColor1 = document.querySelector(".vColor1");
-const gRbtn = document.querySelector(".gR");
-const inputAngle = document.querySelector(".vAngle");
-const looper = document.querySelector(".loop");
-const pause = document.querySelector(".pause");
-const bgn = document.querySelector(".bgn");
-const offsetInput = document.querySelector("input[name='offset'");
-const offsetScalerInput = document.querySelector("input[name='offsetScaler'");
-const offsetPrint = document.querySelectorAll(".inputValue");
-const goldenRatio = (1 + Math.sqrt(5))/2 - 1;
+const d = document
+,qs = (e) => d.querySelector(e)
+,qsAll = (e) => d.querySelectorAll(e);
+
+
+const inputWinc = qs(".wInc"),
+inputWinitial = qs(".wBegin"),
+inputRend = qs(".rFinal"),
+inputRInc = qs(".rInc"),
+inputRinitial = qs(".rBegin"),
+perlinConf = qs(".perlinConf"),
+perlinConfInputs = qsAll(".perlinConf > input"),
+inputColor2 = qs(".vColor2"),
+inputColor1 = qs(".vColor1"),
+gRbtn = qs(".gR"),
+inputAngle = qs(".vAngle"),
+looper = qs(".loop"),
+pause = qs(".pause"),
+bgn = qs(".bgn"),
+offsetInput = qs("input[name='offset'"),
+offsetScalerInput = qs("input[name='offsetScaler'"),
+offsetPrint = qsAll(".inputValue"),
+ael = "addEventListener",
+goldenRatio = (1 + Math.sqrt(5))/2 - 1;
 
 
 var ratio = 0.125;
@@ -60,12 +66,12 @@ function rst(){
 
 
 offset = offsetInput.value;
-offsetInput.addEventListener("change",()=>{
+offsetInput[ael]("input",()=>{
   offset = offsetInput.value;
   offsetPrint[0].innerText = offset;
 })
 offsetScaler = offsetScalerInput.value;
-offsetScalerInput.addEventListener("change",()=>{
+offsetScalerInput[ael]("input",()=>{
   offsetScaler = offsetScalerInput.value;
   offsetPrint[1].innerText = offsetScaler;
 })
@@ -80,7 +86,7 @@ function hexToRgb(hex) {
   } : null;
 }
 
-bgn.addEventListener("click",()=>{
+bgn[ael]("click",()=>{
   rst();
   array = [];
   angle = 0;
@@ -88,7 +94,7 @@ bgn.addEventListener("click",()=>{
   if (pause.innerText === "resume") pause.click();
 });
 
-pause.addEventListener("click",()=>{
+pause[ael]("click",()=>{
   if (pause.innerText === "resume") {
     loop();
     pause.innerText = "pause";
@@ -97,7 +103,7 @@ pause.addEventListener("click",()=>{
     pause.innerText = "resume";
   }
 })
-looper.addEventListener("click",()=>{
+looper[ael]("click",()=>{
   if (looper.innerText === "not looping") {
     looper.innerText = "looping";
   } else {
@@ -110,29 +116,29 @@ looper.addEventListener("click",()=>{
 })
 
 inputAngle.value = ratio;
-inputAngle.addEventListener("input",()=>{
+inputAngle[ael]("input",()=>{
   ratio = inputAngle.value;
   angle = 0;
 })
-gRbtn.addEventListener("click",()=>{
+gRbtn[ael]("click",()=>{
   inputAngle.value = goldenRatio;
   ratio = goldenRatio;
   angle = 0;
 })
 
 initialColor = hexToRgb(inputColor1.value);
-inputColor1.addEventListener("change",()=>{
+inputColor1[ael]("change",()=>{
   initialColor = hexToRgb(inputColor1.value);
 })
 finalColor = hexToRgb(inputColor2.value);
-inputColor2.addEventListener("change",()=>{
+inputColor2[ael]("change",()=>{
   finalColor = hexToRgb(inputColor2.value);
 })
 
 
-const colorLabel = document.querySelector(".color");
-const perlinCheck = document.querySelector("input[name='perlin']");
-perlinCheck.addEventListener("change",()=>{
+const colorLabel = qs(".color");
+const perlinCheck = qs("input[name='perlin']");
+perlinCheck[ael]("change",()=>{
   rst();
   array = [];
   angle = 0;
@@ -157,22 +163,22 @@ perlinCheck.addEventListener("change",()=>{
 
 
 inputRinitial.value = rInitial;
-inputRinitial.addEventListener("input",()=>{
+inputRinitial[ael]("input",()=>{
   rInitial = inputRinitial.value * 1;
 })
 inputRInc.value = rIncrement;
-inputRInc.addEventListener("input",()=>{
+inputRInc[ael]("input",()=>{
   rIncrement = inputRInc.value * 1;
 })
 inputRend.value = rFinal;
-inputRend.addEventListener("input",()=>{
+inputRend[ael]("input",()=>{
   rFinal = inputRend.value * 1;
 })
 inputWinitial.value = widthInitial;
-inputWinitial.addEventListener("input",()=>{
+inputWinitial[ael]("input",()=>{
   widthInitial = inputWinitial.value * 1;
 })
 inputWinc.value = widthIncrement;
-inputWinc.addEventListener("input",()=>{
+inputWinc[ael]("input",()=>{
   widthIncrement = inputWinc.value * 1;
 })
