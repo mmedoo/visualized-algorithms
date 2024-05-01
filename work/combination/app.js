@@ -1,4 +1,5 @@
 const qs = (x , d = document) => d.querySelector(x);
+const qsA = (x , d = document) => d.querySelectorAll(x);
 
 
 Char.prototype.show = function(x){
@@ -93,10 +94,12 @@ function reset(){
 
 
 
-const wid = innerWidth / 2;
+// const wid = innerWidth / 2;
 // const hei = innerHeight - 4;
+const wid = innerWidth;
+const hei = 100;
 // const wid = hei;
-const hei = wid;
+// const hei = wid;
 
 var arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"];
 var letterMap = {};
@@ -104,9 +107,10 @@ var letterMap = {};
 let sideLength = Math.ceil(Math.sqrt(arr.length));
 let horzLength = arr.length / sideLength;
 for (let i = 0; i < arr.length; i++){
-    let x = (wid / (sideLength + 1)) * (i % sideLength + 1);
-    let y = (hei / (horzLength + 1)) * (Math.floor(i / horzLength) + 1);
-    // let x = (wid / (arr.length+1)) * (i + 1);
+    // let x = (wid / (sideLength + 1)) * (i % sideLength + 1);
+    // let y = (hei / (horzLength + 1)) * (Math.floor(i / horzLength) + 1);
+    let x = (wid / (arr.length+1)) * (i + 1);
+    let y = hei / 2;
     // let y = 50;
     letterMap[arr[i]] = new Char(arr[i], x, y);
 }
@@ -119,6 +123,8 @@ function combine(arr , node , st){
     if (k == 0){
         reset();
         for(let l of word) letterMap[l].show(true);
+        word_cont.innerHTML += `<div><span>${word}</span><span>${++n}</span></div>`;
+        word_cont.scrollTop = word_cont.scrollHeight;
         return false;
     }
     let q = new queue();
@@ -128,6 +134,7 @@ function combine(arr , node , st){
 }
 
 const preview = qs(".draw");
+const word_cont = qs(".words");
 function setup(){
     let c = createCanvas(wid, hei);
     c.parent(preview);
@@ -145,7 +152,13 @@ function keyPressed(){
         stop = false;
     }
 }
+function mousePressed(){
+    if (mouseX >= 0 && mouseX <= wid && mouseY >= 0 && mouseY <= hei) {
+        stop = false;
+    }
+}
 
+var n = 0;
 var k = 5;
 var st = new qStack();
 var q = new queue();
@@ -166,5 +179,7 @@ function draw(){
         stop = true;
         return;
     }
-    frameRate(5);
+    frameRate(20);
+    let pos = qsA(".words div");
+    if (pos.length ==  30) pos[0].remove(); 
 }
