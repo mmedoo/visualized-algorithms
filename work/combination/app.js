@@ -125,12 +125,12 @@ function combine(arr , node , st){
         for(let l of word) letterMap[l].show(true);
         word_cont.innerHTML += `<div><span>${word}</span><span>${++n}</span></div>`;
         word_cont.scrollTop = word_cont.scrollHeight;
-        return false;
+        return;
     }
     let q = new queue();
     for (let i = index; i < arr.length - k + 1; i++)
         q.enq(k-1 , i+1 , word + arr[i]);
-    return q;
+    st.push(q);
 }
 
 const preview = qs(".draw");
@@ -164,16 +164,13 @@ var st = new qStack();
 var q = new queue();
 var node = new Node(k , 0 , "" , null);
 q.enqNode(node);
-st.push(q);
 function draw(){
     if (stop) return;
     node = q.deq();
-    let pushed = combine(arr , node , st);
-    if (pushed) {
-        if (q.head != null)
-            st.push(q);
-        q = pushed;
-    } else if (q.head == null) q = st.pop();
+    st.push(q);
+    combine(arr , node , st);
+    q = st.pop();
+    while (q.head == null && st.head != null) q = st.pop();
     if (st.head == null && q.head == null){
         // noLoop();
         stop = true;
