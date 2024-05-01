@@ -1,3 +1,6 @@
+const qs = (x , d = document) => d.querySelector(x);
+
+
 Char.prototype.show = function(x){
     let bg,clr;
     if (x){
@@ -8,7 +11,7 @@ Char.prototype.show = function(x){
         clr = 255;
     }
     fill(bg);
-    circle(this.posX , this.posY , 30);
+    circle(this.posX , this.posY , 37);
     fill(clr);
     text(this.char, this.posX , this.posY);
 }
@@ -90,9 +93,10 @@ function reset(){
 
 
 
-// const wid = innerWidth;
-const hei = innerHeight - 4;
-const wid = hei;
+const wid = innerWidth / 2;
+// const hei = innerHeight - 4;
+// const wid = hei;
+const hei = wid;
 
 var arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"];
 var letterMap = {};
@@ -123,27 +127,26 @@ function combine(arr , node , st){
     return q;
 }
 
-
+const preview = qs(".draw");
 function setup(){
-    createCanvas(wid, hei);
+    let c = createCanvas(wid, hei);
+    c.parent(preview);
     background(0);
     rectMode(CENTER);
     textAlign(CENTER , CENTER);
-    textSize(18);
+    textSize(22);
     reset();
-    noLoop();
 }
 
 
+var stop = true;
 function keyPressed(){
     if (key == " "){
-        saveGif("comb.gif", 677 , {units: "frames"} )
         stop = false;
     }
 }
 
-let stop = true;
-var k = 3;
+var k = 5;
 var st = new qStack();
 var q = new queue();
 var node = new Node(k , 0 , "" , null);
@@ -163,5 +166,5 @@ function draw(){
         stop = true;
         return;
     }
-    frameRate(1);
+    frameRate(5);
 }

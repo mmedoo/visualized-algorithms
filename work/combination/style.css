@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+}
+
+.cont {
+    display: flex;
+}
+
+.cont > * {
+    width: 50%;
+    border: 1px solid black;
+}
+
+.control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font: 600 50px sans-serif;
+}
