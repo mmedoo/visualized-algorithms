@@ -17,7 +17,7 @@ body {
 .control {
     flex-grow: 1;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     text-align: center;
     font: 600 40px sans-serif;
 }
@@ -25,13 +25,10 @@ body {
 
 .words {
     font: 200 22px Arial;
-    /* width: 20%; */
     text-align: left;
     overflow: auto;
     height: 400px;
-    /* padding-left: 20px; */
     border-left: 1px solid black;
-    /* scrollbar-width: none; */
 }
 
 .words::-webkit-scrollbar {
@@ -44,12 +41,13 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
+    max-width: 60%;
 }
 
 .mess > * {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .mess > * > * {
@@ -64,7 +62,7 @@ body {
     margin: 0 15px;
 }
 .words > * > * {
-    margin: 0 15px;
+    margin: 0 20px;
 }
 
 input[type="number"] {
@@ -74,15 +72,18 @@ input[type="number"] {
 }
 
 input[type="range"] {
-    width: 200px;
+    width: 400px;
 }
 
 @media screen and (max-width: 1000px) {
+    .control {
+        justify-content: center;
+    }
     .mess {
         border: none;
         width: 85%;
+        max-width: none;
         flex-grow: 0;
-        font-size: 40px;
     }
     .words {
         display: none;

@@ -164,16 +164,20 @@ function setup(){
 var stop = true;
 function keyPressed(){
     if (key == " "){
+        reset();
+        resetComb();
         stop = false;
     }
 }
 function mousePressed(){
     if (mouseX >= 0 && mouseX <= wid && mouseY >= 0 && mouseY <= hei) {
+        reset();
+        resetComb();
         stop = false;
     }
 }
 
-function resetComb(k = Number(k_input.value) , chars = Number(letters_input.value)){
+function resetComb(k = Number(k_input.value)){
     n = 0;
     st = new qStack();
     q = new queue();
@@ -191,9 +195,11 @@ var n,
 resetComb();
 
 var fR = 20;
+const fR_display = qs("#fps + span");
 fps.addEventListener("input" , function(){
     fR = Number(this.value);
     frameRate(fR);
+    fR_display.innerText = fR + " fps";
 });
 k_input.addEventListener("change" , function(){
     resetComb();
@@ -202,7 +208,9 @@ k_input.addEventListener("change" , function(){
 letters_input.addEventListener("change" , function(){
     k_input.setAttribute("max",Number(this.value));
     if (Number(this.value) < Number(k_input.value))
-        k_input.value--;
+        k_input.value = Number(this.value);
+    if (Number(this.value) > 26)
+        this.value = 26;
     resetComb();
     arr = letters.slice(0, Number(this.value));
     createCharMap();
