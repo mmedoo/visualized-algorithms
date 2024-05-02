@@ -135,6 +135,7 @@ function combine(arr , node , st){
 
 const preview = qs(".draw");
 const word_cont = qs(".words");
+var slider;
 function setup(){
     let c = createCanvas(wid, hei);
     c.parent(preview);
@@ -158,12 +159,34 @@ function mousePressed(){
     }
 }
 
-var n = 0;
-var k = 5;
-var st = new qStack();
-var q = new queue();
-var node = new Node(k , 0 , "" , null);
-q.enqNode(node);
+function resetComb(k = 5){
+    n = 0;
+    st = new qStack();
+    q = new queue();
+    node = new Node(k , 0 , "" , null);
+    q.enqNode(node);
+    word_cont.innerHTML = "";
+}
+
+
+var n,
+    k,
+    st,
+    q,
+    node;
+resetComb();
+
+const fps = qs("#fps");
+var fR = 20;
+fps.addEventListener("input" , function(){
+    fR = Number(this.value);
+    frameRate(fR);
+});
+const k_input = qs("#k");
+k_input.addEventListener("change" , function(){
+    resetComb(Number(this.value));
+    stop = false;
+})
 function draw(){
     if (stop) return;
     node = q.deq();
@@ -172,11 +195,10 @@ function draw(){
     q = st.pop();
     while (q.head == null && st.head != null) q = st.pop();
     if (st.head == null && q.head == null){
-        // noLoop();
         stop = true;
         return;
     }
-    frameRate(20);
+    frameRate(fR);
     let pos = qsA(".words div");
-    if (pos.length ==  30) pos[0].remove(); 
+    if (pos.length ==  100) pos[0].remove();
 }
