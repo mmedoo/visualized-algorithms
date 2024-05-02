@@ -123,7 +123,17 @@ function createCharMap(){
     }
 }
 
+function factorial(n) {
+    if (n === 0) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
 
+function choose(n, k) {
+    return factorial(n) / (factorial(k) * factorial(n - k));
+}
 
 function combine(arr , node , st){
     let index = node.index;
@@ -187,14 +197,19 @@ function resetComb(k = Number(k_input.value)){
 }
 
 
+var fR = 20;
 var n,
     k,
     st,
     q,
     node;
 resetComb();
-
-var fR = 20;
+const n_dis = qs("#n-dis");
+const k_dis = qs("#k-dis");
+const nck_dis = qs("#nCk");
+n_dis.innerText = letters_input.value;
+k_dis.innerText = k_input.value;
+nck_dis.innerText = choose(Number(letters_input.value) , Number(k_input.value));
 const fR_display = qs("#fps + span");
 fps.addEventListener("input" , function(){
     fR = Number(this.value);
@@ -203,7 +218,8 @@ fps.addEventListener("input" , function(){
 });
 k_input.addEventListener("change" , function(){
     resetComb();
-    // stop = false;
+    k_dis.innerText = this.value;
+    nck_dis.innerText = choose(Number(letters_input.value) , Number(this.value));
 })
 letters_input.addEventListener("change" , function(){
     k_input.setAttribute("max",Number(this.value));
@@ -214,6 +230,8 @@ letters_input.addEventListener("change" , function(){
     resetComb();
     arr = letters.slice(0, Number(this.value));
     createCharMap();
+    n_dis.innerText = this.value;
+    nck_dis.innerText = choose(Number(this.value) , Number(k_input.value));
 });
 function draw(){
     if (stop) return;
