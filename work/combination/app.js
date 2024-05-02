@@ -101,19 +101,28 @@ const hei = 100;
 // const wid = hei;
 // const hei = wid;
 
-var arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"];
+
+const letters_input = qs("#n");
+const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var arr = letters.slice(0, Number(letters_input.value));
 var letterMap = {};
 
-let sideLength = Math.ceil(Math.sqrt(arr.length));
-let horzLength = arr.length / sideLength;
-for (let i = 0; i < arr.length; i++){
-    // let x = (wid / (sideLength + 1)) * (i % sideLength + 1);
-    // let y = (hei / (horzLength + 1)) * (Math.floor(i / horzLength) + 1);
-    let x = (wid / (arr.length+1)) * (i + 1);
-    let y = hei / 2;
-    // let y = 50;
-    letterMap[arr[i]] = new Char(arr[i], x, y);
+createCharMap();
+
+function createCharMap(){
+    let sideLength = Math.ceil(Math.sqrt(arr.length));
+    let horzLength = arr.length / sideLength;
+    letterMap = {};
+    for (let i = 0; i < arr.length; i++){
+        // let x = (wid / (sideLength + 1)) * (i % sideLength + 1);
+        // let y = (hei / (horzLength + 1)) * (Math.floor(i / horzLength) + 1);
+        let x = (wid / (arr.length+1)) * (i + 1);
+        let y = hei / 2;
+        // let y = 50;
+        letterMap[arr[i]] = new Char(arr[i], x, y);
+    }
 }
+
 
 
 function combine(arr , node , st){
@@ -135,7 +144,9 @@ function combine(arr , node , st){
 
 const preview = qs(".draw");
 const word_cont = qs(".words");
-var slider;
+const fps = qs("#fps");
+const k_input = qs("#k");
+
 function setup(){
     let c = createCanvas(wid, hei);
     c.parent(preview);
@@ -144,6 +155,9 @@ function setup(){
     textAlign(CENTER , CENTER);
     textSize(22);
     reset();
+    letters_input.addEventListener("change" , function(){
+        reset();
+    });    
 }
 
 
@@ -159,7 +173,7 @@ function mousePressed(){
     }
 }
 
-function resetComb(k = 5){
+function resetComb(k = Number(k_input.value) , chars = Number(letters_input.value)){
     n = 0;
     st = new qStack();
     q = new queue();
@@ -176,17 +190,23 @@ var n,
     node;
 resetComb();
 
-const fps = qs("#fps");
 var fR = 20;
 fps.addEventListener("input" , function(){
     fR = Number(this.value);
     frameRate(fR);
 });
-const k_input = qs("#k");
 k_input.addEventListener("change" , function(){
-    resetComb(Number(this.value));
-    stop = false;
+    resetComb();
+    // stop = false;
 })
+letters_input.addEventListener("change" , function(){
+    k_input.setAttribute("max",Number(this.value));
+    if (Number(this.value) < Number(k_input.value))
+        k_input.value--;
+    resetComb();
+    arr = letters.slice(0, Number(this.value));
+    createCharMap();
+});
 function draw(){
     if (stop) return;
     node = q.deq();
