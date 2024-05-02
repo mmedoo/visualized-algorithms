@@ -96,7 +96,7 @@ function reset(){
 
 // const wid = innerWidth / 2;
 // const hei = innerHeight - 4;
-const wid = innerWidth;
+const wid = innerWidth - 17;
 const hei = 100;
 // const wid = hei;
 // const hei = wid;
@@ -204,35 +204,43 @@ var n,
     q,
     node;
 resetComb();
-const n_dis = qs("#n-dis");
-const k_dis = qs("#k-dis");
+
+const n_dis = qsA(".n-dis");
+const k_dis = qsA(".k-dis");
 const nck_dis = qs("#nCk");
-n_dis.innerText = letters_input.value;
-k_dis.innerText = k_input.value;
-nck_dis.innerText = choose(Number(letters_input.value) , Number(k_input.value));
+for (let d of n_dis) d.innerHTML = letters_input.value;
+for (let d of k_dis) d.innerHTML = k_input.value;
+nck_dis.innerHTML = choose(Number(letters_input.value) , Number(k_input.value));
+
 const fR_display = qs("#fps + span");
 fps.addEventListener("input" , function(){
     fR = Number(this.value);
     frameRate(fR);
     fR_display.innerText = fR + " fps";
 });
+
 k_input.addEventListener("change" , function(){
     resetComb();
-    k_dis.innerText = this.value;
-    nck_dis.innerText = choose(Number(letters_input.value) , Number(this.value));
+    for (let d of k_dis) d.innerHTML = k_input.value;
+    nck_dis.innerHTML = choose(Number(letters_input.value) , Number(this.value));
 })
+
 letters_input.addEventListener("change" , function(){
     k_input.setAttribute("max",Number(this.value));
-    if (Number(this.value) < Number(k_input.value))
+    if (Number(this.value) < Number(k_input.value)){
         k_input.value = Number(this.value);
+        k_input.dispatchEvent(new Event("change"));
+    }
     if (Number(this.value) > 26)
         this.value = 26;
     resetComb();
     arr = letters.slice(0, Number(this.value));
     createCharMap();
-    n_dis.innerText = this.value;
-    nck_dis.innerText = choose(Number(this.value) , Number(k_input.value));
+    for (let d of n_dis) d.innerHTML = letters_input.value;
+    nck_dis.innerHTML = choose(Number(this.value) , Number(k_input.value));
 });
+
+
 function draw(){
     if (stop) return;
     node = q.deq();
