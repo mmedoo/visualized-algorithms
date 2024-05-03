@@ -125,6 +125,7 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
                     end = sqrs[startX][startY];
                     current.f = fScore(current,end);
                     pickedEnd = true;
+                    reDrawTheBoard();
                 }
             }
         
@@ -171,9 +172,11 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
             main.strokeWeight(1);
             main.fill(...obsColor);
             main.stroke(...obsColor);
-            for (const i of obsList) {
-                main.square(unitWidth*(i.x + 0.5) , unitWidth*(i.y + 0.5) , unitWidth);
-            }    
+            if (!(disc && pickedStart && pickedEnd)){
+                for (let i of obsList) {
+                    main.square(unitWidth*(i.x + 0.5) , unitWidth*(i.y + 0.5) , unitWidth);
+                }    
+            }
             if (pickedStart) {
                 main.fill(10, 150, 0);
                 main.stroke(10, 150, 0)
@@ -315,4 +318,4 @@ function newCanvas ( parent , backgroundColor , pathColor , obsColor , disc , nu
 }
 
 newCanvas (cont , [0,0,0] , [255,255,255] , [100,25,25] , false , 30);
-newCanvas (cont2 , [234,182,79] , [120,60,0] , [234,182,79] , true , 50);
+newCanvas (cont2 , [234,182,79] , [120,60,0] , [120,60,0] , true , 50);
