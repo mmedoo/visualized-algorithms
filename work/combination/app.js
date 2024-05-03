@@ -5,15 +5,16 @@ const qsA = (x , d = document) => d.querySelectorAll(x);
 Char.prototype.show = function(x){
     let bg,clr;
     if (x){
-        bg = 255;
-        clr = 0;
+        bg = [255];
+        clr = [0];
     } else {
-        bg = 0 ;
-        clr = 255;
+        bg = [0,0,0,0] ;
+        clr = [255];
     }
-    fill(bg);
+    noStroke();
+    fill(...bg);
     circle(this.posX , this.posY , 37);
-    fill(clr);
+    fill(...clr);
     text(this.char, this.posX , this.posY);
 }
 
@@ -96,8 +97,8 @@ function reset(){
 
 // const wid = innerWidth / 2;
 // const hei = innerHeight - 4;
-const wid = innerWidth - 17;
-const hei = 100;
+var wid = innerWidth - 17;
+var hei = 100;
 // const wid = hei;
 // const hei = wid;
 
@@ -170,6 +171,14 @@ function setup(){
     });    
 }
 
+
+function windowResized() {
+    wid = innerWidth - 17;
+    hei = 100;
+    resizeCanvas(wid, hei);
+    createCharMap();
+    reset();
+}
 
 var stop = true;
 function keyPressed(){
