@@ -74,20 +74,19 @@
       <form>
         <div>
           <label for="name">Name:</label>
-          <input required type="text" name="name" id="name">
+          <input onfocus="focusInp(event)" onblur="focusOut(event)" required type="text" name="name" id="name">
         </div>
         <div>
           <label for="email">Email:</label>
-          <input required type="email" name="email" id="email">
+          <input onfocus="focusInp(event)" onblur="focusOut(event)" required type="email" name="email" id="email">
         </div>
         <div>
           <label for="subject">Subject:</label>
-          <input required type="text" name="subject" id="subject">
+          <input onfocus="focusInp(event)" onblur="focusOut(event)" required type="text" name="subject" id="subject">
         </div>
-        <label for="message">Message</label>
-        <br>
         <div id="mess">
-          <textarea required type="text" name="message" id="message"></textarea>
+          <label for="message">Message</label>
+          <textarea onfocus="focusInp(event)" onblur="focusOut(event)" required type="text" name="message" id="message"></textarea>
         </div>
         <div id="submit">
           <input type="submit" value="Send">

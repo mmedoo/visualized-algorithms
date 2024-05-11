@@ -14,8 +14,26 @@ async function display(){
     mes.classList.add("loaded");
 }
 
-const form = document.querySelector('form');
+
 const inputs = document.querySelectorAll('input');
+
+function focusInp(e){
+    e.target.parentElement.classList.add("focus");
+}
+function focusOut(e){
+    e.target.parentElement.classList.remove("focus");
+}
+
+// for (let inp of inputs){
+//     inp.addEventListener("focus",function(){
+//         this.parentElement.classList.add("focus");
+//     });
+//     inp.addEventListener("blur",function(){
+//         this.parentElement.classList.remove("focus");
+//     });
+// }
+
+const form = document.querySelector('form');
 const textArea = document.querySelector('textarea');
 function toggleSubmit(force){
     if (!force){
