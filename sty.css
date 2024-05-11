@@ -14,7 +14,7 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 10px;
   height: 5px;
 }
 ::-webkit-scrollbar-track {
@@ -118,6 +118,94 @@ section {
 .sec3con {
   width: 75%;
 }
+
+.contact {
+  align-items: start;
+  margin-left: 6.5%;
+  margin-right: 3.5%;
+  font-family: "Soehne1";
+  font-size: 30px;
+}
+.contact > span {
+  font: normal 55px "Google Sans Text";
+  margin: 30px 0;
+}
+
+form {
+  width: 40%;
+}
+form > div {
+  border: 1px solid black;
+  margin: 10px 0;
+  display: flex;
+  align-items: start;
+  overflow: hidden;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+.contact input {
+  height: 40px;
+  font-family: sans-serif;
+  font-size: 25px;
+  padding: 0 10px;
+  width: 100%;
+  border: none;
+}
+
+textarea {
+  font-family: sans-serif;
+  font-size: 25px;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+#mess , #submit{
+  border: none;
+  padding: 0;
+  width: 100%;
+}
+
+#submit {
+  justify-content: end;
+}
+
+.contact input:focus {
+  outline: none;
+}
+
+input[type="submit"] {
+  width: 150px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+input[type="submit"]:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+input[type="submit"]:active {
+  color: white;
+  background-color: black;
+}
+
+.disabled {
+  cursor: not-allowed;
+  color: rgb(200,200,200);
+}
+
+.disabled > div , .disabled textarea {
+  border-color: rgb(200,200,200);
+}
+
+
+@media screen and (max-width: 800px) {
+  form {
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .someInfo {
       max-height: none;
@@ -126,7 +214,6 @@ section {
     flex-direction: column;
     align-items: center;
   }
-  
   .proj {
     width: 90%;
   }
