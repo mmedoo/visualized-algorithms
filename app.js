@@ -40,7 +40,11 @@ form.addEventListener("submit",function(e){
     formData.append('service_id', 'service_port');
     formData.append('template_id', 'port');
     formData.append('user_id', 'VlIZlX3XpFdgpVYZR');
-
+    for (let e of this.elements){
+        if (e.type != "submit"){
+            formData.append(e.name, e.value);
+        }
+    }
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://api.emailjs.com/api/v1.0/email/send-form');
     xhr.onload = function() {
