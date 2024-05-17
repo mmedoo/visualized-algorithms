@@ -225,28 +225,41 @@ const fR_display = qs("#fps + span");
 fps.addEventListener("input" , function(){
     fR = Number(this.value);
     frameRate(fR);
-    fR_display.innerText = fR + " fps";
+    fR_display.innerText = fR;
 });
 
 k_input.addEventListener("change" , function(){
+    let k = Number(this.value);
+    if (k < 1) {
+        this.value = 1;
+        k = 1;
+    }
+    if (k > Number(letters_input.value)){
+        letters_input.value = k;
+        letters_input.dispatchEvent(new Event("change"));
+    }
     resetComb();
-    for (let d of k_dis) d.innerHTML = k_input.value;
-    nck_dis.innerHTML = choose(Number(letters_input.value) , Number(this.value));
+    for (let d of k_dis) d.innerHTML = k;
+    nck_dis.innerHTML = choose(Number(letters_input.value) , k);
 })
 
 letters_input.addEventListener("change" , function(){
-    k_input.setAttribute("max",Number(this.value));
-    if (Number(this.value) < Number(k_input.value)){
-        k_input.value = Number(this.value);
+    let n = Number(this.value);
+    if (n > 26)
+        this.value = 26;
+    else if (n < 1)
+        this.value = 1;
+    n = Number(this.value);
+    k_input.setAttribute("max",n);
+    if (n < Number(k_input.value)){
+        k_input.value = n;
         k_input.dispatchEvent(new Event("change"));
     }
-    if (Number(this.value) > 26)
-        this.value = 26;
     resetComb();
-    arr = letters.slice(0, Number(this.value));
+    arr = letters.slice(0, n);
     createCharMap();
     for (let d of n_dis) d.innerHTML = letters_input.value;
-    nck_dis.innerHTML = choose(Number(this.value) , Number(k_input.value));
+    nck_dis.innerHTML = choose(n , Number(k_input.value));
 });
 
 
