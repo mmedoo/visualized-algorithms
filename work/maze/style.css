@@ -1,11 +1,10 @@
 @font-face {
-    font-family: "Soehne";
-    src: url("../../font/s4_thin.otf") format("opentype");
-}
-@font-face {
-    font-family: "Soehne1";
-    src: url("../../font/s2_bold.otf") format("opentype");
-}
+    font-family: 'Google Sans Text';
+    font-style: normal;
+    font-weight: 400 700;
+    src: url(https://fonts.gstatic.com/s/googlesanstext/v21/5aUu9-KzpRiLCAt4Unrc-xIKmCU5qEp2iw.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
 
 .cont {
     margin: 0;
@@ -19,14 +18,14 @@
 }
 
 #welcome {
-    font: lighter 50px "Soehne";
+    font: lighter 50px "Google Sans Text";
     margin: 75px 0;
 }
 .algo {
     padding: 8% 8%;
 }
 ol {
-    font: bold 30px "Soehne";
+    font: bold 30px "Google Sans Text";
 }
 .gist {
     min-width: 100%;
@@ -45,7 +44,7 @@ ol {
     text-decoration: none;
     display: inline-flex;
     align-items:  center;
-    font: lighter 50px Soehne;
+    font: lighter 50px Google Sans Text;
 }
 
 #source:hover :not(span) {
