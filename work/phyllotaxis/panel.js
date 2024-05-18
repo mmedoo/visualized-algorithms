@@ -43,7 +43,6 @@ var array = [];
 
 
 
-
 function begin(){
   tempRed = initialColor.r;
   tempGreen = initialColor.g;
