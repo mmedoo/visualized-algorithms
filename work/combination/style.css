@@ -32,7 +32,7 @@ body {
 
 
 .words {
-    font: 200 22px Arial;
+    font: 200 22px 'Google Sans Text';
     text-align: left;
     overflow: auto;
     height: 400px;
