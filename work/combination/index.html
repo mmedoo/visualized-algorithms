@@ -12,9 +12,11 @@
         <div class="control">
             <div class="mess">
                 <br>
-                Press SPACE or touch the canvas above to start combining.
+                Press SPACE
                 <br>
+                or touch the canvas above
                 <br>
+                to start combining.
                 <div>
                     <label for="fps">fps</label>
                     <input value="20" min="0" max="60" type="range" id="fps">
@@ -42,8 +44,61 @@
         </div>
     </div>
     <div class="explanation">
-        bro this is cool
+        <h1>Algorithm</h1>
+        <h2>Python</h2>
+        <script src="https://gist.github.com/mmedoo/30a68998a28c6aa8bf832669b61d3117.js"></script>
+        <br>
+        <div>
+            This is a well known approach called "Recursive Combination".
+            <br>
+            I think I should get some prize for this implementation
+            <br>
+            as I couldn't find any other implementation that is as simple as this one. 🙃
+            <br>
+            <br>
+            Here's how it works: 
+            <ul>
+                <br>
+                <li>
+                    The function aims to generate combinations of k elements from the list arr.
+                </li>
+                <br>
+                <li>
+                    The for loop iterates over the indices of arr starting from the index
+                    position and up to len(arr) - k + 1 to make sure that the number of remaining elements
+                    is always >= k , so that it's enough to form a combination of k elements.
+                </li>
+                <br>
+                <li>
+                    It's essential that i starts from the index because it ensures that each element in the combination is chosen from the remaining elements of arr (to avoid repetition).
+                </li>
+                <br>
+                <li>
+                    The loop iterates over all possible starting points for the combination.
+                </li>
+                <br>
+                <li>
+                    For each starting point, it recursively calls the combine function to generate combinations of k-1 elements from the remaining elements of arr.
+                </li>
+                <br>
+                <li>
+                    The index parameter helps to keep track of the starting position for the next iteration to prevent selecting already chosen elements in the combination.
+                </li>
+            </ul>
+            <h1>Complexity</h1>
+            <h2>Space</h2>
+            <div>
+                The space complexity of the algorithm is O(k) because the recursive call stack can go up to k levels deep.
+            </div>
+            <h2>Time</h2>
+            <div>
+                The time complexity of the algorithm is O(<math xmlns="http://www.w3.org/1998/Math/MathML"><mmultiscripts><mmultiscripts><mn>C</mn><mprescripts/><none/><mi>n</mi></mmultiscripts><mi>k</mi><none/></mmultiscripts></math>) because the algorithm generates all possible combinations of k elements from the list arr.
+            </div>
+        </div>
     </div>
+    <br>
+    <br>
+    <br>
 </body>
 <script src="../p5.js"></script>
 <script src="app.js"></script>
