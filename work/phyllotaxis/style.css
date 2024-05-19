@@ -63,6 +63,7 @@ input[type="range"] {
 
 
 .bgn {
+  cursor: pointer;
   height: 62px;
   background: white;
   border: 1px solid rgb(200, 200, 200);
