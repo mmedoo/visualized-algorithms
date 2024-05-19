@@ -8,7 +8,7 @@ var hei,wid;
 
 
 if (innerWidth < 1000){
-    hei = wid = innerWidth - 17;
+    hei = wid = document.documentElement.clientWidth;
     bigCont.style.flexDirection = "column";
 }
 else {
@@ -95,6 +95,23 @@ function nonPerlinNoisey(){
     if (again) rst();
     else pause.click();
   } 
+}
+
+
+function windowResized(){
+    if (innerWidth < 1000){
+        hei = wid = document.documentElement.clientWidth;
+        bigCont.style.flexDirection = "column";
+    }
+    else {
+        bigCont.style.flexDirection = "row";
+        wid = innerWidth/2;
+        hei = innerHeight - 7;
+    }
+    array = [];
+    rst();
+    resizeCanvas(wid,hei);    
+    loop();
 }
 
 

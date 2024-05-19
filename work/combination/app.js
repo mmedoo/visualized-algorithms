@@ -4,6 +4,7 @@ const qsA = (x , d = document) => d.querySelectorAll(x);
 
 Char.prototype.show = function(x){
     let bg,clr;
+    // x = true;
     if (x){
         bg = [255];
         clr = [0];
@@ -13,7 +14,7 @@ Char.prototype.show = function(x){
     }
     noStroke();
     fill(...bg);
-    circle(this.posX , this.posY , 37);
+    circle(this.posX , this.posY - 1 , 35);
     fill(...clr);
     text(this.char, this.posX , this.posY);
 }
@@ -97,7 +98,7 @@ function reset(){
 
 // const wid = innerWidth / 2;
 // const hei = innerHeight - 4;
-var wid = innerWidth - 17;
+var wid = document.documentElement.clientWidth;
 var hei = 100;
 // const wid = hei;
 // const hei = wid;
@@ -118,7 +119,7 @@ function createCharMap(){
         // let x = (wid / (sideLength + 1)) * (i % sideLength + 1);
         // let y = (hei / (horzLength + 1)) * (Math.floor(i / horzLength) + 1);
         let x = (wid / (arr.length+1)) * (i + 1);
-        let y = hei / 2;
+        let y = (hei + 7) / 2;
         // let y = 50;
         letterMap[arr[i]] = new Char(arr[i], x, y);
     }
@@ -173,7 +174,7 @@ function setup(){
 
 
 function windowResized() {
-    wid = innerWidth - 17;
+    wid = document.documentElement.clientWidth;
     hei = 100;
     resizeCanvas(wid, hei);
     createCharMap();

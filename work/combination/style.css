@@ -94,6 +94,12 @@ input[type="range"] {
     font-size: 23px;
 }
 
+input {
+    border: none;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 6px;
+}
+
 @media screen and (max-width: 1100px) {
     .control {
         justify-content: center;
@@ -111,5 +117,8 @@ input[type="range"] {
     input[type="range"] {
         width: 80%;
         margin: 60px 0;
+    }
+    .explanation {
+        padding: 0 8%;
     }
 }
