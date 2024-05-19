@@ -81,6 +81,11 @@ input[type="range"] {
   border: none;
 }
 
+.gR {
+  font-size: 20px;
+  height: 30px;
+}
+
 .disabledColor {
   color: rgb(150, 150, 150)
 }
@@ -159,8 +164,8 @@ input[type="color"] {
 }
 
 input[type="color"]:hover {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-  transform: scale(1.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
+  transform: scale(1.075);
 }
 
 
