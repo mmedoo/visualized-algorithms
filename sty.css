@@ -1,10 +1,10 @@
-@font-face {
+/* @font-face {
   font-family: 'Google Sans Text';
   font-style: normal;
   font-weight: 400 700;
   src: url(https://fonts.gstatic.com/s/googlesanstext/v21/5aUu9-KzpRiLCAt4Unrc-xIKmCU5qEp2iw.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+} */
 
 @font-face {
   font-family: 'Google Sans';
@@ -58,9 +58,10 @@ h1,h2,h3,h4,h5,h6,a,span,b,text {
 }
 .subH {
   color: inherit;
-  font: bolder 22px "Soehne1";
-  margin-bottom: -17px;
+  font: bold 22px "Soehne1";
+  font: 500 22px "Source Code Pro";
   padding: 0 3%;
+  margin: 4px 0;
 }
 .someInfo {
     font-family: Google Sans;
@@ -101,7 +102,7 @@ section {
 
 .proj {
   display: grid;
-  grid-template-columns: repeat(auto-fill , minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill , minmax(270px, 1fr));
   gap: 50px;
   width: 75%;
 }
@@ -119,13 +120,15 @@ section {
 .info {
   color: inherit;
   padding-left: 3%;
-  padding-right: 12%;
+  padding-right: 10%;
   padding-bottom: 20px;
+  line-height: normal;
 }
 .proimg {
   border-radius: 5% 5% 0 0;
   width: 95%;
   padding: 2.5%;
+  padding-bottom: 0;
 }
 .damn {
   width: 100%;
