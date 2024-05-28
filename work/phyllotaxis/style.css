@@ -176,7 +176,9 @@ input[type="color"]:hover {
 }
 
 @media screen and (max-width: 1000px) {
-
+    .cnvsCont > * {
+  bottom: 0;
+}
     .bigCont {
         flex-direction: column;
     }
