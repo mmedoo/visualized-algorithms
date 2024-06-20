@@ -95,12 +95,6 @@ input[type="range"] {
   align-items: center;
 }
 
-.perlinCheck {
-  display: flex;
-  align-items: center;
-  height: 50px;
-}
-
 .angle {
   justify-content: start;
 }
@@ -109,17 +103,8 @@ input[type="range"] {
   margin: 0 18px;
 }
 
-.perlinCheck > * {
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.perlinCheck > *:hover {
-  color: blue;
-}
-
-.perlinCheck > *:active {
-  color:#888;
+.perlinCheck {
+  margin: 11px 0;
 }
 
 #source {

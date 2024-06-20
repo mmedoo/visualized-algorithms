@@ -90,26 +90,26 @@ bgn[ael]("click",()=>{
   array = [];
   angle = 0;
   done = false;
-  if (pause.innerText === "resume") pause.click();
+  if (pause.innerText === "Resume") pause.click();
 });
 
 pause[ael]("click",()=>{
-  if (pause.innerText === "resume") {
+  if (pause.innerText === "Resume") {
     loop();
-    pause.innerText = "pause";
+    pause.innerText = "Pause";
   } else {
     noLoop();
-    pause.innerText = "resume";
+    pause.innerText = "Resume";
   }
 })
 looper[ael]("click",()=>{
-  if (looper.innerText === "not looping") {
-    looper.innerText = "looping";
+  if (!again) {
+    looper.innerText = "Looping: ON";
   } else {
-    looper.innerText = "not looping";
+    looper.innerText = "Looping: OFF";
   }
   again = !again;
-  if (pause.innerText === "resume" || (isPerlinNoise && done)) {
+  if (pause.innerText === "Resume" || (isPerlinNoise && done)) {
     bgn.click();
   }
 })
@@ -136,8 +136,8 @@ inputColor2[ael]("change",()=>{
 
 
 const colorLabel = qs(".color");
-const perlinCheck = qs("input[name='perlin']");
-perlinCheck[ael]("change",()=>{
+const perlinCheck = qs(".perlinCheck > button");
+perlinCheck[ael]("click",()=>{
   rst();
   array = [];
   angle = 0;
@@ -149,11 +149,13 @@ perlinCheck[ael]("change",()=>{
   if (isPerlinNoise) {
     colorLabel.classList.add("disabledColor");
     perlinConf.classList.remove("disabledColor");
+    perlinCheck.innerText = "Perlin noise: ON";
   } else {
     colorLabel.classList.remove("disabledColor");
     perlinConf.classList.add("disabledColor");
+    perlinCheck.innerText = "Perlin noise: OFF";
   }
-  if (pause.innerText === "resume") pause.click();
+  if (pause.innerText === "Resume") pause.click();
 })
 
 
