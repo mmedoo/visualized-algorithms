@@ -1,7 +1,6 @@
 const qs = (x , d = document) => d.querySelector(x);
 const qsA = (x , d = document) => d.querySelectorAll(x);
 
-
 Char.prototype.show = function(x){
     let bg,clr;
     // x = true;
@@ -25,7 +24,6 @@ function Char(l , posX , posY){
     this.posY = posY;
     this.marked = false;
 } 
-
 
 class queue {
     constructor(){
@@ -57,7 +55,6 @@ class queue {
     
 };
 
-
 class qStack {
     constructor(){
         this.head = null;
@@ -74,7 +71,6 @@ class qStack {
     }
 }
 
-
 class Node{
     constructor(k , index , word , next){
         this.next = next;
@@ -84,9 +80,6 @@ class Node{
     }
 };
 
-
-
-
 function reset(){
     background(0);
     for (let l in letterMap){
@@ -94,15 +87,8 @@ function reset(){
     }
 }
 
-
-
-// const wid = innerWidth / 2;
-// const hei = innerHeight - 4;
 var wid = document.documentElement.clientWidth;
 var hei = 100;
-// const wid = hei;
-// const hei = wid;
-
 
 const letters_input = qs("#n");
 const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -172,7 +158,6 @@ function setup(){
     });    
 }
 
-
 function windowResized() {
     wid = document.documentElement.clientWidth;
     hei = 100;
@@ -180,7 +165,6 @@ function windowResized() {
     createCharMap();
     reset();
 }
-
 var stop = true;
 function keyPressed(){
     if (key == " "){
@@ -196,7 +180,6 @@ function mousePressed(){
         stop = false;
     }
 }
-
 function resetComb(k = Number(k_input.value)){
     n = 0;
     st = new qStack();
@@ -266,15 +249,19 @@ letters_input.addEventListener("change" , function(){
 
 function draw(){
     if (stop) return;
+
     node = q.deq();
     st.push(q);
+    
     combine(arr , node , st);
     q = st.pop();
     while (q.head == null && st.head != null) q = st.pop();
+    
     if (st.head == null && q.head == null){
         stop = true;
         return;
     }
+    
     frameRate(fR);
     let pos = qsA(".words div");
     if (pos.length ==  100) pos[0].remove();

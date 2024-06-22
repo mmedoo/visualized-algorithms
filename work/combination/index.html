@@ -14,7 +14,7 @@
                 <br>
                 Press SPACE
                 <br>
-                or touch the canvas above
+                or click on the canvas above
                 <br>
                 to start combining.
                 <div>
@@ -70,7 +70,7 @@
                 </li>
                 <br>
                 <li>
-                    It's essential that i starts from the index because it ensures that each element in the combination is chosen from the remaining elements of arr (to avoid repetition).
+                    It's essential that 'i' starts from the index because it ensures that each element in the combination is chosen from the remaining elements of arr (to avoid repetition).
                 </li>
                 <br>
                 <li>
@@ -85,6 +85,50 @@
                     The index parameter helps to keep track of the starting position for the next iteration to prevent selecting already chosen elements in the combination.
                 </li>
             </ul>
+            <h1>Implementation</h1>
+            <div>
+                A question may rise, How was I able to catch words' combinations in the sidebar above if the function never exits before generating all combinations?
+                <br>
+                The answer is: I implemented the recursion process manually.
+                <br>
+                <br>
+                The function recursively calls itself within a for loop. So I thought of 2 approaches. 
+                <br>
+                <br>
+                Straightforward approach: using a stack of nodes, with each node having all needed instances for a call plus the 'i' from the for loop and keep track of loop limit with if statment.
+                <br>
+                <br>
+                So instead of the recursive function:
+                <br>
+                <script src="https://gist.github.com/mmedoo/5d87b720bd9fcf687eb572bb7381381c.js"></script>
+                <br>
+                We get this:
+                <br>
+                note: the current node was pushed before the call 
+                <br>
+                <script src="https://gist.github.com/mmedoo/85192c49e92ec2b1de87a1405f0a9665.js"></script>
+                <br>
+                And here is the drawing loop:
+                <br>
+                <script src="https://gist.github.com/mmedoo/cdcae42e4c5c426198c6484cd1020ef2.js"></script>
+                <br>
+                What I actually did: since the function recursively calls itself within a for loop, we group all of these calls (nodes) in a queue, and then push it to the stack, so we have a stack of queues of nodes.
+                <br>
+                <br>
+                So the function becomes:
+                <br>
+                <script src="https://gist.github.com/mmedoo/b4ff584593d7eef6b608d79d8e8ecea0.js"></script>
+                <br>
+                Flow:
+                <br>
+                A node is dequeued from the current queue, then, the current queue is pushed to the stack so that the rest of its node is dequeued in the future, then, the combine function is called, and wether it pushed a queue to the stack or not, we pop a queue from the stack and we make it the current queue, and repeat.
+                <br>
+                <br>
+                The drawing loop:
+                <br>
+                <script src="https://gist.github.com/mmedoo/ff20a90afeea9bd98a171b727eb9e9c7.js"></script>
+            </div>
+
             <h1>Complexity</h1>
             <h2>Space</h2>
             <div>
@@ -92,7 +136,7 @@
             </div>
             <h2>Time</h2>
             <div>
-                The time complexity of the algorithm is O(<math xmlns="http://www.w3.org/1998/Math/MathML"><mmultiscripts><mmultiscripts><mn>C</mn><mprescripts/><none/><mi>n</mi></mmultiscripts><mi>k</mi><none/></mmultiscripts></math>) because the algorithm generates all possible combinations of k elements from the list arr.
+                The time complexity of the algorithm is O(<math xmlns="http://www.w3.org/1998/Math/MathML"><mmultiscripts><mmultiscripts><mn>C</mn><mprescripts/><none/><mi>n</mi></mmultiscripts><mi>k</mi><none/></mmultiscripts></math>) because the algorithm consists of nested loops that ends with a combination generated, which occurs <math xmlns="http://www.w3.org/1998/Math/MathML"><mmultiscripts><mmultiscripts><mn>C</mn><mprescripts/><none/><mi>n</mi></mmultiscripts><mi>k</mi><none/></mmultiscripts></math> times.
             </div>
         </div>
     </div>
