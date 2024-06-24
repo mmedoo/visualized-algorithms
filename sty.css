@@ -139,6 +139,15 @@ section {
   width: 75%;
 }
 
+section span {
+  font: normal 55px "Google Sans";
+}
+
+section {
+  margin: 20px 0;
+}
+
+
 .contact {
   align-items: start;
   margin-left: 6.5%;
@@ -146,10 +155,25 @@ section {
   font-family: "Soehne1";
   font-size: 30px;
 }
-.contact > span {
-  font: normal 55px "Google Sans";
-  margin: 30px 0;
+
+.resume {
+  justify-content: start;
+  flex-direction: row;
+  align-items: center;
 }
+
+.resume svg {
+  fill: rgb(150,150,150);
+  transition: 0.28s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.resume svg:hover {
+  fill: black;
+}
+.resume a {
+  display: inline-flex;
+  margin-left: 18px;
+}
+
 
 form {
   width: 40%;
