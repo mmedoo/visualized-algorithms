@@ -113,7 +113,7 @@ section {
 }
 
 .innp:hover {
-  border-color: rgba(0,0,0,0.4);
+  border-color: rgb(210,210,210);
   transform: scale(1.04);
 }
 

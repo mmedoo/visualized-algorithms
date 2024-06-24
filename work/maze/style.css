@@ -27,7 +27,7 @@ body {
 }
 
 .algo {
-    padding: 8% 8%;
+    padding: 8%;
 }
 
 ol {
@@ -42,10 +42,6 @@ ol {
     font-size: 14px
 }
 
-.gist_cont {
-    display: flex;
-    padding: 3% 0;
-}
 
 #source {
     color:inherit;
@@ -71,9 +67,6 @@ ol {
     canvas {
         width: 80vw !important;
         height: 80vw !important;
-    }
-    .algo {
-        padding: 0;
     }
 
 }

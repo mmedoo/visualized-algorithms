@@ -79,12 +79,12 @@ body {
 }
 
 .algo {
-    padding: 8% 8%;
+    padding: 8%;
 }
 
 
 ol , ul {
-    font: bold 30px "Google Sans Text";
+    font: bold 23px "Google Sans Text";
 }
 
 .gist {
@@ -94,10 +94,6 @@ ol , ul {
 
 .gist * {
     font-size: 14px
-}
-
-.gist-cont {
-    padding: 1% 0;
 }
 
 a {
@@ -133,8 +129,5 @@ a:hover :not(span) {
     }
     .cool {
         margin-bottom: 100px;
-    }
-    .algo {
-        padding: 0;
     }
 }
