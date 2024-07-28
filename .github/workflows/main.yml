@@ -19,9 +19,9 @@ jobs:
     - name: Set directory variable
       id: setdir
       run: |
-        if [ "${{ env.DIR_CHANGED }}" == *"home/"* ]; then
-          echo "dir=." >> $GITHUB_ENV
-        fi
+        # if [ "${{ env.DIR_CHANGED }}" == *"home/"* ]; then
+        #   echo "dir=." >> $GITHUB_ENV
+        # fi
         
         cd "${{ env.dir }}"
         npm install
@@ -31,5 +31,6 @@ jobs:
       uses: mmedoo/build-react-on-push@v1.2
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TARGET_DIRECTORY: "${{env.dir}}"
+        # TARGET_DIRECTORY: "${{env.dir}}"
+        # TARGET_DIRECTORY: "."
         APP_DIRECTORY: "./home"
