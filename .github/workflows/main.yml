@@ -22,9 +22,12 @@ jobs:
         if [ "${{ env.DIR_CHANGED }}" == *"home/"* ]; then
           echo "dir=." >> $GITHUB_ENV
         fi
+        
+        cd "${{ env.dir }}"
+        npm install
       shell: bash
 
-    - name: Build and Deploy for Subdirectory 1
+    - name: Build and Deploy
       uses: mmedoo/build-react-on-push@v1.2
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
