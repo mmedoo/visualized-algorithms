@@ -23,7 +23,7 @@ jobs:
         #   echo "dir=." >> $GITHUB_ENV
         # fi
         
-        cd "${{ env.dir }}"
+        cd "./home"
         npm install
       shell: bash
 
