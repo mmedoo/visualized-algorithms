@@ -25,7 +25,8 @@ jobs:
       shell: bash
 
     - name: Build and Deploy for Subdirectory 1
-      uses: mmedoo/build-react-on-push@v1.0
+      uses: mmedoo/build-react-on-push@v1.2
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TARGET_DIRECTORY: "${{env.dir}}"
+        APP_DIRECTORY: "./home"
