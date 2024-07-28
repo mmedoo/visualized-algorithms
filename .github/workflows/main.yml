@@ -19,7 +19,7 @@ jobs:
     - name: Set directory variable
       id: setdir
       run: |
-        if [[ ${{ env.DIR_CHANGED }} == *"home/"* ]]; then
+        if [ "${{ env.DIR_CHANGED }}" == *"home/"* ]; then
           echo "dir=." >> $GITHUB_ENV
         fi
       shell: bash
