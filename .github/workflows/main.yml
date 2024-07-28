@@ -21,23 +21,11 @@ jobs:
       run: |
         if [[ ${{ env.DIR_CHANGED }} == *"home/"* ]]; then
           echo "dir=." >> $GITHUB_ENV
-        elif [[ ${{ env.DIR_CHANGED }} == *"phyllotaxis/"* ]]; then
-          echo "dir=algorithm/" >> $GITHUB_ENV
-        elif [[ ${{ env.DIR_CHANGED }} == *"phyllotaxis/"* ]]; then
-          echo "dir=subdirectory2" >> $GITHUB_ENV
         fi
       shell: bash
 
     - name: Build and Deploy for Subdirectory 1
-      if: env.dir == 'subdirectory1'
       uses: mmedoo/build-react-on-push@v1.0
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TARGET_DIRECTORY: 'subdirectory1'
-
-    - name: Build and Deploy for Subdirectory 2
-      if: env.dir == 'subdirectory2'
-      uses: mmedoo/build-react-on-push@v1.0
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TARGET_DIRECTORY: 'subdirectory1'
+        TARGET_DIRECTORY: "${{env.dir}}"
