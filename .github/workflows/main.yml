@@ -11,18 +11,20 @@ on:
 jobs:
   job_for_dir1:
     runs-on: ubuntu-latest
-    # if: contains(github.event.commits.*.modified, 'home/') || contains(github.event.commits.*.added, 'home/') || contains(github.event.commits.*.removed, 'home/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-      - name: Running
-        shell: bash
-        run: |
-          echo ${{ github.action_path }}
-      
-      # - name: Build and Deploy
-      #   uses: mmedoo/build-react-on-push@v1.3
-      #   with:
-      #     GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
-      #     APP_DIRECTORY: "./home"
+      - uses: marceloprado/has-changed-path@v1.0.1
+        id: changed-front
+        with:
+          paths: home
+  
+      - name: Deploy front
+        if: steps.changed-front.outputs.changed == 'true'      
+        uses: mmedoo/build-react-on-push@v1.3
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
+          APP_DIRECTORY: "./home"
