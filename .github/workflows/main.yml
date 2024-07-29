@@ -23,8 +23,14 @@ jobs:
           echo "dir='.'" >> $GITHUB_ENV
           echo "app='./home'" >> $GITHUB_ENV
         fi
+
+    - name: Set directory variable II
+      shell: bash
+      run: |
         echo ${{ env.app }}
         echo ${{ env.dir }}
+
+        
     # - name: Build and Deploy
     #   uses: mmedoo/build-react-on-push@v1.2
     #   with:
