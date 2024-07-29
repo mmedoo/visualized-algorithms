@@ -27,8 +27,10 @@ jobs:
     - name: Set directory variable II
       shell: bash
       run: |
-        echo ${{ env.app }}
-        echo ${{ env.dir }}
+        APP=${{ env.app }}
+        DIR=${{ env.dir }}
+        echo $APP
+        echo $DIR
 
         
     # - name: Build and Deploy
