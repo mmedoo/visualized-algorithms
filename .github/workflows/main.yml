@@ -16,16 +16,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # - name: Set directory variable
-    #   id: setdir
-    #   run: |
-        # if [ "${{ env.DIR_CHANGED }}" == *"home/"* ]; then
-        #   echo "dir=." >> $GITHUB_ENV
-        # fi
-      # shell: bash
+    - name: Set directory variable
+      shell: bash
+      run: |
+        if [ "${{ env.DIR_CHANGED }}" == *"home/"* ]; then
+          echo "dir=." >> $GITHUB_ENV
+          echo "app=./home" >> $GITHUB_ENV
+        fi
 
     - name: Build and Deploy
       uses: mmedoo/build-react-on-push@v1.2
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        APP_DIRECTORY: "./home"
+        APP_DIRECTORY: ${{ env.app }}
+        TARGET_DIRECTORY: ${{ env.dir }}
