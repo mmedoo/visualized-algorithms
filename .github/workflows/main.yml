@@ -15,6 +15,9 @@ jobs:
         with:
           fetch-depth: 0
 
+          
+          
+
       - name: Check if Home changed
         uses: marceloprado/has-changed-path@v1.0.1
         id: changed-home
@@ -22,20 +25,78 @@ jobs:
           paths: home
   
       - name: Update Home
-        if: steps.changed-home.outputs.changed == 'true'      
+        if: steps.changed-home.outputs.changed == 'true'
         uses: mmedoo/build-react-on-push@v1.3
         with:
           GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
           APP_DIRECTORY: "./home"
+          
+          
+          
 
-      - name: Check if Github changed
+      - name: Check if Phyllotaxis changed
         uses: marceloprado/has-changed-path@v1.0.1
-        id: changed-github
+        id: changed-phy
         with:
-          paths: .github
+          paths: phyllotaxis
+
+      - name: Update Phyllotaxis
+        if: steps.changed-phy.outputs.changed == 'true'      
+        uses: mmedoo/build-react-on-push@v1.3
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
+          TARGET_DIRECTORY: "./algorithm/phyllotaxis"
+          APP_DIRECTORY: "./phyllotaxis"
+          
+          
+          
+
+      - name: Check if Maze changed
+        uses: marceloprado/has-changed-path@v1.0.1
+        id: changed-maze
+        with:
+          paths: maze
   
-      - name: Update Github
-        if: steps.changed-github.outputs.changed == 'true'      
-        shell: bash
-        run: |
-          echo "github changed"
+      - name: Update Maze
+        if: steps.changed-maze.outputs.changed == 'true'      
+        uses: mmedoo/build-react-on-push@v1.3
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
+          TARGET_DIRECTORY: "./algorithm/maze"
+          APP_DIRECTORY: "./maze"
+
+          
+
+          
+
+      - name: Check if Pthfind changed
+        uses: marceloprado/has-changed-path@v1.0.1
+        id: changed-astar
+        with:
+          paths: aStar
+  
+      - name: Update A*
+        if: steps.changed-astar.outputs.changed == 'true'      
+        uses: mmedoo/build-react-on-push@v1.3
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
+          TARGET_DIRECTORY: "./algorithm/aStar"
+          APP_DIRECTORY: "./aStar"
+          
+
+          
+          
+          
+      - name: Check if Combinations changed
+        uses: marceloprado/has-changed-path@v1.0.1
+        id: changed-comb
+        with:
+          paths: combinations
+  
+      - name: Update Combinations
+        if: steps.changed-comb.outputs.changed == 'true'      
+        uses: mmedoo/build-react-on-push@v1.3
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
+          TARGET_DIRECTORY: "./algorithm/combinations"
+          APP_DIRECTORY: "./combinations"
