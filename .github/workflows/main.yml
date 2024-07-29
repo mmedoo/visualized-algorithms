@@ -2,8 +2,6 @@ name: Conditional Jobs
 
 on:
   push:
-    paths:
-      - 'home/**'
     branches:
       - main
   workflow_dispatch:
