@@ -1,41 +1,22 @@
-name: Build and Deploy
+name: Conditional Jobs
 
 on:
   push:
+    paths:
+      - 'home/**'
     branches:
       - main
 
 jobs:
-  build:
+  job_for_dir1:
     runs-on: ubuntu-latest
-
-    env:
-      DIR_CHANGED: ${{ github.event.head_commit.modified }}
-
+    if: contains(github.event.commits.*.modified, 'home/') || contains(github.event.commits.*.added, 'home/') || contains(github.event.commits.*.removed, 'home/')
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Set directory variable
-      shell: bash
-      run: |
-        if [[ "${{ env.DIR_CHANGED }}" == *"home/"* ]]; then
-          echo "dir='.'" >> $GITHUB_ENV
-          echo "app='./home'" >> $GITHUB_ENV
-        fi
-
-    - name: Set directory variable II
-      shell: bash
-      run: |
-        APP=${{ env.app }}
-        DIR=${{ env.dir }}
-        echo $APP
-        echo $DIR
-
-        
-    # - name: Build and Deploy
-    #   uses: mmedoo/build-react-on-push@v1.2
-    #   with:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     APP_DIRECTORY: ${{ env.app }}
-    #     TARGET_DIRECTORY: ${{ env.dir }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Build and Deploy
+        uses: mmedoo/build-react-on-push@v1.3
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
+          APP_DIRECTORY: "./home"
