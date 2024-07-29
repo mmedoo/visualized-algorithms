@@ -91,12 +91,12 @@ jobs:
         uses: marceloprado/has-changed-path@v1.0.1
         id: changed-comb
         with:
-          paths: combinations
+          paths: combination
   
       - name: Update Combinations
         if: steps.changed-comb.outputs.changed == 'true'      
         uses: mmedoo/build-react-on-push@v1.3
         with:
           GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
-          TARGET_DIRECTORY: "./algorithm/combinations"
+          TARGET_DIRECTORY: "./algorithm/combination"
           APP_DIRECTORY: "./combinations"
