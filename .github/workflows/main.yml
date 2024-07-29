@@ -20,8 +20,8 @@ jobs:
       shell: bash
       run: |
         if [ "${{ env.DIR_CHANGED }}" == *"home/"* ]; then
-          echo "dir=." >> $GITHUB_ENV
-          echo "app=./home" >> $GITHUB_ENV
+          echo "dir='.'" >> $GITHUB_ENV
+          echo "app='./home'" >> $GITHUB_ENV
         fi
 
     - name: Build and Deploy
