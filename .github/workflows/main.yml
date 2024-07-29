@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     
 jobs:
-  job_for_dir1:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
