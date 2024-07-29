@@ -15,14 +15,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: marceloprado/has-changed-path@v1.0.1
-        id: changed-front
+      - name: Check if Home changed
+        uses: marceloprado/has-changed-path@v1.0.1
+        id: changed-home
         with:
           paths: home
   
-      - name: Deploy front
-        if: steps.changed-front.outputs.changed == 'true'      
+      - name: Update Home
+        if: steps.changed-home.outputs.changed == 'true'      
         uses: mmedoo/build-react-on-push@v1.3
         with:
           GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
           APP_DIRECTORY: "./home"
+
+      - name: Check if Github changed
+        uses: marceloprado/has-changed-path@v1.0.1
+        id: changed-github
+        with:
+          paths: home
+  
+      - name: Update Github
+        if: steps.changed-github.outputs.changed == 'true'      
+        shell: bash
+        run: |
+          echo "github changed"
