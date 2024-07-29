@@ -19,6 +19,7 @@ jobs:
     - name: Set directory variable
       shell: bash
       run: |
+        echo "${{ env.DIR_CHANGED }}"
         if [ "${{ env.DIR_CHANGED }}" == *"home/"* ]; then
           echo "dir='.'" >> $GITHUB_ENV
           echo "app='./home'" >> $GITHUB_ENV
