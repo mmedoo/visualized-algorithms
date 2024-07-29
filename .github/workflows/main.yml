@@ -32,7 +32,7 @@ jobs:
         uses: marceloprado/has-changed-path@v1.0.1
         id: changed-github
         with:
-          paths: home
+          paths: .github
   
       - name: Update Github
         if: steps.changed-github.outputs.changed == 'true'      
