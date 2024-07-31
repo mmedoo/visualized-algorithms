@@ -24,11 +24,13 @@ section {
 	transition: 0.18s cubic-bezier(0.2, 0.6, 0.2, 1);
 	border-radius: 2.5%;
 	border: 1px solid transparent;
+	position: relative;
+	bottom: 0;
 }
 
 .algo_container:hover {
 	border-color: rgb(170,170,170);
-	transform: scale(1.04);
+	bottom: 8px;
 }
 
 a {
