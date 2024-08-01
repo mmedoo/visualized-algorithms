@@ -1,10 +1,11 @@
 import "./toggle.css";
-import { useEffect, useState } from "react";
-
+import { useContext, useEffect } from "react";
+import { IsDarkPreferedContext, SetDarkPreferedContext } from "../../context";
 
 function Toggle({size, style}) {
 
-	const [isDarkPreferred, setPreferDark] = useState(window.matchMedia("(prefers-color-scheme: dark)"))
+	const isDarkPreferred = useContext(IsDarkPreferedContext);
+	const setPreferDark = useContext(SetDarkPreferedContext);
 	
 	function toggle() {
 		setPreferDark(!isDarkPreferred);
