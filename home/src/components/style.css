@@ -45,6 +45,13 @@ body {
 	background: rgb(230,230,230);
 	user-select: none;
 	padding-bottom: 100px;
+	transition: 0.2s;
+}
+
+body.dark {
+	background: rgb(30,30,30);
+	color: white;
+	--borders: rgb(60,60,60);
 }
 
 

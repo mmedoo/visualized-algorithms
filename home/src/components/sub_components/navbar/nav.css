@@ -1,0 +1,28 @@
+.nav_cont {
+	position: fixed;
+	top: -45px;
+	right: 100px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(15px);
+	z-index: 1000;
+	border-radius: 0 0 12px 12px;
+	transition: 0.175s;
+	padding: 18px 25px;
+	padding-bottom: 10px;
+}
+
+.nav_cont:hover {
+	padding-bottom: 25px;
+	top: 0;
+}
+
+.dark .nav_cont {
+	box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+@media screen and (max-width: 1000px) {
+	.nav_cont {
+		padding: 18px 18px !important;
+		top: 0;
+	}
+}
