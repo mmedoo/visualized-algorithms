@@ -4,10 +4,11 @@ import p5 from 'p5';
 
 
 
-const particlesNo = 100;
+const particlesNo = 120;
 
 const mouseCircum = 120;
 
+var vsblty = 0;
 
 var bgColor = window.matchMedia("(prefers-color-scheme: dark)").matches ? 30 : 230;
 
@@ -42,7 +43,7 @@ const basicSketch = (p) => {
 		grad.addColorStop(0.5, color2);
 		grad.addColorStop(0, color3);
 
-		p.strokeWeight(1)
+		p.strokeWeight(1);
 		p.drawingContext.strokeStyle = grad;
 
 		p.line(x1, y1, x2, y2);
@@ -56,10 +57,13 @@ const basicSketch = (p) => {
 
 		p.stroke(255)
 		if (bgColor > 200){
-
-			gradientLine(this.x, this.y, mouseX, mouseY, 'rgba(150,150,150,0.5)', "rgb(200,200,200)");
+			// let clr = vsblty * 200;
+			// gradientLine(this.x, this.y, mouseX, mouseY, `rgba(150,150,150,0.5)`, `rgba(200,200,200,${vsblty})`);
+			gradientLine(this.x, this.y, mouseX, mouseY, `rgba(150,150,150,${vsblty})`, `rgba(200,200,200,${vsblty})`);
 		} else {
-			gradientLine(this.x, this.y, mouseX, mouseY, `rgba(150,150,150,0.5)`, "rgb(55,55,55)");
+			// let clr = vsblty * 55;
+			// gradientLine(this.x, this.y, mouseX, mouseY, `rgba(150,150,150,0.5)`, "rgb(55,55,55)");
+			gradientLine(this.x, this.y, mouseX, mouseY, `rgba(150,150,150,${vsblty})`, `rgba(55,55,55,${vsblty})`);
 		}
 
 	}
@@ -78,6 +82,9 @@ const basicSketch = (p) => {
 		sects = new Pool(particlesNo);
 	};
 	
+	p.mouseMoved = () => {
+		vsblty < 0.6 ? vsblty += 0.06 : vsblty = 0.7;
+	}
 
 	p.draw = () => {
 		p.background(bgColor);
@@ -89,6 +96,8 @@ const basicSketch = (p) => {
 			return;
 		if (p.mouseY > window.innerHeight)
 			return;
+
+		vsblty > 0 ? vsblty -= 0.03 : vsblty = 0;
 
 		sects.connectMouse(p.mouseX, p.mouseY);
 	};

@@ -46,12 +46,13 @@ body {
 	user-select: none;
 	padding-bottom: 100px;
 	transition: 0.2s;
+	--borders: 1px solid rgb(60,60,60);
 }
 
 body.dark {
 	background: rgb(30,30,30);
 	color: white;
-	--borders: rgb(60,60,60);
+	--borders: 1px solid rgb(60,60,60);
 }
 
 

@@ -29,7 +29,7 @@ section {
 }
 
 .algo_container:hover {
-	border-color: var(--borders);
+	border: var(--borders);
 	bottom: 8px;
 }
 
