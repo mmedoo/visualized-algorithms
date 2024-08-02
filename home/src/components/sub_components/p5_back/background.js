@@ -77,6 +77,10 @@ const basicSketch = (p) => {
 	
 
 	p.setup = () => {
+
+		if (window.innerWidth < 1000)
+			noLoop();
+		
 		p.createCanvas(window.innerWidth, window.innerHeight);
 		p.background(bgColor);
 		sects = new Pool(particlesNo);
@@ -104,6 +108,9 @@ const basicSketch = (p) => {
 	
 	
 	p.windowResized = () => {
+		if (window.innerWidth >= 1000)
+			loop();
+		
 		p.resizeCanvas(window.innerWidth, window.innerHeight);
 		p.background(bgColor);
 		sects = new Pool(particlesNo);
