@@ -8,7 +8,7 @@ import {IsDarkPreferedContext, SetDarkPreferedContext} from "./sub_components/co
 import { useState } from "react";
 function App(){
 
-	const [isDarkPreferred, setPreferDark] = useState(window.matchMedia("(prefers-color-scheme: dark)"))
+	const [isDarkPreferred, setPreferDark] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches)
 	
 	return (
 		<IsDarkPreferedContext.Provider value={isDarkPreferred}>
