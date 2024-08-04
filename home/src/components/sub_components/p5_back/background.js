@@ -10,7 +10,7 @@ const mouseCircum = 120;
 
 var vsblty = 0;
 
-var bgColor = window.matchMedia("(prefers-color-scheme: dark)").matches ? 30 : 230;
+var bgColor = window.matchMedia("(prefers-color-scheme: dark)").matches ? 30 : 242;
 
 const basicSketch = (p) => {
 
