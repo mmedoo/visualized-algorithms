@@ -13,7 +13,7 @@ function App(){
 	return (
 		<IsDarkPreferedContext.Provider value={isDarkPreferred}>
 			
-			<Canvas />
+			{/* <Canvas /> */}
 
 			<SetDarkPreferedContext.Provider value={setPreferDark}>
 				<Nav/>

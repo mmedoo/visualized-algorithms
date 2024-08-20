@@ -4,7 +4,7 @@ import p5 from 'p5';
 
 
 
-const particlesNo = 120;
+var particlesNo = window.innerWidth/5.5;
 
 const mouseCircum = 120;
 
@@ -79,7 +79,7 @@ const basicSketch = (p) => {
 	p.setup = () => {
 
 		if (window.innerWidth < 1000)
-			noLoop();
+			p.noLoop();
 		
 		p.createCanvas(window.innerWidth, window.innerHeight);
 		p.background(bgColor);
@@ -109,10 +109,14 @@ const basicSketch = (p) => {
 	
 	p.windowResized = () => {
 		if (window.innerWidth >= 1000)
-			loop();
+			p.loop();
+		else
+			p.noLoop();
 		
 		p.resizeCanvas(window.innerWidth, window.innerHeight);
 		p.background(bgColor);
+
+		particlesNo = window.innerWidth/5.5;
 		sects = new Pool(particlesNo);
 	};
 };
