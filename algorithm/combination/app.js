@@ -122,7 +122,9 @@ function factorial(n) {
 function choose(n, k) {
     return factorial(n) / (factorial(k) * factorial(n - k));
 }
-
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 function combine(arr , node , st){
     let index = node.index;
     let k = node.k;
@@ -224,7 +226,7 @@ k_input.addEventListener("change" , function(){
     }
     resetComb();
     for (let d of k_dis) d.innerHTML = k;
-    nck_dis.innerHTML = choose(Number(letters_input.value) , k);
+    nck_dis.innerHTML = numberWithCommas(choose(Number(letters_input.value) , k));
 })
 
 letters_input.addEventListener("change" , function(){
@@ -243,7 +245,7 @@ letters_input.addEventListener("change" , function(){
     arr = letters.slice(0, n);
     createCharMap();
     for (let d of n_dis) d.innerHTML = letters_input.value;
-    nck_dis.innerHTML = choose(n , Number(k_input.value));
+    nck_dis.innerHTML = numberWithCommas(choose(n , Number(k_input.value)));
 });
 
 
