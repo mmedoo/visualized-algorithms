@@ -11,7 +11,7 @@ export const algoData = [
 		"img": "./imgs/comb.gif",
 		"title": "COMBINOTORICS",
 		"description": "Had to implement recursion process manually so the drawing loop captures frames.",
-		"link": "./algorithm/combination/"
+		"link": "./algorithm/combinotorics/"
 	},
 	{
 		"id": 3,
