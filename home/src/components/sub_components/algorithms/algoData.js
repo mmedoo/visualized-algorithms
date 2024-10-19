@@ -9,7 +9,7 @@ export const algoData = [
 	{
 		"id": 2,
 		"img": "./imgs/comb.gif",
-		"title": "COMBINATIONS GENERATOR",
+		"title": "COMBINOTORICS",
 		"description": "Had to implement recursion process manually so the drawing loop captures frames.",
 		"link": "./algorithm/combination/"
 	},
