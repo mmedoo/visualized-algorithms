@@ -35,7 +35,7 @@ let no = 0;
 let st, q, node;
 
 let stop = true;
-let reset, resetComb;
+let resetCanvas, resetComb;
 
 const BasicSketch = (p, setwords) => {
 	
@@ -50,7 +50,7 @@ const BasicSketch = (p, setwords) => {
 
 	resetComb();
 
-	reset = () => {
+	resetCanvas = () => {
 		p.background(0);
 		createCharMap();
 		for (let l in letterMap) {
@@ -61,7 +61,7 @@ const BasicSketch = (p, setwords) => {
 	function combineWithoutRept(node, st) {
 		const { index, k, word } = node;
 		if (k === 0) {
-			reset();
+			resetCanvas();
 			for (let l of word) letterMap[l].show(p, true);
 			setwords((prev) => [...prev, { word, no }]);
 			no++;
@@ -76,7 +76,7 @@ const BasicSketch = (p, setwords) => {
 	const combineWithRept = (node, st) => {
 		const { index, k, word } = node;
 		if (k === 0) {
-			reset();
+			resetCanvas();
 			for (let l of word) letterMap[l].show(p, true);
 			setwords((prev) => [...prev, { word, no }]);
 			no++;
@@ -91,7 +91,7 @@ const BasicSketch = (p, setwords) => {
 	function permuteWithRept(node, st) {
 		const { k, word } = node;
 		if (k === 0) {
-			reset();
+			resetCanvas();
 			for (let l of word) letterMap[l].show(p, true);
 			setwords((prev) => [...prev, { word, no }]);
 			no++;
@@ -106,7 +106,7 @@ const BasicSketch = (p, setwords) => {
 	function permuteWithoutRept(node, st) {
 		const { k, word } = node;
 		if (k === 0) {
-			reset();
+			resetCanvas();
 			for (let l of word) letterMap[l].show(p, true);
 			setwords((prev) => [...prev, { word, no }]);
 			no++;
@@ -126,7 +126,7 @@ const BasicSketch = (p, setwords) => {
 		p.rectMode(p.CENTER);
 		p.textAlign(p.CENTER, p.CENTER);
 		p.textSize(22);
-		reset();
+		resetCanvas();
 		// if (stop)
 		// p.noLoop();
 	};
@@ -158,7 +158,7 @@ const BasicSketch = (p, setwords) => {
 
 	p.mousePressed = () => {
 		if (p.mouseX >= 0 && p.mouseX <= wid && p.mouseY >= 0 && p.mouseY <= hei) {
-			reset();
+			resetCanvas();
 			resetComb();
 			stop = false;
 		}
@@ -166,7 +166,7 @@ const BasicSketch = (p, setwords) => {
 
 	p.keyPressed = () => {
 		if (p.key === " ") {
-			reset();
+			resetCanvas();
 			resetComb();
 			stop = false;
 		}
@@ -175,7 +175,7 @@ const BasicSketch = (p, setwords) => {
 	p.windowResized = () => {
 		wid = document.documentElement.clientWidth;
 		p.resizeCanvas(wid, hei);
-		reset();
+		resetCanvas();
 	};
 };
 
@@ -207,7 +207,7 @@ const P5Wrapper = () => {
 		localOp = operation;
 		localRepeat = repeat;
 		resetComb();
-		reset();
+		resetCanvas();
 		stop = true;
 
 		return () => {
