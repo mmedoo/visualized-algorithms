@@ -91,7 +91,7 @@ jobs:
         uses: marceloprado/has-changed-path@v1.0.1
         id: changed-comb
         with:
-          paths: combination
+          paths: combinations
   
       - name: Update Combinations
         if: steps.changed-comb.outputs.changed == 'true'      
