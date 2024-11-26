@@ -50,14 +50,6 @@ const BasicSketch = (p, setwords) => {
 
 	resetComb();
 
-	resetCanvas = () => {
-		p.background(0);
-		createCharMap();
-		for (let l in letterMap) {
-			letterMap[l].show(p);
-		}
-	}
-
 	function combineWithoutRept(node, st) {
 		const { index, k, word } = node;
 		if (k === 0) {
@@ -121,6 +113,13 @@ const BasicSketch = (p, setwords) => {
 	}
 
 	p.setup = () => {
+		resetCanvas = () => {
+			p.background(0);
+			createCharMap();
+			for (let l in letterMap) {
+				letterMap[l].show(p);
+			}
+		}
 		p.createCanvas(wid, hei);
 		p.background(0);
 		p.rectMode(p.CENTER);
@@ -179,8 +178,6 @@ const BasicSketch = (p, setwords) => {
 	};
 };
 
-let loaded = false;
-
 const P5Wrapper = () => {
 	const canvasRef = useRef();
 	const setWords = useContext(Words)[1];
@@ -201,18 +198,13 @@ const P5Wrapper = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!loaded) return;
 		localN = n;
 		localK = k;
 		localOp = operation;
 		localRepeat = repeat;
 		resetComb();
-		resetCanvas();
+		if(resetCanvas) resetCanvas();
 		stop = true;
-
-		return () => {
-			loaded = true;
-		}
 	}, [n, k, repeat, operation]);
 
 	useEffect(() => {
@@ -232,5 +224,4 @@ const P5Wrapper = () => {
 	);
 };
 
-export { BasicSketch };
 export default P5Wrapper;
