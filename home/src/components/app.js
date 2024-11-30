@@ -1,5 +1,5 @@
 import "./style.css";
-import Canvas from "./sub_components/p5_back/background"
+// import Canvas from "./sub_components/p5_back/background"
 import Welcome from "./sub_components/welcome/welcome"
 import Algorithms from "./sub_components/algorithms/algo"
 import Nav from "./sub_components/navbar/nav"

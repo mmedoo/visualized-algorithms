@@ -21,16 +21,14 @@ section {
 
 
 .algo_container {
-	transition: 0.18s cubic-bezier(0.2, 0.6, 0.2, 1);
+	transition: 0.125s ease;
 	border-radius: 2.5%;
-	border: 1px solid transparent;
-	position: relative;
-	bottom: 0;
+	border: 2px solid transparent;
 }
 
 .algo_container:hover {
 	border: var(--borders);
-	bottom: 8px;
+	translate: 0 -8px;
 }
 
 a {
