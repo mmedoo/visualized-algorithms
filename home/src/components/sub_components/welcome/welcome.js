@@ -29,9 +29,10 @@ function Welcome() {
 					font: "lighter 25px 'Google Sans'"
 				}}
 			>
-				Visualizations in this page are implemented using p5.js library
+				Visualizations are drawn with <a href="https://p5js.org/" target="_blank" rel="noreferrer">
+					p5.js
+				</a>
 				<br/>
-				which is so efficient for graphics and animations needs.
 			</p>
 			<br/>
 		</div>

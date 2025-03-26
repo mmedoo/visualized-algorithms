@@ -11,7 +11,6 @@ section {
 	margin: 20px 0;
 }
 
-
 .all_algos_cont {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -19,21 +18,22 @@ section {
 	width: 75%;
 }
 
-
 .algo_container {
 	transition: 0.125s ease;
 	border-radius: 2.5%;
 	border: 2px solid transparent;
+	position: relative;
+	top: 0;
+	& a {
+		text-decoration: none;
+	}
 }
 
 .algo_container:hover {
 	border: var(--borders);
-	translate: 0 -8px;
+	top: -9px;
 }
 
-a {
-	text-decoration: none;
-}
 
 
 .algo_inner_cont {
