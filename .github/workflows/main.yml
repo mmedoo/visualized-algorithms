@@ -30,6 +30,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.ACT_TOK }}
           APP_DIRECTORY: "./home"
+          BUILD_FNAME: "build"
           
           
           
