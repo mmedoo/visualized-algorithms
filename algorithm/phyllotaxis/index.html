@@ -1,122 +1,146 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phyllotaxis</title>
-    <link rel="stylesheet" href="style.css">
-    </style>   
-  </head>
-  <body>
 
-    <div class="bigCont">
-      <div class="panel">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Phyllotaxis</title>
+	<link rel="stylesheet" href="style.css">
+</head>
 
-        <div class="inputDiv btns">
-          <button class="bgn" type="button" name="button">Go!</button>
-          <button class="bgn pause" type="button" name="button">Pause</button>
-          <button class="bgn loop" type="button" name="button">Looping: OFF</button>
-        </div>
+<body>
 
+	<div class="bigCont">
+		<div class="panel">
 
-        <div class="inputDiv angle">
-            leaf every
-            <input step="0.125" class="input vAngle" type="number" name="" value="0.125">
-            circle&emsp;
-            <button class="gR bgn">Golden ratio</button>
-        </div>
+			<div class="inputDiv btns">
+				<button class="bgn go" type="button" name="button">Go!</button>
+				<button class="bgn pause" type="button" name="button">Pause</button>
+				<button class="bgn loop" type="button" name="button">Looping: OFF</button>
+				<button class="bgn download" type="button" name="button">Download Drawing</button>
+			</div>
 
 
-        <div class="inputDiv" style="display: block">
+			<div class="inputDiv angle">
+				leaf every
+				<input step="0.125" class="input vAngle" type="number" name="" value="0.125">
+				circle&emsp;
+				<button class="gR bgn">Golden ratio</button>
 
-          <div class="color">
-            Color deviation from
-            <input class="input vColor1" type="color" name="" value="#ffffff">
-            to
-            <input class="input vColor2" type="color" name="" value="#ffffff">
-          </div>
-          <div class="perlinCheck">
-            <button class="bgn">
-              Perlin noise: OFF
-            </button>
-          </div>
+				<br>
 
-          <div class="perlinConf disabledColor">
-            <label for="offset">
-              <b>
-                offset
-              </b>
-            </label>
-            <input disabled min="-10" max="10" value="4" type="range" name="offset">
-            <b class="inputValue">4</b>
-            <br>
-            <label for="offsetScaler">
-              <b>
-                offset Scaler
-              </b>
-            </label>
-            <input disabled min="10" max="500" value="80" step="10" type="range" name="offsetScaler">
-            <b class="inputValue">80</b>
-            <br>
-              <b style="font: normal 20px Google Sans Text">
-                note: noise changes with rate offset/offsetScaler
-              </b>
-          </div>
-          
-        </div>
+				<span class="wiki">
+					More info about the golden ratio:
+					<a target="_blank" href="https://en.wikipedia.org/wiki/Golden_ratio">Wikipedia</a>
+				</span>
+			</div>
 
 
-        <div class="inputDiv radius">
-          <b>shape initial radius</b>
-          <input type="number" class="input rBegin" value="0">
-        </div>
+			<div class="inputDiv" style="display: block">
+
+				<div class="color">
+					Color deviation from
+					<input class="input vColor1" type="color" name="" value="#ffffff">
+					to
+					<input class="input vColor2" type="color" name="" value="#ffffff">
+				</div>
+				<div class="perlinCheck">
+					<button class="bgn">
+						Perlin noise: OFF
+					</button>
+				</div>
+
+				<div class="perlinConf disabledColor">
+					<label for="offset">
+						<b>
+							offset
+						</b>
+					</label>
+					
+					<input disabled min="-10" max="10" value="4" type="range" name="offset">
+					
+					<b class="inputValue">4</b>
+					
+					<br>
+					
+					<label for="offsetScaler">
+						<b>
+							offset Scaler
+						</b>
+					</label>
+					
+					<input disabled min="10" max="500" value="80" step="10" type="range" name="offsetScaler">
+					
+					<b class="inputValue">80</b>
+					
+					<br>
+					
+					<b style="font: normal 20px Google Sans Text">
+						note: noise changes with rate offset/offsetScaler
+					</b>
+					
+					<br>
+
+					<span class="wiki">
+						More info about Perlin Noise:
+						<a target="_blank" href="https://en.wikipedia.org/wiki/Perlin_noise">Wikipedia</a>
+					</span>	
+					
+				</div>
+
+			</div>
 
 
-        <div class="inputDiv radiusInc">
-          <b>radius increment</b>
-          <input type="number" step="0.1" class="input rInc" value="0.5">
-        </div>
+			<div class="inputDiv radius">
+				<b>shape initial radius</b>
+				<input type="number" class="input rBegin" value="0">
+			</div>
 
 
-        <div class="inputDiv radiusFinal">
-          <b>final radius</b>
-          <input type="number" class="input rFinal" value="200">
-        </div>
+			<div class="inputDiv radiusInc">
+				<b>radius increment</b>
+				<input type="number" step="0.1" class="input rInc" value="0.5">
+			</div>
 
 
-        <div class="inputDiv width">
-          <b>leaf initial width</b>
-          <input type="number" step="0.5" class="input wBegin" value="10">
-        </div>
+			<div class="inputDiv radiusFinal">
+				<b>final radius</b>
+				<input type="number" class="input rFinal" value="200">
+			</div>
 
 
-        <div class="inputDiv widthInc">
-          <b>width increment</b>
-          <input type="number" step="0.05" class="input wInc" value="0.05">
-        </div>
+			<div class="inputDiv width">
+				<b>leaf initial width</b>
+				<input type="number" step="0.5" class="input wBegin" value="10">
+			</div>
 
-        <div style="justify-content: flex-start;" class="inputDiv">
-          <b>
-            Source Code:&nbsp;
-          </b>
-            <a target="_blank" id="source" href="https://github.com/mmedoo/visualized-algorithms/tree/build/algorithm/phyllotaxis">
-                <text>
-                    github
-                </text>
-                <svg>
-                  <use href="../../assets/imgs/open_in_new.svg#svg">
-                </svg>
-            </a>
-        </div>
 
-      </div>
-      <div class="cnvsCont"></div>
-    </div>
-    <div class="ov">
-      <h1>Overview coming soon.</h1>
-    </div>
-  </body>
+			<div class="inputDiv widthInc">
+				<b>width increment</b>
+				<input type="number" step="0.05" class="input wInc" value="0.05">
+			</div>
+
+			<div style="justify-content: flex-start;" class="inputDiv">
+				<b>
+					Source Code:&nbsp;
+				</b>
+				<a target="_blank" id="source"
+					href="https://github.com/mmedoo/visualized-algorithms/tree/build/algorithm/phyllotaxis">
+					<text>
+						github
+					</text>
+					<svg>
+						<use href="../../assets/imgs/open_in_new.svg#svg">
+					</svg>
+				</a>
+			</div>
+
+		</div>
+		<div class="cnvsCont"></div>
+	</div>
+</body>
 <script src="../p5.js"></script>
 <script src="panel.js" charset="utf-8"></script>
 <script src="newDraw.js" charset="utf-8"></script>
+
 </html>
