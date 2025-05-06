@@ -20,27 +20,29 @@ const inputWinc = qs(".wInc"),
 	download = qs(".download"),
 	offsetInput = qs("input[name='offset'"),
 	offsetScalerInput = qs("input[name='offsetScaler'"),
+	clickMes = qsAll(".clickMe"),
 	offsetPrint = qsAll(".inputValue"),
 	ael = "addEventListener",
 	goldenRatio = (1 + Math.sqrt(5)) / 2 - 1;
 
 
-let ratio = 0.125;
-let rInitial = 0;
-let rIncrement = 0.5;
-let rFinal = 200;
-let widthInitial = 10;
-let widthIncrement = 0.05;
-let widthFinal = 0;
-let again = false;
-let initialColor = { r: 255, g: 255, b: 255 };
-let finalColor = { r: 255, g: 255, b: 255 };
-let isPerlinNoise = false;
-let offset = 4;
-let offsetScaler = 80;
-let angle = 0;
-let done = false;
-let array = [];
+let ratio = 0.125,
+	rInitial = 0,
+	rIncrement = 0.1,
+	rFinal = 200,
+	widthInitial = 0.5,
+	widthIncrement = 0.01,
+	widthFinal = 0,
+	again = true,
+	initialColor = { r: 255, g: 255, b: 255 },
+	finalColor = { r: 255, g: 255, b: 255 },
+	isPerlinNoise = false,
+	offset = 4,
+	offsetScaler = 80,
+	angle = 0,
+	done = false,
+	paused = false,
+	array = [];
 
 
 
@@ -60,6 +62,14 @@ function rst() {
 }
 
 
+function restart() {
+	rst();
+	array = [];
+	angle = 0;
+	done = false;
+	if (paused)
+		pause.click();
+}
 
 offset = offsetInput.value;
 offsetInput[ael]("input", () => {
@@ -83,64 +93,77 @@ function hexToRgb(hex) {
 }
 
 go[ael]("click", () => {
-	rst();
-	array = [];
-	angle = 0;
-	done = false;
-	if (pause.innerText === "Resume") pause.click();
+	restart();
 });
 
+if (paused) {
+	pause.innerText = "Resume";
+} else {
+	pause.innerText = "Pause";
+}
 pause[ael]("click", () => {
-	if (pause.innerText === "Resume") {
+	if (paused) {
 		loop();
 		pause.innerText = "Pause";
 	} else {
 		noLoop();
 		pause.innerText = "Resume";
 	}
+	paused = !paused;
 })
 
+if (again) {
+	looper.innerText = "Looping: ON";
+} else {
+	looper.innerText = "Looping: OFF";
+}
+
 looper[ael]("click", () => {
-	if (!again) {
-		looper.innerText = "Looping: ON";
-	} else {
+	if (again) {
 		looper.innerText = "Looping: OFF";
+	} else {
+		looper.innerText = "Looping: ON";
 	}
 	again = !again;
-	if (pause.innerText === "Resume" || (isPerlinNoise && done)) {
+	if (paused || (isPerlinNoise && done)) {
 		go.click();
 	}
 })
 
+for (let clickMe of clickMes) {
+	clickMe.onclick = () => {
+		clickMe.classList.remove("clickMe");
+		clickMe.onclick = null;
+	}
+}
 
 inputAngle.value = ratio;
 inputAngle[ael]("input", () => {
 	ratio = inputAngle.value;
-	angle = 0;
+	restart();
 })
+
 gRbtn[ael]("click", () => {
 	inputAngle.value = goldenRatio;
 	ratio = goldenRatio;
-	angle = 0;
+	restart();
 })
 
 initialColor = hexToRgb(inputColor1.value);
 inputColor1[ael]("change", () => {
 	initialColor = hexToRgb(inputColor1.value);
+	restart();
 })
 finalColor = hexToRgb(inputColor2.value);
 inputColor2[ael]("change", () => {
 	finalColor = hexToRgb(inputColor2.value);
+	restart();
 })
 
 
 const colorLabel = qs(".color");
 const perlinCheck = qs(".perlinCheck > button");
 perlinCheck[ael]("click", () => {
-	rst();
-	array = [];
-	angle = 0;
-	done = false;
 	inputColor1.disabled = !inputColor1.disabled;
 	inputColor2.disabled = !inputColor2.disabled;
 	for (let i of perlinConfInputs) i.disabled = !i.disabled;
@@ -154,31 +177,33 @@ perlinCheck[ael]("click", () => {
 		perlinConf.classList.add("disabledColor");
 		perlinCheck.innerText = "Perlin noise: OFF";
 	}
-	if (pause.innerText === "Resume") pause.click();
+	restart();
 })
-
-
-
-
 
 
 inputRinitial.value = rInitial;
 inputRinitial[ael]("input", () => {
 	rInitial = inputRinitial.value * 1;
+	restart();
 })
 inputRInc.value = rIncrement;
 inputRInc[ael]("input", () => {
 	rIncrement = inputRInc.value * 1;
+	restart();
 })
 inputRend.value = rFinal;
 inputRend[ael]("input", () => {
 	rFinal = inputRend.value * 1;
+	restart();
 })
 inputWinitial.value = widthInitial;
 inputWinitial[ael]("input", () => {
 	widthInitial = inputWinitial.value * 1;
+	restart();
 })
+widthInitial = inputWinitial.value * 1;
 inputWinc.value = widthIncrement;
 inputWinc[ael]("input", () => {
 	widthIncrement = inputWinc.value * 1;
+	restart();
 })

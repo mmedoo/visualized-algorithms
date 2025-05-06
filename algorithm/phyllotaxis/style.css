@@ -83,6 +83,22 @@ input[type="number"] {
 	margin: 5px;
 }
 
+.clickMe {
+	animation: glowing 0.5s linear infinite forwards;
+}
+
+@keyframes glowing {
+	0% {
+		box-shadow: 0 0 5px #999;
+	}
+	50% {
+		box-shadow: 0 0 15px #ccc;
+	}
+	100% {
+		box-shadow: 0 0 30px #fff;
+	}
+}
+
 .bgn:hover {
 	background: #eee;
 }
