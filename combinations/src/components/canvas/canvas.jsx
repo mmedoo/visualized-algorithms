@@ -39,7 +39,7 @@ let stop = true;
 let resetCanvas, resetComb;
 
 const BasicSketch = (p, setwords) => {
-	
+
 	resetComb = () => {
 		no = 1;
 		st = new qStack();
@@ -106,7 +106,7 @@ const BasicSketch = (p, setwords) => {
 			return;
 		}
 		let q = new queue();
-		for (let i = 0; i < arr.length && !word.includes(arr[i]) ; i++)
+		for (let i = 0; i < arr.length && !word.includes(arr[i]); i++)
 			q.enq(k - 1, i + 1, word + arr[i]);
 		st.push(q);
 	}
@@ -130,7 +130,7 @@ const BasicSketch = (p, setwords) => {
 	};
 
 	p.draw = () => {
-		if (stop) return;		
+		if (stop) return;
 
 		// reset();
 		p.frameRate(Number(localFPS));
@@ -177,7 +177,7 @@ const BasicSketch = (p, setwords) => {
 	};
 };
 
-const P5Wrapper = memo(() => {
+const P5Wrapper = memo(({ reset }) => {
 	const canvasRef = useRef();
 	const setWords = useContext(Words)[1];
 
@@ -202,10 +202,10 @@ const P5Wrapper = memo(() => {
 		localOp = operation;
 		localRepeat = repeat;
 		resetComb();
-		if(resetCanvas)
+		if (resetCanvas)
 			resetCanvas();
 		stop = true;
-	}, [n, k, repeat, operation]);
+	}, [n, k, repeat, operation, reset]);
 
 	useEffect(() => {
 		localFPS = fps;
@@ -213,14 +213,16 @@ const P5Wrapper = memo(() => {
 
 
 	return (
-		<div
-			ref={canvasRef}
-			style={{
-				width: '100%',
-				backgroundColor: "black"
-			}}
-		>
-		</div>
+		<>
+			<div
+				ref={canvasRef}
+				style={{
+					width: '100%',
+					backgroundColor: "black"
+				}}
+			>
+			</div>
+		</>
 	);
 });
 

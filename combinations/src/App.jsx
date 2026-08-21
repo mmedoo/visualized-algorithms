@@ -4,6 +4,7 @@ import React from 'react'
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Laws } from './components/laws';
 import { N, K, FPS, Repeat, Op, Words } from './context';
+import { FixedSizeList, VariableSizeList } from 'react-window';
 
 function App() {
 	const [k, setk] = useState(5);
@@ -12,6 +13,8 @@ function App() {
 	const [words, setWords] = useState([]);
 	const [repeat, setRepeat] = useState(false);
 	const [operation, setOp] = useState('c');
+	const [resetState, setResetState] = useState(true);
+	const listRef = useRef(null);
 
 	const wordRef = useRef(null);
 
@@ -20,10 +23,11 @@ function App() {
 	}, [n, k, repeat, operation]);
 
 	useEffect(() => {
-		if (words.length > 50) {
-			setWords(words.slice(1));
-		}
-		wordRef.current.scrollTop = wordRef.current.scrollHeight;
+		// if (words.length > 50) {
+			// setWords(words.slice(1));
+		// }
+		// wordRef.current.scrollTop = wordRef.current.scrollHeight;
+		listRef.current?.scrollToItem(words.length-1);
 	}, [words]);
 
 	useEffect(() => {
@@ -40,35 +44,52 @@ function App() {
 		<Op.Provider value={useMemo(() => [operation, setOp], [operation])}>
 		<Repeat.Provider value={useMemo(() => [repeat, setRepeat], [repeat])}>
 
-			<div className='draw'>
-				<Canvas />
-			</div>
-			<div className="control">
+								<div className='draw'>
+									<Canvas reset={resetState} />
+								</div>
+								<div className="control">
 
-				<Inputs />
+									<Inputs setResetState={setResetState} />
 
-				<div ref={wordRef} className="words">
-					{words.map((word, index) => (
-						<div key={index}>
-							<span>
-								{word.word}
-							</span>
-							<span>
-								{word.no}
-							</span>
-						</div>
-					))}
-				</div>
-				
-			</div>
-			{law}
-			
+									<div ref={wordRef} style={{ width: k*35 + 60 + "px" }} className="words">
+										<FixedSizeList
+											itemSize={33}
+											width={"100%"}
+											itemCount={words.length}
+											height={Math.min(words.length * 33, 380)}
+											ref={listRef}
+										>
+											{({ index, style }) => 
+												<div style={style} className='word' key={index}>
+													<span>
+														{words[index].word}
+													</span>
+													<span>
+														{words[index].no}
+													</span>
+												</div>
+											}
+										</FixedSizeList>
 
-		</Repeat.Provider>
-		</Op.Provider>
-		</Words.Provider>
-		</FPS.Provider>
-		</K.Provider>
+									</div>
+
+								</div>
+								{law}
+								<div className='reset-cont'>
+
+									<button
+										onClick={() => setResetState(prev => !prev)}
+										className='reset'
+									>
+										Stop and Reset
+									</button>
+								</div>
+
+							</Repeat.Provider>
+						</Op.Provider>
+					</Words.Provider>
+				</FPS.Provider>
+			</K.Provider>
 		</N.Provider>
 	);
 }
