@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [react({
     jsxRuntime: 'classic'
   })],
-  base: '/visualized-algorithms/'
+  base: '/visualized-algorithms/combinotorics'
 })
