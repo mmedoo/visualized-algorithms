@@ -1,0 +1,47 @@
+.radio-cont {
+	display: flex;
+}
+
+.radio-box {
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: fit-content;
+	height: 50px;
+	border: 1px solid #aaa;
+	display: grid;
+	place-items: center;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 0 5px;
+	transition: border-color 0.2s;
+	font-size: 16px;
+	background-color: rgba(0, 0, 0, 0.05);
+
+	padding: 0 5px;
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+	
+	& svg {
+		width: 25px;
+		height: 25px;
+	}
+
+	&.selected {
+		border-color: #1a73e8;
+		fill: white;
+		stroke: white;
+		color: white;
+	}
+}
+
+.radio-box-bg {
+	inset: 0;
+	z-index: -1;
+	transition: 0.2s;
+	position: absolute;
+	background-color: #1a73e8;
+}
+

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useMemo } from "react";
 
 function factorial(n) {
@@ -55,19 +56,16 @@ function PermuteWithoutRept({ n, k }) {
 export function Laws({ n, k, repeat, operation }) {
 
 	const law = useMemo(() => {
+
 		if (operation === 'c') {
-
 			return <Combine repeat={repeat} n={n} k={k} />
-
-		} else if (repeat) {
-
+		}
+		
+		if (repeat) {
 			return <PermuteWithRept n={n} k={k} />
-
-		} else {
-
-			return <PermuteWithoutRept n={n} k={k} />
 		}
 
+		return <PermuteWithoutRept n={n} k={k} />
 
 	}, [n, k, repeat, operation]);
 

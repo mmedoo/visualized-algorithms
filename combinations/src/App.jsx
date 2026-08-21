@@ -1,16 +1,9 @@
 import Canvas from './components/canvas/canvas';
 import Inputs from './components/inputs';
-import { createContext, useEffect, useMemo, useRef, useState } from "react";
+import React from 'react'
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Laws } from './components/laws';
-
-const N = createContext();
-const K = createContext();
-const Op = createContext();
-const FPS = createContext();
-const Words = createContext();
-const Repeat = createContext();
-
-export { N, K, FPS, Words, Op, Repeat };
+import { N, K, FPS, Repeat, Op, Words } from './context';
 
 function App() {
 	const [k, setk] = useState(5);
@@ -26,7 +19,6 @@ function App() {
 		return <Laws n={n} k={k} repeat={repeat} operation={operation} />
 	}, [n, k, repeat, operation]);
 
-
 	useEffect(() => {
 		if (words.length > 50) {
 			setWords(words.slice(1));
@@ -34,13 +26,19 @@ function App() {
 		wordRef.current.scrollTop = wordRef.current.scrollHeight;
 	}, [words]);
 
+	useEffect(() => {
+		window.onkeydown = (e) => {
+			e.key === ' ' && e.preventDefault();
+		}
+	}, [])
+
 	return (
-		<N.Provider value={[n, setn]}>
-		<K.Provider value={[k, setk]}>
-		<FPS.Provider value={[fps, setfps]}>
-		<Words.Provider value={[words, setWords]}>
-		<Op.Provider value={[operation, setOp]}>
-		<Repeat.Provider value={[repeat, setRepeat]}>
+		<N.Provider value={useMemo(() => [n, setn], [n])}>
+		<K.Provider value={useMemo(() => [k, setk], [k])}>
+		<FPS.Provider value={useMemo(() => [fps, setfps], [fps])}>
+		<Words.Provider value={useMemo(() => [words, setWords], [words])}>
+		<Op.Provider value={useMemo(() => [operation, setOp], [operation])}>
+		<Repeat.Provider value={useMemo(() => [repeat, setRepeat], [repeat])}>
 
 			<div className='draw'>
 				<Canvas />

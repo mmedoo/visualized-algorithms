@@ -1,0 +1,36 @@
+.toggle-container {
+	--w: 50px;
+	--h: 26px;
+	--trans: 0.135s ease;
+
+	width: var(--w);
+	cursor: pointer;
+	overflow: hidden;
+	height: var(--h);
+	border: 1px solid #aaa;
+	border-radius: calc((var(--h) / 2) + 1px);
+
+	& #circle-container {
+		height: 100%;
+		width: var(--h);
+		border-radius: calc((var(--h) / 2) + 1px);
+		position: relative;
+		transition: width var(--trans), background-color 0s 0.135s;
+	}
+
+	& #circle {
+		inset: 0;
+		left: auto;
+		aspect-ratio: 1;
+		position: absolute;
+		border-radius: 50%;
+		transition: all 0.3s;
+		background-color: white;
+	}
+	
+	&.active #circle-container {
+		transition: width var(--trans);
+		background-color: #1a73e8;
+		width: 100%;
+	}
+}

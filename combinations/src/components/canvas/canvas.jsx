@@ -1,7 +1,8 @@
-import React, { useRef, useEffect, useContext } from 'react';
-import { N, K, FPS, Words, Repeat, Op } from '../../App';
+import React, { useRef, useEffect, useContext, memo } from 'react';
+import { N, K, FPS, Words, Repeat, Op } from '../../context';
 import { Char, queue, qStack, Node } from './datatypes';
 import p5 from 'p5';
+
 let wid = document.documentElement.clientWidth;
 let hei = 100;
 let localN = 10;
@@ -31,7 +32,7 @@ let arr = letters.slice(0, Number(localN));
 let letterMap = {};
 createCharMap();
 
-let no = 0;
+let no = 1;
 let st, q, node;
 
 let stop = true;
@@ -40,7 +41,7 @@ let resetCanvas, resetComb;
 const BasicSketch = (p, setwords) => {
 	
 	resetComb = () => {
-		no = 0;
+		no = 1;
 		st = new qStack();
 		q = new queue();
 		node = new Node(localK, 0, "", null);
@@ -105,10 +106,8 @@ const BasicSketch = (p, setwords) => {
 			return;
 		}
 		let q = new queue();
-		for (let i = 0; i < arr.length; i++) {
-			if (word.includes(arr[i])) continue;
+		for (let i = 0; i < arr.length && !word.includes(arr[i]) ; i++)
 			q.enq(k - 1, i + 1, word + arr[i]);
-		}
 		st.push(q);
 	}
 
@@ -131,7 +130,7 @@ const BasicSketch = (p, setwords) => {
 	};
 
 	p.draw = () => {
-		if (stop) return;
+		if (stop) return;		
 
 		// reset();
 		p.frameRate(Number(localFPS));
@@ -156,7 +155,7 @@ const BasicSketch = (p, setwords) => {
 	};
 
 	p.mousePressed = () => {
-		if (p.mouseX >= 0 && p.mouseX <= wid && p.mouseY >= 0 && p.mouseY <= hei) {
+		if (p.mouseX > 0 && p.mouseX <= wid && p.mouseY > 0 && p.mouseY <= hei) {
 			resetCanvas();
 			resetComb();
 			stop = false;
@@ -178,7 +177,7 @@ const BasicSketch = (p, setwords) => {
 	};
 };
 
-const P5Wrapper = () => {
+const P5Wrapper = memo(() => {
 	const canvasRef = useRef();
 	const setWords = useContext(Words)[1];
 
@@ -203,7 +202,8 @@ const P5Wrapper = () => {
 		localOp = operation;
 		localRepeat = repeat;
 		resetComb();
-		if(resetCanvas) resetCanvas();
+		if(resetCanvas)
+			resetCanvas();
 		stop = true;
 	}, [n, k, repeat, operation]);
 
@@ -222,6 +222,6 @@ const P5Wrapper = () => {
 		>
 		</div>
 	);
-};
+});
 
 export default P5Wrapper;
