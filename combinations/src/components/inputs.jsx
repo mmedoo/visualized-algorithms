@@ -32,10 +32,12 @@ export default memo(function Inputs() {
 		const controller = new AbortController();
 		
 		const updateComp = () => {
-			nRef.current.value = Math.min(Math.max(nRef.current?.value, 1), 26);
-			kRef.current.value = Math.min(Math.max(kRef.current?.value, 1), nRef.current?.value);
-			setn(Number(nRef.current?.value))
-			setk(Number(kRef.current?.value))
+			const n_newValue = Math.min(Math.max(nRef.current?.value, 1), 26);
+			const k_newValue = Math.min(Math.max(kRef.current?.value, 1), n_newValue);
+			nRef.current.value = n_newValue;
+			kRef.current.value = k_newValue;
+			setn(Number(n_newValue));
+			setk(Number(k_newValue));
 		}
 
 		const updateFPS = () => {
@@ -65,9 +67,9 @@ export default memo(function Inputs() {
 
 			<div>
 				<label htmlFor="n">n</label>
-				<input ref={nRef} defaultValue={n} min="1" max="26" type="number" id="n"></input>
+				<input ref={nRef} defaultValue={useMemo(() => n, [])} min="1" max="26" type="number" id="n"></input>
 				<label htmlFor="k">k</label>
-				<input ref={kRef} defaultValue={k} min="1" max={n} type="number" id="k"></input>
+				<input ref={kRef} defaultValue={useMemo(() => k, [])} min="1" max={n} type="number" id="k"></input>
 			</div>
 
 			<Input_radio value={op} label={"Operation"} options={options} setFunction={setOp} />

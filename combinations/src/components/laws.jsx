@@ -2,6 +2,8 @@ import React from 'react';
 import { useMemo } from "react";
 
 function factorial(n) {
+	if (n < 0)
+		return -1;
 	if (n === 0) {
 		return 1;
 	} else {
