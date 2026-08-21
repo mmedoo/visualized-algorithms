@@ -7,7 +7,7 @@ import { algoData } from "./algoData";
 function ALGO_CARD({ details }) {
 	return (
 		<div className="algo_container">
-			<a rel="noreferrer" target="_blank" href={details.link}>
+			<a rel="noreferrer" href={details.link}>
 
 				<div className="algo_inner_cont">
 
